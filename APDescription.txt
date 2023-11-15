@@ -1,1 +1,0 @@
-( ap-description  :name "test" :ap-services (set ( ap-service  :name fipa.mts.mtp.http.std :type fipa.mts.mtp.http.std :addresses (sequence http://10.0.0.176:7778/acc))))
