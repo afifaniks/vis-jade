@@ -1,13 +1,14 @@
 package vis.controllers;
 
+import com.google.gson.Gson;
 import jade.wrapper.ControllerException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import vis.agents.AgentType;
-import vis.dto.AgentAction;
+import vis.agents.AgentAction;
 import vis.dto.GatewayResponseDto;
+import vis.dto.LoginDto;
+import vis.dto.SignupDto;
 import vis.services.AgentGatewayService;
 
 @RestController
@@ -15,18 +16,25 @@ public class BackendController {
 
 	private final AgentGatewayService gatewayService;
 
+	private final Gson gson = new Gson();
+
 	@Autowired
 	public BackendController(AgentGatewayService gatewayService) throws ControllerException, InterruptedException {
 		this.gatewayService = gatewayService;
 	}
 
-	@GetMapping("/api")
-	public String test(@RequestParam String req) throws ControllerException, InterruptedException {
-		AgentAction action = new AgentAction(
-				AgentType.AUTHENTICATION,
-				"login",
-				"username;password"
-		);
+	@PostMapping("/login")
+	public String login(@RequestBody LoginDto loginDto) {
+		AgentAction action = new AgentAction(AgentType.AUTHENTICATION, "login", gson.toJson(loginDto));
+
+		GatewayResponseDto responseDto = gatewayService.request(action);
+		return responseDto.getMessage();
+	}
+
+	@PostMapping("/signup")
+	public String signup(@RequestBody SignupDto signupDto) {
+		AgentAction action = new AgentAction(AgentType.AUTHENTICATION, "signup", gson.toJson(signupDto));
+
 		GatewayResponseDto responseDto = gatewayService.request(action);
 		return responseDto.getMessage();
 	}

@@ -7,7 +7,8 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vis.dto.AgentAction;
+
+import java.io.IOException;
 
 public class AdminAgent extends Agent {
 
@@ -24,12 +25,19 @@ public class AdminAgent extends Agent {
 				AgentAction request = null;
 				try {
 					request = (AgentAction) receivedMessage.getContentObject();
-				} catch (UnreadableException e) {
+				}
+				catch (UnreadableException e) {
 					throw new RuntimeException(e);
 				}
 				logger.debug("Request received from gateway handler: " + request);
 
-				String response = doSomething(request);
+				String response = null;
+				try {
+					response = relayRequest(request);
+				}
+				catch (IOException e) {
+					throw new RuntimeException(e);
+				}
 
 				ACLMessage responseMessage = new ACLMessage(ACLMessage.INFORM);
 				responseMessage.addReceiver(receivedMessage.getSender());
@@ -39,14 +47,16 @@ public class AdminAgent extends Agent {
 		});
 	}
 
-	private String doSomething(AgentAction request) {
+	private String relayRequest(AgentAction request) throws IOException {
 		if (request.getTargetAgent() == AgentType.AUTHENTICATION) {
-			ACLMessage message = new ACLMessage(ACLMessage.INFORM);
-			message.setContent(request.getContents());
-			message.addReceiver(new AID("Authentication", AID.ISLOCALNAME));
+			ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
+			message.setContentObject(request);
+			message.addReceiver(new AID(AgentNames.authentication, AID.ISLOCALNAME));
 			send(message);
 
-			return "Authentication Invoked";
+			ACLMessage receivedMessage = blockingReceive();
+
+			return receivedMessage.getContent();
 		}
 
 		return null;
