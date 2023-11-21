@@ -1,10 +1,13 @@
 package vis.agents;
 
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.UnreadableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vis.dto.AgentAction;
 
 public class AdminAgent extends Agent {
 
@@ -18,7 +21,12 @@ public class AdminAgent extends Agent {
 			public void action() {
 				ACLMessage receivedMessage = null;
 				receivedMessage = blockingReceive();
-				String request = receivedMessage.getContent();
+				AgentAction request = null;
+				try {
+					request = (AgentAction) receivedMessage.getContentObject();
+				} catch (UnreadableException e) {
+					throw new RuntimeException(e);
+				}
 				logger.debug("Request received from gateway handler: " + request);
 
 				String response = doSomething(request);
@@ -31,8 +39,17 @@ public class AdminAgent extends Agent {
 		});
 	}
 
-	private String doSomething(String request) {
-		return request + request;
+	private String doSomething(AgentAction request) {
+		if (request.getTargetAgent() == AgentType.AUTHENTICATION) {
+			ACLMessage message = new ACLMessage(ACLMessage.INFORM);
+			message.setContent(request.getContents());
+			message.addReceiver(new AID("Authentication", AID.ISLOCALNAME));
+			send(message);
+
+			return "Authentication Invoked";
+		}
+
+		return null;
 	}
 
 }

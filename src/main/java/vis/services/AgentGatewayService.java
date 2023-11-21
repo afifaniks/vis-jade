@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import vis.dto.AgentAction;
 import vis.dto.GatewayResponseDto;
 import vis.util.MainContainerAgentsRetriever;
 
@@ -56,13 +57,13 @@ public class AgentGatewayService {
 		return null;
 	}
 
-	public GatewayResponseDto request(String req) {
+	public GatewayResponseDto request(AgentAction req) {
 		final String[] adminResponse = new String[1];
 		try {
 			if (adminAgent != null) {
 				ACLMessage message = new ACLMessage(ACLMessage.INFORM);
 				message.addReceiver(new AID(adminAgent.getLocalName(), AID.ISLOCALNAME));
-				message.setContent(req);
+				message.setContentObject(req);
 				JadeGateway.execute(new OneShotBehaviour() {
 					@Override
 					public void action() {

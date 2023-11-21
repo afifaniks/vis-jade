@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import vis.agents.AgentType;
+import vis.dto.AgentAction;
 import vis.dto.GatewayResponseDto;
 import vis.services.AgentGatewayService;
 
@@ -20,7 +22,12 @@ public class BackendController {
 
 	@GetMapping("/api")
 	public String test(@RequestParam String req) throws ControllerException, InterruptedException {
-		GatewayResponseDto responseDto = gatewayService.request(req);
+		AgentAction action = new AgentAction(
+				AgentType.AUTHENTICATION,
+				"login",
+				"username;password"
+		);
+		GatewayResponseDto responseDto = gatewayService.request(action);
 		return responseDto.getMessage();
 	}
 
