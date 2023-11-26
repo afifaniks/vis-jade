@@ -9,12 +9,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vis.dto.LoginDto;
 import vis.dto.SignupDto;
+import vis.dto.TokenDto;
 import vis.services.AuthenticationService;
-import vis.services.AuthenticationServiceImpl;
+import vis.services.JwtAuthenticationService;
+
+import java.io.IOException;
 
 public class AuthenticationAgent extends Agent {
 
-	private final AuthenticationService authenticationService = new AuthenticationServiceImpl();
+	private final AuthenticationService authenticationService = new JwtAuthenticationService();
 
 	private final Gson gson = new Gson();
 
@@ -36,7 +39,7 @@ public class AuthenticationAgent extends Agent {
 
 				try {
 					AgentAction action = (AgentAction) receivedMessage.getContentObject();
-					String response = "";
+					TokenDto response = null;
 
 					if (action.getAction().equals("login")) {
 						response = authenticationService.login(gson.fromJson(action.getContents(), LoginDto.class));
@@ -47,15 +50,16 @@ public class AuthenticationAgent extends Agent {
 
 					ACLMessage responseMessage = new ACLMessage(ACLMessage.INFORM);
 					responseMessage.addReceiver(receivedMessage.getSender());
-					responseMessage.setContent(response);
+					responseMessage.setContentObject(response);
 					myAgent.send(responseMessage);
 
 				}
-				catch (UnreadableException e) {
+				catch (UnreadableException | IOException e) {
+					logger.error(String.valueOf(e));
 					throw new RuntimeException(e);
 				}
 
-				logger.debug("Request received from admin agent");
+                logger.debug("Request received from admin agent");
 
 			}
 		});
