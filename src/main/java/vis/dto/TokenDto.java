@@ -1,6 +1,8 @@
 package vis.dto;
 
-public class TokenDto {
+import java.io.Serializable;
+
+public class TokenDto implements Serializable {
     private String accessToken;
     private String refreshToken;
 
