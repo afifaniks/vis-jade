@@ -1,50 +1,55 @@
 package vis.dto;
 
 public class InsurancePackageDto {
-    String packageId;
-    String packageName;
-    Double packagePrice;
-    Integer tenureInMonths;
 
-    public InsurancePackageDto(String packageId, String packageName, Double packagePrice, Integer tenureInMonths) {
-        this.packageId = packageId;
-        this.packageName = packageName;
-        this.packagePrice = packagePrice;
-        this.tenureInMonths = tenureInMonths;
-    }
+	String packageId;
 
-    public InsurancePackageDto() {
-    }
+	String packageName;
 
-    public String getPackageId() {
-        return packageId;
-    }
+	Double packagePrice;
 
-    public void setPackageId(String packageId) {
-        this.packageId = packageId;
-    }
+	Integer tenureInMonths;
 
-    public String getPackageName() {
-        return packageName;
-    }
+	public InsurancePackageDto(String packageId, String packageName, Double packagePrice, Integer tenureInMonths) {
+		this.packageId = packageId;
+		this.packageName = packageName;
+		this.packagePrice = packagePrice;
+		this.tenureInMonths = tenureInMonths;
+	}
 
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
-    }
+	public InsurancePackageDto() {
+	}
 
-    public Double getPackagePrice() {
-        return packagePrice;
-    }
+	public String getPackageId() {
+		return packageId;
+	}
 
-    public void setPackagePrice(Double packagePrice) {
-        this.packagePrice = packagePrice;
-    }
+	public void setPackageId(String packageId) {
+		this.packageId = packageId;
+	}
 
-    public Integer getTenureInMonths() {
-        return tenureInMonths;
-    }
+	public String getPackageName() {
+		return packageName;
+	}
 
-    public void setTenureInMonths(Integer tenureInMonths) {
-        this.tenureInMonths = tenureInMonths;
-    }
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
+
+	public Double getPackagePrice() {
+		return packagePrice;
+	}
+
+	public void setPackagePrice(Double packagePrice) {
+		this.packagePrice = packagePrice;
+	}
+
+	public Integer getTenureInMonths() {
+		return tenureInMonths;
+	}
+
+	public void setTenureInMonths(Integer tenureInMonths) {
+		this.tenureInMonths = tenureInMonths;
+	}
+
 }

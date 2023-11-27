@@ -7,9 +7,9 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vis.dto.LoginDto;
-import vis.dto.SignupDto;
-import vis.dto.TokenDto;
+import vis.dto.request.LoginRequest;
+import vis.dto.request.SignupRequest;
+import vis.dto.response.TokenResponse;
 import vis.services.AuthenticationService;
 import vis.services.JwtAuthenticationService;
 
@@ -39,13 +39,14 @@ public class AuthenticationAgent extends Agent {
 
 				try {
 					AgentAction action = (AgentAction) receivedMessage.getContentObject();
-					TokenDto response = null;
+					TokenResponse response = null;
 
 					if (action.getAction().equals("login")) {
-						response = authenticationService.login(gson.fromJson(action.getContents(), LoginDto.class));
+						response = authenticationService.login(gson.fromJson(action.getContents(), LoginRequest.class));
 					}
 					else if (action.getAction().equals("signup")) {
-						response = authenticationService.signup(gson.fromJson(action.getContents(), SignupDto.class));
+						response = authenticationService
+							.signup(gson.fromJson(action.getContents(), SignupRequest.class));
 					}
 
 					ACLMessage responseMessage = new ACLMessage(ACLMessage.INFORM);
@@ -59,7 +60,7 @@ public class AuthenticationAgent extends Agent {
 					throw new RuntimeException(e);
 				}
 
-                logger.debug("Request received from admin agent");
+				logger.debug("Request received from admin agent");
 
 			}
 		});
