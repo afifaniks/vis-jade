@@ -30,12 +30,12 @@ function ProductForm(props) {
             user: user
         });
 
-        if(user?.role != 'company') {
-            history.push({
-                pathname: "/login",
-                state: {massage: 'You have to login to your company account first!'}
-            })
-        }
+        // if(user?.role != 'company') {
+        //     history.push({
+        //         pathname: "/login",
+        //         state: {massage: 'You have to login to your company account first!'}
+        //     })
+        // }
 
         const url = `${API_URL}/api/getcategorylist/`;
         fetch(url, {

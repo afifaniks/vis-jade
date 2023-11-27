@@ -25,15 +25,15 @@ function Profile() {
 
         SetUser(user);
 
-        if(user === null)
-            history.push({
-                pathname: "/login",
-                state: {massage: 'You have to login to your acount first!'}
-            })
-        else {
-            setUsername(user.role == 'company' ? user.title : user.name)
-            setEmail(user.user.email)
-        }
+        // if(user === null)
+        //     history.push({
+        //         pathname: "/login",
+        //         state: {massage: 'You have to login to your acount first!'}
+        //     })
+        // else {
+        //     setUsername(user.role == 'company' ? user.title : user.name)
+        //     setEmail(user.user.email)
+        // }
         
     }, [] )
 
