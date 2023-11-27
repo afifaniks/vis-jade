@@ -1,12 +1,12 @@
-package vis.dto;
+package vis.dto.request;
 
-public class LoginDto {
+public class LoginRequest {
 
 	String username;
 
 	String password;
 
-	public LoginDto(String username, String password) {
+	public LoginRequest(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}

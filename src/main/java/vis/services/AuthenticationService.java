@@ -1,15 +1,13 @@
 package vis.services;
 
-import vis.dto.LoginDto;
-import vis.dto.SignupDto;
-import vis.dto.TokenDto;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import java.util.Date;
+import vis.dto.request.LoginRequest;
+import vis.dto.request.SignupRequest;
+import vis.dto.response.TokenResponse;
 
 public interface AuthenticationService {
-	TokenDto login(LoginDto loginDto);
-	TokenDto signup(SignupDto signupDto);
+
+	TokenResponse login(LoginRequest loginRequest);
+
+	TokenResponse signup(SignupRequest signupDto);
+
 }
-
-
