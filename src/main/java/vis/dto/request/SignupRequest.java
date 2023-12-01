@@ -6,6 +6,8 @@ public class SignupRequest {
 
 	String name;
 
+	String password;
+
 	String phone;
 
 	String address;
@@ -20,10 +22,13 @@ public class SignupRequest {
 
 	String bloodGroup;
 
-	public SignupRequest(String email, String name, String phone, String address, String dob, Double height,
-			String gender, String eyeColor, String bloodGroup) {
+	public SignupRequest() {
+	}
+
+	public SignupRequest(String email, String name, String password, String phone, String address, String dob, Double height, String gender, String eyeColor, String bloodGroup) {
 		this.email = email;
 		this.name = name;
+		this.password = password;
 		this.phone = phone;
 		this.address = address;
 		this.dob = dob;
@@ -31,9 +36,6 @@ public class SignupRequest {
 		this.gender = gender;
 		this.eyeColor = eyeColor;
 		this.bloodGroup = bloodGroup;
-	}
-
-	public SignupRequest() {
 	}
 
 	public String getEmail() {
@@ -50,6 +52,14 @@ public class SignupRequest {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getPhone() {
@@ -107,5 +117,4 @@ public class SignupRequest {
 	public void setBloodGroup(String bloodGroup) {
 		this.bloodGroup = bloodGroup;
 	}
-
 }
