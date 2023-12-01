@@ -12,7 +12,7 @@ function Dashboard_Inventory(props) {
                         type= 'submit'
                         className="dashboard_inventory_header__addProduct" >
                         {/* onClick={(event) => signup(event, username, email, password, role)} > */}
-                            Add new insurance package
+                            Request insurance package
                     </button>
                 </Link>
             </div>
