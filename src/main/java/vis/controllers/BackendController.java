@@ -33,23 +33,17 @@ public class BackendController {
 	public TokenResponse login(@RequestBody LoginRequest loginRequest) {
 		AgentAction action = new AgentAction(AgentType.AUTHENTICATION, "login", gson.toJson(loginRequest));
 
-		GatewayResponseDto responseDto = gatewayService.request(action);
-		return new TokenResponse(
-				"access_token",
-				"refresh_token"
-		);
+//		GatewayResponseDto responseDto = gatewayService.request(action);
+		return new TokenResponse("access_token", "refresh_token");
 	}
 
 	@PostMapping("/signup")
 	public SignupResponse signup(@RequestBody SignupRequest signupDto) {
 		AgentAction action = new AgentAction(AgentType.AUTHENTICATION, "signup", gson.toJson(signupDto));
 
-		GatewayResponseDto responseDto = gatewayService.request(action);
+//		GatewayResponseDto responseDto = gatewayService.request(action);
 		// TODO: tbd implementation
-		return new SignupResponse(
-				200,
-				"Signup successful"
-		);
+		return new SignupResponse(200, "Signup successful");
 	}
 
 	@PostMapping("/register-vehicle")
