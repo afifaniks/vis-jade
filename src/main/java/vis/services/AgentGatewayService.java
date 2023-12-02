@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import vis.agents.AgentAction;
+import vis.agents.AgentActionIdentifier;
 import vis.dto.GatewayResponseDto;
 import vis.util.MainContainerAgentsRetriever;
 
@@ -57,7 +57,7 @@ public class AgentGatewayService {
 		return null;
 	}
 
-	public GatewayResponseDto request(AgentAction req) {
+	public GatewayResponseDto request(AgentActionIdentifier req) {
 		final String[] adminResponse = new String[1];
 		try {
 			if (adminAgent != null) {

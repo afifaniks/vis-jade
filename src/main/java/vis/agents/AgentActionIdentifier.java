@@ -2,25 +2,25 @@ package vis.agents;
 
 import java.io.Serializable;
 
-public class AgentAction implements Serializable {
+public class AgentActionIdentifier implements Serializable {
 
-	public AgentIdentifier targetAgent;
+	public String targetAgent;
 
 	public String action;
 
 	public String contents;
 
-	public AgentAction(AgentIdentifier targetAgent, String action, String contents) {
+	public AgentActionIdentifier(String targetAgent, String action, String contents) {
 		this.targetAgent = targetAgent;
 		this.action = action;
 		this.contents = contents;
 	}
 
-	public AgentIdentifier getTargetAgent() {
+	public String getTargetAgent() {
 		return targetAgent;
 	}
 
-	public void setTargetAgent(AgentIdentifier targetAgent) {
+	public void setTargetAgent(String targetAgent) {
 		this.targetAgent = targetAgent;
 	}
 

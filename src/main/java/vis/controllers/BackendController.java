@@ -5,7 +5,7 @@ import jade.wrapper.ControllerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import vis.agents.AgentIdentifier;
-import vis.agents.AgentAction;
+import vis.agents.AgentActionIdentifier;
 import vis.dto.request.*;
 import vis.dto.response.*;
 import vis.services.AgentGatewayService;
@@ -26,7 +26,7 @@ public class BackendController {
 
 	@PostMapping("/login")
 	public TokenResponse login(@RequestBody LoginRequest loginRequest) {
-		AgentAction action = new AgentAction(AgentIdentifier.AUTHENTICATION, "login", gson.toJson(loginRequest));
+		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "login", gson.toJson(loginRequest));
 
 		// GatewayResponseDto responseDto = gatewayService.request(action);
 		return new TokenResponse("access_token", "refresh_token");
@@ -34,7 +34,7 @@ public class BackendController {
 
 	@PostMapping("/signup")
 	public StatusResponse signup(@RequestBody SignupRequest signupDto) {
-		AgentAction action = new AgentAction(AgentIdentifier.AUTHENTICATION, "signup", gson.toJson(signupDto));
+		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "signup", gson.toJson(signupDto));
 
 		// GatewayResponseDto responseDto = gatewayService.request(action);
 		// TODO: tbd implementation
@@ -61,7 +61,7 @@ public class BackendController {
 
 	@PostMapping("/subscribe-package")
 	public StatusResponse subscribePackage(@RequestBody SubscribePackageRequest subscribePackageRequest) {
-		// TODO: To be implemented
+		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "signup", gson.toJson(subscribePackageRequest));
 		return new StatusResponse(200, "Subscription successful");
 	}
 

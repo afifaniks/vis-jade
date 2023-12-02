@@ -22,9 +22,9 @@ public class AdminAgent extends Agent {
 			public void action() {
 				ACLMessage receivedMessage = null;
 				receivedMessage = blockingReceive();
-				AgentAction request = null;
+				AgentActionIdentifier request = null;
 				try {
-					request = (AgentAction) receivedMessage.getContentObject();
+					request = (AgentActionIdentifier) receivedMessage.getContentObject();
 				}
 				catch (UnreadableException e) {
 					throw new RuntimeException(e);
@@ -47,11 +47,11 @@ public class AdminAgent extends Agent {
 		});
 	}
 
-	private String relayRequest(AgentAction request) throws IOException {
-		if (request.getTargetAgent() == AgentType.AUTHENTICATION) {
+	private String relayRequest(AgentActionIdentifier request) throws IOException {
+		if (request.getTargetAgent() == AgentIdentifier.AUTHENTICATION) {
 			ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
 			message.setContentObject(request);
-			message.addReceiver(new AID(AgentNames.authentication, AID.ISLOCALNAME));
+			message.addReceiver(new AID(AgentIdentifier.AUTHENTICATION, AID.ISLOCALNAME));
 			send(message);
 
 			ACLMessage receivedMessage = blockingReceive();
