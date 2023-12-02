@@ -25,7 +25,8 @@ public class SignupRequest {
 	public SignupRequest() {
 	}
 
-	public SignupRequest(String email, String name, String password, String phone, String address, String dob, Double height, String gender, String eyeColor, String bloodGroup) {
+	public SignupRequest(String email, String name, String password, String phone, String address, String dob,
+			Double height, String gender, String eyeColor, String bloodGroup) {
 		this.email = email;
 		this.name = name;
 		this.password = password;
@@ -117,4 +118,5 @@ public class SignupRequest {
 	public void setBloodGroup(String bloodGroup) {
 		this.bloodGroup = bloodGroup;
 	}
+
 }

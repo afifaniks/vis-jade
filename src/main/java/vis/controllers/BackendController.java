@@ -4,14 +4,9 @@ import com.google.gson.Gson;
 import jade.wrapper.ControllerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import vis.agents.AgentType;
+import vis.agents.AgentIdentifier;
 import vis.agents.AgentAction;
-import vis.dto.GatewayResponseDto;
-import vis.dto.request.LoginRequest;
-import vis.dto.request.SignupRequest;
-import vis.dto.request.ClaimRequest;
-import vis.dto.request.PackageRecommendationRequest;
-import vis.dto.request.VehicleRegistrationRequest;
+import vis.dto.request.*;
 import vis.dto.response.*;
 import vis.services.AgentGatewayService;
 
@@ -31,19 +26,19 @@ public class BackendController {
 
 	@PostMapping("/login")
 	public TokenResponse login(@RequestBody LoginRequest loginRequest) {
-		AgentAction action = new AgentAction(AgentType.AUTHENTICATION, "login", gson.toJson(loginRequest));
+		AgentAction action = new AgentAction(AgentIdentifier.AUTHENTICATION, "login", gson.toJson(loginRequest));
 
-//		GatewayResponseDto responseDto = gatewayService.request(action);
+		// GatewayResponseDto responseDto = gatewayService.request(action);
 		return new TokenResponse("access_token", "refresh_token");
 	}
 
 	@PostMapping("/signup")
-	public SignupResponse signup(@RequestBody SignupRequest signupDto) {
-		AgentAction action = new AgentAction(AgentType.AUTHENTICATION, "signup", gson.toJson(signupDto));
+	public StatusResponse signup(@RequestBody SignupRequest signupDto) {
+		AgentAction action = new AgentAction(AgentIdentifier.AUTHENTICATION, "signup", gson.toJson(signupDto));
 
-//		GatewayResponseDto responseDto = gatewayService.request(action);
+		// GatewayResponseDto responseDto = gatewayService.request(action);
 		// TODO: tbd implementation
-		return new SignupResponse(200, "Signup successful");
+		return new StatusResponse(200, "Signup successful");
 	}
 
 	@PostMapping("/register-vehicle")
@@ -62,6 +57,12 @@ public class BackendController {
 				add(new PackageRecommendationResponse("Test Package", "Description", 33.44, 4));
 			}
 		};
+	}
+
+	@PostMapping("/subscribe-package")
+	public StatusResponse subscribePackage(@RequestBody SubscribePackageRequest subscribePackageRequest) {
+		// TODO: To be implemented
+		return new StatusResponse(200, "Subscription successful");
 	}
 
 	@PostMapping("/claim-insurance")

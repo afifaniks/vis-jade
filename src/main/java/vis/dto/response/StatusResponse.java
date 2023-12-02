@@ -1,17 +1,17 @@
 package vis.dto.response;
 
-public class SignupResponse {
+public class StatusResponse {
 
 	Integer statusCode;
 
 	String statusMessage;
 
-	public SignupResponse(Integer statusCode, String statusMessage) {
+	public StatusResponse(Integer statusCode, String statusMessage) {
 		this.statusCode = statusCode;
 		this.statusMessage = statusMessage;
 	}
 
-	public SignupResponse(Integer statusCode) {
+	public StatusResponse(Integer statusCode) {
 		this.statusCode = statusCode;
 	}
 
