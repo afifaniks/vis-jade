@@ -13,7 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import vis.agents.AgentAction;
+import vis.agents.AgentActionIdentifier;
+import vis.agents.AgentIdentifier;
 import vis.dto.GatewayResponseDto;
 import vis.util.MainContainerAgentsRetriever;
 
@@ -49,7 +50,7 @@ public class AgentGatewayService {
 
 		for (int i = 0; i < agents.size(); ++i) {
 			AID agent = (AID) agents.get(i);
-			if (agent.getLocalName().equals("Admin")) {
+			if (agent.getLocalName().equals(AgentIdentifier.ADMIN)) {
 				return agent;
 			}
 		}
@@ -57,7 +58,7 @@ public class AgentGatewayService {
 		return null;
 	}
 
-	public GatewayResponseDto request(AgentAction req) {
+	public GatewayResponseDto request(AgentActionIdentifier req) {
 		final String[] adminResponse = new String[1];
 		try {
 			if (adminAgent != null) {

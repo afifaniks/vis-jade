@@ -38,7 +38,7 @@ public class AuthenticationAgent extends Agent {
 				}
 
 				try {
-					AgentAction action = (AgentAction) receivedMessage.getContentObject();
+					AgentActionIdentifier action = (AgentActionIdentifier) receivedMessage.getContentObject();
 					TokenResponse response = null;
 
 					if (action.getAction().equals("login")) {
