@@ -26,7 +26,8 @@ public class BackendController {
 
 	@PostMapping("/login")
 	public TokenResponse login(@RequestBody LoginRequest loginRequest) {
-		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "login", gson.toJson(loginRequest));
+		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "login",
+				gson.toJson(loginRequest));
 
 		// GatewayResponseDto responseDto = gatewayService.request(action);
 		return new TokenResponse("access_token", "refresh_token");
@@ -34,7 +35,8 @@ public class BackendController {
 
 	@PostMapping("/signup")
 	public StatusResponse signup(@RequestBody SignupRequest signupDto) {
-		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "signup", gson.toJson(signupDto));
+		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "signup",
+				gson.toJson(signupDto));
 
 		// GatewayResponseDto responseDto = gatewayService.request(action);
 		// TODO: tbd implementation
@@ -61,7 +63,9 @@ public class BackendController {
 
 	@PostMapping("/subscribe-package")
 	public StatusResponse subscribePackage(@RequestBody SubscribePackageRequest subscribePackageRequest) {
-		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "signup", gson.toJson(subscribePackageRequest));
+		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "subscribe",
+				gson.toJson(subscribePackageRequest));
+		gatewayService.request(action);
 		return new StatusResponse(200, "Subscription successful");
 	}
 
