@@ -13,6 +13,7 @@ public class PackageSubscriptionOntology extends BeanOntology {
 		try {
 			add("vis.ontology.actions");
 			add("vis.ontology.concepts");
+			add("vis.ontology.predicates");
 		}
 		catch (BeanOntologyException e) {
 			e.printStackTrace();

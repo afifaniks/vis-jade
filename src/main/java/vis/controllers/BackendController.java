@@ -3,12 +3,15 @@ package vis.controllers;
 import com.google.gson.Gson;
 import jade.wrapper.ControllerException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import vis.agents.AgentIdentifier;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import vis.agents.AgentActionIdentifier;
+import vis.agents.AgentIdentifier;
 import vis.dto.request.*;
 import vis.dto.response.*;
 import vis.services.AgentGatewayService;
+import vis.services.schema.AgentOperationStatus;
 
 import java.util.ArrayList;
 
@@ -63,10 +66,16 @@ public class BackendController {
 
 	@PostMapping("/subscribe-package")
 	public StatusResponse subscribePackage(@RequestBody SubscribePackageRequest subscribePackageRequest) {
-		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "subscribe",
-				gson.toJson(subscribePackageRequest));
-		gatewayService.request(action);
-		return new StatusResponse(200, "Subscription successful");
+		try {
+			AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "subscribe",
+					gson.toJson(subscribePackageRequest));
+			AgentOperationStatus operationStatus = gson.fromJson(gatewayService.request(action),
+					AgentOperationStatus.class);
+			return new StatusResponse(operationStatus.getStatus(), operationStatus.getMessage());
+		}
+		catch (Exception e) {
+			return new StatusResponse(500, "Subscription failed");
+		}
 	}
 
 	@PostMapping("/claim-insurance")

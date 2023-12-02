@@ -6,11 +6,8 @@ public class InsurancePackage implements Concept {
 
 	private String packageId;
 
-	private String packageName;
-
-	public InsurancePackage(String packageId, String packageName) {
+	public InsurancePackage(String packageId) {
 		this.packageId = packageId;
-		this.packageName = packageName;
 	}
 
 	public InsurancePackage() {
@@ -22,14 +19,6 @@ public class InsurancePackage implements Concept {
 
 	public void setPackageId(String packageId) {
 		this.packageId = packageId;
-	}
-
-	public String getPackageName() {
-		return packageName;
-	}
-
-	public void setPackageName(String packageName) {
-		this.packageName = packageName;
 	}
 
 }

@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import vis.agents.AgentActionIdentifier;
 import vis.agents.AgentIdentifier;
-import vis.dto.GatewayResponseDto;
 import vis.util.MainContainerAgentsRetriever;
 
 @Service
@@ -58,7 +57,7 @@ public class AgentGatewayService {
 		return null;
 	}
 
-	public GatewayResponseDto request(AgentActionIdentifier req) {
+	public String request(AgentActionIdentifier req) {
 		final String[] adminResponse = new String[1];
 		try {
 			if (adminAgent != null) {
@@ -75,7 +74,8 @@ public class AgentGatewayService {
 						logger.debug("Response from Admin agent: " + response);
 					}
 				});
-				return new GatewayResponseDto(200, adminResponse[0]);
+
+				return adminResponse[0];
 			}
 			else {
 				logger.error("Admin agent is not found.");
@@ -85,7 +85,7 @@ public class AgentGatewayService {
 			logger.error(e.toString());
 		}
 
-		return new GatewayResponseDto();
+		return null;
 	}
 
 }
