@@ -4,12 +4,12 @@ import jade.content.onto.BeanOntology;
 import jade.content.onto.BeanOntologyException;
 import jade.content.onto.Ontology;
 
-public class PackageSubscriptionOntology extends BeanOntology {
+public class VISOntology extends BeanOntology {
 
-	private static PackageSubscriptionOntology instance = new PackageSubscriptionOntology();
+	private static VISOntology instance = new VISOntology();
 
-	private PackageSubscriptionOntology() {
-		super(Ontologies.PACKAGE_SUBSCRIPTION_ONTO);
+	private VISOntology() {
+		super(OntologyNames.VIS_ONTOLOGY);
 		try {
 			add("vis.ontology.actions");
 			add("vis.ontology.concepts");

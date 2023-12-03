@@ -11,7 +11,7 @@ public class CustomerAssistantAgent extends Agent {
 
 	@Override
 	protected void setup() {
-		logger.debug("CustomerAssistant agent started. AID: " + getAID().getName());
+		logger.info("CustomerAssistant agent started. AID: " + getAID().getName());
 		addBehaviour(new CustomerAssistantBehaviour(this));
 	}
 

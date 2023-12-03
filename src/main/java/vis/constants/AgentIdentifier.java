@@ -1,4 +1,4 @@
-package vis.agents;
+package vis.constants;
 
 public class AgentIdentifier {
 
@@ -7,5 +7,9 @@ public class AgentIdentifier {
 	public static final String ADMIN = "Admin";
 
 	public static final String CUSTOMER_ASSISTANT = "CustomerAssistant";
+
+	public static final String DATABASE = "Database";
+
+	public static final String INSURANCE_CLAIM = "InsuranceClaim";
 
 }

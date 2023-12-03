@@ -13,7 +13,7 @@ import jade.lang.acl.MessageTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vis.agents.AuthenticationAgent;
-import vis.ontology.PackageSubscriptionOntology;
+import vis.ontology.VISOntology;
 import vis.ontology.actions.PackageRecommendation;
 import vis.ontology.actions.SubscribePackage;
 import vis.ontology.concepts.InsurancePackage;
@@ -35,10 +35,10 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 
 	private final Codec codec = new SLCodec();
 
-	private final Ontology packageSubscriptionOntology = PackageSubscriptionOntology.getInstance();
+	private final Ontology ontology = VISOntology.getInstance();
 
 	MessageTemplate messageTemplate = MessageTemplate.and(MessageTemplate.MatchLanguage(codec.getName()),
-			MessageTemplate.MatchOntology(packageSubscriptionOntology.getName()));
+			MessageTemplate.MatchOntology(ontology.getName()));
 
 	private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
 
@@ -51,7 +51,7 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 		ACLMessage receivedMessage = null;
 
 		myAgent.getContentManager().registerLanguage(codec, FIPANames.ContentLanguage.FIPA_SL);
-		myAgent.getContentManager().registerOntology(packageSubscriptionOntology);
+		myAgent.getContentManager().registerOntology(ontology);
 		receivedMessage = myAgent.blockingReceive(messageTemplate);
 
 		logger.info("Request received from admin agent");
@@ -59,7 +59,7 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 		ACLMessage responseMessage = new ACLMessage(ACLMessage.INFORM);
 		responseMessage.addReceiver(receivedMessage.getSender());
 		responseMessage.setLanguage(codec.getName());
-		responseMessage.setOntology(packageSubscriptionOntology.getName());
+		responseMessage.setOntology(ontology.getName());
 
 		try {
 			if (receivedMessage.getPerformative() == ACLMessage.REQUEST) {
@@ -119,14 +119,8 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 			ArrayList<InsurancePackage> packageConcepts = new ArrayList<>();
 
 			for (InsurancePackageSchema pkg : recommendations) {
-				packageConcepts.add(
-						new InsurancePackage(
-								pkg.getPackageId(),
-								pkg.getPackageName(),
-								pkg.getPackageDescription(),
-								pkg.getPackagePrice(),
-								pkg.getTenure()
-						));
+				packageConcepts.add(new InsurancePackage(pkg.getPackageId(), pkg.getPackageName(),
+						pkg.getPackageDescription(), pkg.getPackagePrice(), pkg.getTenure()));
 			}
 			myAgent.getContentManager()
 				.fillContent(responseMessage,

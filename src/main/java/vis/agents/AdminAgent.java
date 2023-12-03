@@ -17,17 +17,18 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vis.constants.AgentIdentifier;
+import vis.dto.request.ClaimRequest;
 import vis.dto.request.PackageRecommendationRequest;
 import vis.dto.request.SubscribePackageRequest;
-import vis.ontology.PackageSubscriptionOntology;
+import vis.ontology.VISOntology;
+import vis.ontology.actions.ClaimInsurance;
 import vis.ontology.actions.PackageRecommendation;
 import vis.ontology.actions.SubscribePackage;
 import vis.ontology.concepts.InsurancePackage;
+import vis.ontology.concepts.Subscription;
 import vis.ontology.concepts.User;
-import vis.ontology.predicates.Recommendation;
-import vis.ontology.predicates.SubscriptionSuccess;
-import vis.ontology.predicates.SystemError;
-import vis.ontology.predicates.Vehicle;
+import vis.ontology.predicates.*;
 import vis.services.schema.AgentOperationStatusSchema;
 
 import java.io.IOException;
@@ -35,22 +36,22 @@ import java.util.Objects;
 
 public class AdminAgent extends Agent {
 
-	private Gson gson = new Gson();
+	private final Gson gson = new Gson();
 
-	private Codec codec = new SLCodec();
+	private final Codec codec = new SLCodec();
 
-	private Ontology packageSubscriptionOntology = PackageSubscriptionOntology.getInstance();
+	private final Ontology ontology = VISOntology.getInstance();
 
 	MessageTemplate messageTemplate = MessageTemplate.and(MessageTemplate.MatchLanguage(codec.getName()),
-			MessageTemplate.MatchOntology(packageSubscriptionOntology.getName()));
+			MessageTemplate.MatchOntology(ontology.getName()));
 
 	private final Logger logger = LoggerFactory.getLogger(AdminAgent.class);
 
 	@Override
 	protected void setup() {
-		logger.debug("Admin agent started. AID: " + getAID().getName());
+		logger.info("Admin agent started. AID: " + getAID().getName());
 		getContentManager().registerLanguage(codec);
-		getContentManager().registerOntology(packageSubscriptionOntology);
+		getContentManager().registerOntology(ontology);
 
 		addBehaviour(new CyclicBehaviour() {
 			@Override
@@ -84,18 +85,26 @@ public class AdminAgent extends Agent {
 			private String relayRequest(AgentActionIdentifier request)
 					throws IOException, OntologyException, Codec.CodecException {
 				ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
+				AgentAction action = null;
 				message.setLanguage(codec.getName());
-				message.setOntology(packageSubscriptionOntology.getName());
+				message.setOntology(ontology.getName());
 				message.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
 
 				if (Objects.equals(request.getTargetAgent(), AgentIdentifier.AUTHENTICATION)) {
 					message.addReceiver(new AID(AgentIdentifier.AUTHENTICATION, AID.ISLOCALNAME));
 					message.setContentObject(request);
 				}
+				else if (Objects.equals(request.getTargetAgent(), AgentIdentifier.INSURANCE_CLAIM)) {
+					ClaimRequest packageRequest = gson.fromJson(request.getContents(), ClaimRequest.class);
+					action = new ClaimInsurance(new User(packageRequest.getUserId()),
+							new Subscription(packageRequest.getSubscriptionId()));
+					message.addReceiver(new AID(AgentIdentifier.INSURANCE_CLAIM, AID.ISLOCALNAME));
+					myAgent.getContentManager()
+						.fillContent(message,
+								new Action(new AID(AgentIdentifier.CUSTOMER_ASSISTANT, AID.ISLOCALNAME), action));
+				}
 				else if (Objects.equals(request.getTargetAgent(), AgentIdentifier.CUSTOMER_ASSISTANT)) {
-					logger.info("Request received for target agent: " + request.getTargetAgent());
 					message.addReceiver(new AID(AgentIdentifier.CUSTOMER_ASSISTANT, AID.ISLOCALNAME));
-					AgentAction action = null;
 
 					if (request.getAction().equals("subscribe")) {
 						SubscribePackageRequest packageRequest = gson.fromJson(request.getContents(),
@@ -130,9 +139,19 @@ public class AdminAgent extends Agent {
 				if (contentElement instanceof SubscriptionSuccess) {
 					return gson.toJson(new AgentOperationStatusSchema(200, "Subscription successful."));
 				}
-				if (contentElement instanceof Recommendation) {
+				else if (contentElement instanceof Recommendation) {
 					Recommendation recommendation = (Recommendation) contentElement;
 					return gson.toJson(new AgentOperationStatusSchema(200, gson.toJson(recommendation.getPackages())));
+				}
+				else if (contentElement instanceof ClaimSuccess) {
+					ClaimSuccess claimSuccess = (ClaimSuccess) contentElement;
+					return gson.toJson(new AgentOperationStatusSchema(200,
+							"Claim successful for user: " + claimSuccess.getUser().getUserId()));
+				}
+				else if (contentElement instanceof SignupSuccess) {
+					SignupSuccess signupSuccess = (SignupSuccess) contentElement;
+					return gson
+						.toJson(new AgentOperationStatusSchema(signupSuccess.getStatus(), signupSuccess.getMessage()));
 				}
 				else if (contentElement instanceof SystemError) {
 					return gson.toJson(new AgentOperationStatusSchema(500, "Request failed"));
