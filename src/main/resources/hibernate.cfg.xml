@@ -16,6 +16,7 @@
 
         <property name="hbm2ddl.auto">update</property>
         <mapping class="vis.entity.UserEntity"/>
+        <mapping class="vis.entity.InsurancePackageEntity"/>
 
     </session-factory>
 </hibernate-configuration>

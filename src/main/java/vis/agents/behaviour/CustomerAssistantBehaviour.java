@@ -118,7 +118,7 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 		ArrayList<InsurancePackageSchema> recommendations = customerAssistantService
 			.getPackageRecommendation(recommendationRequestSchema);
 
-		if (recommendations != null) {
+		if (recommendations != null && !recommendations.isEmpty()) {
 			ArrayList<InsurancePackage> packageConcepts = new ArrayList<>();
 
 			for (InsurancePackageSchema pkg : recommendations) {
@@ -133,7 +133,6 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 		else {
 			SystemError systemError = new SystemError(500, "Internal error occurred while generating recommendation.");
 			myAgent.getContentManager().fillContent(responseMessage, systemError);
-			logger.error("Could not subscribe package.");
 		}
 
 		myAgent.send(responseMessage);

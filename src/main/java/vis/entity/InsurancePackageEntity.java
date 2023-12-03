@@ -29,6 +29,8 @@ public class InsurancePackageEntity implements DBEntity, Serializable {
 		this.tenure = tenure;
 	}
 
+	public InsurancePackageEntity() {}
+
 	public UUID getId() {
 		return id;
 	}

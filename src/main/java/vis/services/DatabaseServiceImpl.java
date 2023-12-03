@@ -11,7 +11,7 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vis.agents.AuthenticationAgent;
-import vis.constants.DBTableNames;
+import vis.entity.InsurancePackageEntity;
 import vis.entity.UserEntity;
 import vis.services.schema.InsurancePackageSchema;
 import vis.services.schema.SignupRequestSchema;
@@ -65,8 +65,19 @@ public class DatabaseServiceImpl implements DatabaseService {
 	@Override
 	public ArrayList<InsurancePackageSchema> getPackages(String userEmail, String vehicleId) {
 		ArrayList<InsurancePackageSchema> insurancePackageSchemas = new ArrayList<>();
-		insurancePackageSchemas.add(new InsurancePackageSchema("1", "Test Package", "Description", 33.44, 4));
-		insurancePackageSchemas.add(new InsurancePackageSchema("2", "Test Package 2", "Description 2", 332.44, 41));
+
+		UserEntity userEntity = getUser(userEmail);
+		logger.info("Generating recommendation for: " + userEntity.getEmail());
+
+		Session session = sessionFactory.openSession();
+		String hql = "FROM InsurancePackageEntity";
+
+		Query query = session.createQuery(hql);
+		List<InsurancePackageEntity> entities = query.list();
+
+		for (InsurancePackageEntity entity: entities) {
+			insurancePackageSchemas.add(gson.fromJson(gson.toJson(entity), InsurancePackageSchema.class));
+		}
 
 		return insurancePackageSchemas;
 	}
@@ -74,6 +85,19 @@ public class DatabaseServiceImpl implements DatabaseService {
 	@Override
 	public boolean subscribe(String userEmail, String vehicleId, String packageId) {
 		return false;
+	}
+
+	private UserEntity getUser(String email) {
+		Session session = sessionFactory.openSession();
+		String hql = "FROM UserEntity" + " WHERE email = " + "'" + email + "'";
+		Query query = session.createQuery(hql);
+		List<UserEntity> userEntities = query.list();
+
+		if (!userEntities.isEmpty()) {
+			return userEntities.get(0);
+		}
+
+		return null;
 	}
 
 }
