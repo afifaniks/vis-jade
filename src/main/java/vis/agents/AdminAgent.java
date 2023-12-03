@@ -153,6 +153,9 @@ public class AdminAgent extends Agent {
 					return gson
 						.toJson(new AgentOperationStatusSchema(signupSuccess.getStatus(), signupSuccess.getMessage()));
 				}
+				else if (contentElement instanceof LoginSuccess loginSuccess) {
+					return gson.toJson(new AgentOperationStatusSchema(200, gson.toJson(loginSuccess)));
+				}
 				else if (contentElement instanceof SystemError) {
 					return gson.toJson(new AgentOperationStatusSchema(500, "Request failed"));
 				}

@@ -19,12 +19,14 @@ import vis.dto.request.LoginRequest;
 import vis.dto.request.SignupRequest;
 import vis.dto.response.TokenResponse;
 import vis.ontology.VISOntology;
+import vis.ontology.predicates.LoginSuccess;
 import vis.ontology.predicates.SignupSuccess;
 import vis.services.AuthenticationService;
 import vis.services.JwtAuthenticationService;
 import vis.services.schema.SignupStatusSchema;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class AuthenticationBehaviour extends CyclicBehaviour {
 
@@ -62,6 +64,9 @@ public class AuthenticationBehaviour extends CyclicBehaviour {
 				TokenResponse response = authenticationService
 					.login(gson.fromJson(action.getContents(), LoginRequest.class));
 				responseMessage.setContentObject(response);
+				myAgent.getContentManager()
+					.fillContent(responseMessage,
+							new LoginSuccess(response.getAccessToken(), response.getRefreshToken()));
 			}
 			else if (action.getAction().equals("signup")) {
 				SignupRequest signupRequest = gson.fromJson(action.getContents(), SignupRequest.class);
