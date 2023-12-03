@@ -112,7 +112,7 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 			throws Codec.CodecException, OntologyException, UnreadableException, IOException {
 		PackageRecommendation packageRecommendationAction = (PackageRecommendation) actionContent.getAction();
 		RecommendationRequestSchema recommendationRequestSchema = new RecommendationRequestSchema(
-				packageRecommendationAction.getUser().getUserId(),
+				packageRecommendationAction.getUser().getEmail(),
 				packageRecommendationAction.getVehicle().getVehicleId());
 
 		ArrayList<InsurancePackageSchema> recommendations = customerAssistantService

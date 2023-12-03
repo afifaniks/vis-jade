@@ -9,73 +9,71 @@ import java.util.UUID;
 @Entity
 @Table(name = DBTableNames.PACKAGE)
 public class InsurancePackageEntity implements DBEntity, Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
-    String packageName;
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private UUID id;
 
-    String packageDescription;
+	String packageName;
 
-    Double packagePrice;
+	String packageDescription;
 
-    Integer tenure;
+	Double packagePrice;
 
-    public InsurancePackageEntity(String packageName, String packageDescription, Double packagePrice, Integer tenure) {
-        this.packageName = packageName;
-        this.packageDescription = packageDescription;
-        this.packagePrice = packagePrice;
-        this.tenure = tenure;
-    }
+	Integer tenure;
 
-    public UUID getId() {
-        return id;
-    }
+	public InsurancePackageEntity(String packageName, String packageDescription, Double packagePrice, Integer tenure) {
+		this.packageName = packageName;
+		this.packageDescription = packageDescription;
+		this.packagePrice = packagePrice;
+		this.tenure = tenure;
+	}
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+	public UUID getId() {
+		return id;
+	}
 
-    public String getPackageName() {
-        return packageName;
-    }
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
-    }
+	public String getPackageName() {
+		return packageName;
+	}
 
-    public String getPackageDescription() {
-        return packageDescription;
-    }
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
 
-    public void setPackageDescription(String packageDescription) {
-        this.packageDescription = packageDescription;
-    }
+	public String getPackageDescription() {
+		return packageDescription;
+	}
 
-    public Double getPackagePrice() {
-        return packagePrice;
-    }
+	public void setPackageDescription(String packageDescription) {
+		this.packageDescription = packageDescription;
+	}
 
-    public void setPackagePrice(Double packagePrice) {
-        this.packagePrice = packagePrice;
-    }
+	public Double getPackagePrice() {
+		return packagePrice;
+	}
 
-    public Integer getTenure() {
-        return tenure;
-    }
+	public void setPackagePrice(Double packagePrice) {
+		this.packagePrice = packagePrice;
+	}
 
-    public void setTenure(Integer tenure) {
-        this.tenure = tenure;
-    }
+	public Integer getTenure() {
+		return tenure;
+	}
 
-    @Override
-    public String toString() {
-        return "InsurancePackageEntity{" +
-                "id=" + id +
-                ", packageName='" + packageName + '\'' +
-                ", packageDescription='" + packageDescription + '\'' +
-                ", packagePrice=" + packagePrice +
-                ", tenure=" + tenure +
-                '}';
-    }
+	public void setTenure(Integer tenure) {
+		this.tenure = tenure;
+	}
+
+	@Override
+	public String toString() {
+		return "InsurancePackageEntity{" + "id=" + id + ", packageName='" + packageName + '\''
+				+ ", packageDescription='" + packageDescription + '\'' + ", packagePrice=" + packagePrice + ", tenure="
+				+ tenure + '}';
+	}
+
 }

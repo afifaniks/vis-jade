@@ -11,7 +11,8 @@ import java.util.ArrayList;
 
 public interface CustomerAssistantService {
 
-	ArrayList<InsurancePackageSchema> getPackageRecommendation(RecommendationRequestSchema recommendationRequestSchema) throws UnreadableException, IOException;
+	ArrayList<InsurancePackageSchema> getPackageRecommendation(RecommendationRequestSchema recommendationRequestSchema)
+			throws UnreadableException, IOException;
 
 	SubscriptionStatusSchema subscribePackage(SubscriptionSchema subscriptionSchema);
 

@@ -5,6 +5,7 @@ import jade.content.Concept;
 public class User implements Concept {
 
 	String userId;
+
 	String email;
 
 	public User(String userId) {
@@ -34,4 +35,5 @@ public class User implements Concept {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 }

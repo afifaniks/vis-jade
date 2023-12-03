@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerAssistantServiceImpl implements CustomerAssistantService {
+
 	private Agent agent;
 
 	public CustomerAssistantServiceImpl(Agent agent) {
@@ -35,14 +36,8 @@ public class CustomerAssistantServiceImpl implements CustomerAssistantService {
 		this.agent.send(dbRequestMessage);
 
 		ACLMessage responseMessage = this.agent.blockingReceive();
-		List results = (List) responseMessage.getContentObject();
 
-		return new ArrayList<>() {
-			{
-				add(new InsurancePackageSchema("1", "Test Package", "Description", 33.44, 4));
-				add(new InsurancePackageSchema("2", "Test Package 2", "Description 2", 332.44, 41));
-			}
-		};
+		return (ArrayList<InsurancePackageSchema>) responseMessage.getContentObject();
 	}
 
 	@Override

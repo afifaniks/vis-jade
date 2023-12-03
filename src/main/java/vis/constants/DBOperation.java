@@ -1,7 +1,5 @@
 package vis.constants;
 
-import vis.entity.DBEntity;
-
 import java.io.Serializable;
 
 public class DBOperation implements Serializable {
@@ -13,6 +11,7 @@ public class DBOperation implements Serializable {
 	}
 
 	Operation operation;
+
 	Object additionalObject;
 
 	public DBOperation(Operation operation, Object additionalObject) {
@@ -39,4 +38,5 @@ public class DBOperation implements Serializable {
 	public void setAdditionalObject(Object additionalObject) {
 		this.additionalObject = additionalObject;
 	}
+
 }

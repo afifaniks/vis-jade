@@ -1,25 +1,27 @@
 package vis.services.schema;
 
-public class RecommendationRequestSchema {
+import java.io.Serializable;
 
-	private String userId;
+public class RecommendationRequestSchema implements Serializable {
+
+	private String userEmail;
 
 	private String vehicleId;
 
-	public RecommendationRequestSchema(String userId, String vehicleId) {
-		this.userId = userId;
+	public RecommendationRequestSchema(String userEmail, String vehicleId) {
+		this.userEmail = userEmail;
 		this.vehicleId = vehicleId;
 	}
 
 	public RecommendationRequestSchema() {
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	public String getVehicleId() {

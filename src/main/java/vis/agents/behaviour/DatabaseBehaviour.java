@@ -10,20 +10,24 @@ import org.slf4j.LoggerFactory;
 import vis.agents.AuthenticationAgent;
 import vis.constants.DBOperation;
 import vis.dto.request.LoginRequest;
+import vis.dto.request.PackageRecommendationRequest;
 import vis.services.DatabaseService;
 import vis.services.DatabaseServiceImpl;
 import vis.services.schema.DBTransactionStatusSchema;
+import vis.services.schema.InsurancePackageSchema;
+import vis.services.schema.RecommendationRequestSchema;
 import vis.services.schema.SignupRequestSchema;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseBehaviour extends CyclicBehaviour {
 
 	private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
-	private final DatabaseService databaseService = new DatabaseServiceImpl();
 
+	private final DatabaseService databaseService = new DatabaseServiceImpl();
 
 	public DatabaseBehaviour(Agent agent) {
 		super(agent);
@@ -38,11 +42,13 @@ public class DatabaseBehaviour extends CyclicBehaviour {
 
 			if (operation.getOperation() == DBOperation.Operation.LOGIN) {
 				LoginRequest loginRequest = (LoginRequest) operation.getAdditionalObject();
-				boolean loginSuccess = this.databaseService.login(loginRequest.getUsername(), loginRequest.getPassword());
+				boolean loginSuccess = this.databaseService.login(loginRequest.getUsername(),
+						loginRequest.getPassword());
 
 				if (loginSuccess) {
 					respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(200, "Successful"));
-				} else {
+				}
+				else {
 					respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(500, "Failed"));
 				}
 			}
@@ -53,9 +59,19 @@ public class DatabaseBehaviour extends CyclicBehaviour {
 
 				if (signupSuccess) {
 					respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(200, "Successful"));
-				} else {
+				}
+				else {
 					respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(500, "Failed"));
 				}
+			}
+
+			if (operation.getOperation() == DBOperation.Operation.GET_PACKAGES) {
+				RecommendationRequestSchema recommendationRequestSchema = (RecommendationRequestSchema) operation
+					.getAdditionalObject();
+				ArrayList<InsurancePackageSchema> packages = this.databaseService.getPackages(
+						recommendationRequestSchema.getUserEmail(), recommendationRequestSchema.getVehicleId());
+
+				respondSender(receivedMessage.getSender(), packages);
 			}
 
 		}
@@ -64,30 +80,11 @@ public class DatabaseBehaviour extends CyclicBehaviour {
 		}
 	}
 
-	private List readEntity(DBOperation operation) {
-//		Session session = sessionFactory.openSession();
-//		String hql = "FROM " + operation.getTableName() + " WHERE " + operation.getQuery();
-//		Query query = session.createQuery(hql);
-//
-//		return query.list();
-		return null;
-	}
-
-	private void respondSender(AID sender, Serializable object) throws IOException {
+	private void respondSender(AID sender, Object object) throws IOException {
 		ACLMessage responseMessage = new ACLMessage(ACLMessage.INFORM);
 		responseMessage.addReceiver(sender);
-		responseMessage.setContentObject(object);
+		responseMessage.setContentObject((Serializable) object);
 		myAgent.send(responseMessage);
-	}
-
-	private void writeEntity(DBOperation operation) {
-//		DBEntity entity = operation.getEntity();
-//		logger.info("Writing entity: " + entity);
-//		Session session = sessionFactory.openSession();
-//		session.beginTransaction();
-//		session.persist(entity);
-//		session.getTransaction().commit();
-//		session.close();
 	}
 
 }
