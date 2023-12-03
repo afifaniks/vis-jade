@@ -17,15 +17,18 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vis.dto.request.PackageRecommendationRequest;
 import vis.dto.request.SubscribePackageRequest;
 import vis.ontology.PackageSubscriptionOntology;
+import vis.ontology.actions.PackageRecommendation;
 import vis.ontology.actions.SubscribePackage;
 import vis.ontology.concepts.InsurancePackage;
 import vis.ontology.concepts.User;
+import vis.ontology.predicates.Recommendation;
 import vis.ontology.predicates.SubscriptionSuccess;
 import vis.ontology.predicates.SystemError;
 import vis.ontology.predicates.Vehicle;
-import vis.services.schema.AgentOperationStatus;
+import vis.services.schema.AgentOperationStatusSchema;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -101,6 +104,12 @@ public class AdminAgent extends Agent {
 								new User(packageRequest.getUserId()),
 								new Vehicle(packageRequest.getVehicleId(), packageRequest.getUserId()));
 					}
+					if (request.getAction().equals("get-package")) {
+						PackageRecommendationRequest packageRequest = gson.fromJson(request.getContents(),
+								PackageRecommendationRequest.class);
+						action = new PackageRecommendation(new User(packageRequest.getUserId()),
+								new Vehicle(packageRequest.getVehicleId(), packageRequest.getUserId()));
+					}
 
 					myAgent.getContentManager()
 						.fillContent(message,
@@ -119,10 +128,14 @@ public class AdminAgent extends Agent {
 				ContentElement contentElement = myAgent.getContentManager().extractContent(responseMessage);
 
 				if (contentElement instanceof SubscriptionSuccess) {
-					return gson.toJson(new AgentOperationStatus(200, "Subscription successful."));
+					return gson.toJson(new AgentOperationStatusSchema(200, "Subscription successful."));
+				}
+				if (contentElement instanceof Recommendation) {
+					Recommendation recommendation = (Recommendation) contentElement;
+					return gson.toJson(new AgentOperationStatusSchema(200, gson.toJson(recommendation.getPackages())));
 				}
 				else if (contentElement instanceof SystemError) {
-					return gson.toJson(new AgentOperationStatus(500, "Request failed"));
+					return gson.toJson(new AgentOperationStatusSchema(500, "Request failed"));
 				}
 
 				return null;

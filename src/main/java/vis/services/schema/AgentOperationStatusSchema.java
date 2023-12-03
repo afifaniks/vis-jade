@@ -2,13 +2,13 @@ package vis.services.schema;
 
 import java.io.Serializable;
 
-public class AgentOperationStatus implements Serializable {
+public class AgentOperationStatusSchema implements Serializable {
 
 	private Integer status;
 
 	private String message;
 
-	public AgentOperationStatus(Integer status, String message) {
+	public AgentOperationStatusSchema(Integer status, String message) {
 		this.status = status;
 		this.message = message;
 	}

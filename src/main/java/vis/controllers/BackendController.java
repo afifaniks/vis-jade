@@ -1,6 +1,7 @@
 package vis.controllers;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import jade.wrapper.ControllerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,9 +12,11 @@ import vis.agents.AgentIdentifier;
 import vis.dto.request.*;
 import vis.dto.response.*;
 import vis.services.AgentGatewayService;
-import vis.services.schema.AgentOperationStatus;
+import vis.services.schema.AgentOperationStatusSchema;
+import vis.services.schema.InsurancePackageSchema;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class BackendController {
@@ -56,12 +59,21 @@ public class BackendController {
 	@PostMapping("/get-packages")
 	public ArrayList<PackageRecommendationResponse> getPackageRecommendation(
 			@RequestBody PackageRecommendationRequest packageRecommendationRequest) {
-		// TODO: To be implemented
-		return new ArrayList<>() {
-			{
-				add(new PackageRecommendationResponse("Test Package", "Description", 33.44, 4));
-			}
-		};
+		try {
+			AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "get-package",
+					gson.toJson(packageRecommendationRequest));
+			AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
+					AgentOperationStatusSchema.class);
+			String contents = operationStatus.getMessage();
+
+			TypeToken<List<PackageRecommendationResponse>> token = new TypeToken<>() {
+			};
+
+			return gson.fromJson(contents, token.getType());
+		}
+		catch (Exception e) {
+			return new ArrayList<>();
+		}
 	}
 
 	@PostMapping("/subscribe-package")
@@ -69,8 +81,8 @@ public class BackendController {
 		try {
 			AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "subscribe",
 					gson.toJson(subscribePackageRequest));
-			AgentOperationStatus operationStatus = gson.fromJson(gatewayService.request(action),
-					AgentOperationStatus.class);
+			AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
+					AgentOperationStatusSchema.class);
 			return new StatusResponse(operationStatus.getStatus(), operationStatus.getMessage());
 		}
 		catch (Exception e) {

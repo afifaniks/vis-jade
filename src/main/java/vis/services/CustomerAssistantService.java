@@ -1,16 +1,16 @@
 package vis.services;
 
-import vis.dto.InsurancePackageDto;
-import vis.dto.UserInfoDto;
-import vis.services.schema.Subscription;
-import vis.services.schema.SubscriptionStatus;
+import vis.services.schema.InsurancePackageSchema;
+import vis.services.schema.RecommendationRequestSchema;
+import vis.services.schema.SubscriptionSchema;
+import vis.services.schema.SubscriptionStatusSchema;
 
 import java.util.ArrayList;
 
 public interface CustomerAssistantService {
 
-	ArrayList<InsurancePackageDto> getPackageRecommendation(UserInfoDto userInfo);
+	ArrayList<InsurancePackageSchema> getPackageRecommendation(RecommendationRequestSchema recommendationRequestSchema);
 
-	SubscriptionStatus subscribePackage(Subscription subscription);
+	SubscriptionStatusSchema subscribePackage(SubscriptionSchema subscriptionSchema);
 
 }

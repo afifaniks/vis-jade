@@ -1,10 +1,10 @@
-package vis.ontology.concepts;
+package vis.services.schema;
 
-import jade.content.Concept;
+import java.io.Serializable;
 
-public class InsurancePackage implements Concept {
+public class InsurancePackageSchema implements Serializable {
 
-	private String packageId;
+	String packageId;
 
 	String packageName;
 
@@ -14,7 +14,7 @@ public class InsurancePackage implements Concept {
 
 	Integer tenure;
 
-	public InsurancePackage(String packageId, String packageName, String packageDescription, Double packagePrice,
+	public InsurancePackageSchema(String packageId, String packageName, String packageDescription, Double packagePrice,
 			Integer tenure) {
 		this.packageId = packageId;
 		this.packageName = packageName;
@@ -23,11 +23,7 @@ public class InsurancePackage implements Concept {
 		this.tenure = tenure;
 	}
 
-	public InsurancePackage(String packageId) {
-		this.packageId = packageId;
-	}
-
-	public InsurancePackage() {
+	public InsurancePackageSchema() {
 	}
 
 	public String getPackageId() {

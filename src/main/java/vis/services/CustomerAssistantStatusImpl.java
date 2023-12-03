@@ -1,23 +1,29 @@
 package vis.services;
 
-import vis.dto.InsurancePackageDto;
-import vis.dto.UserInfoDto;
-import vis.services.schema.Subscription;
-import vis.services.schema.SubscriptionStatus;
+import vis.services.schema.InsurancePackageSchema;
+import vis.services.schema.RecommendationRequestSchema;
+import vis.services.schema.SubscriptionSchema;
+import vis.services.schema.SubscriptionStatusSchema;
 
 import java.util.ArrayList;
 
 public class CustomerAssistantStatusImpl implements CustomerAssistantService {
 
 	@Override
-	public ArrayList<InsurancePackageDto> getPackageRecommendation(UserInfoDto userInfo) {
-		return null;
+	public ArrayList<InsurancePackageSchema> getPackageRecommendation(
+			RecommendationRequestSchema recommendationRequestSchema) {
+		return new ArrayList<>() {
+			{
+				add(new InsurancePackageSchema("1", "Test Package", "Description", 33.44, 4));
+				add(new InsurancePackageSchema("2", "Test Package 2", "Description 2", 332.44, 41));
+			}
+		};
 	}
 
 	@Override
-	public SubscriptionStatus subscribePackage(Subscription subscription) {
+	public SubscriptionStatusSchema subscribePackage(SubscriptionSchema subscriptionSchema) {
 		// TODO: Write to database
-		return new SubscriptionStatus(200, "Subscription successful");
+		return new SubscriptionStatusSchema(200, "Subscription successful");
 	}
 
 }
