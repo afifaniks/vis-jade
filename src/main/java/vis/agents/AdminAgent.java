@@ -116,8 +116,10 @@ public class AdminAgent extends Agent {
 					if (request.getAction().equals("get-package")) {
 						PackageRecommendationRequest packageRequest = gson.fromJson(request.getContents(),
 								PackageRecommendationRequest.class);
-						action = new PackageRecommendation(new User(packageRequest.getUserId()),
-								new Vehicle(packageRequest.getVehicleId(), packageRequest.getUserId()));
+						User user = new User();
+						user.setEmail(packageRequest.getUserEmail());
+						action = new PackageRecommendation(user,
+								new Vehicle(packageRequest.getVehicleId(), packageRequest.getUserEmail()));
 					}
 
 					myAgent.getContentManager()

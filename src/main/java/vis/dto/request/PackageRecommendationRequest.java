@@ -2,24 +2,24 @@ package vis.dto.request;
 
 public class PackageRecommendationRequest {
 
-	String userId;
+	String userEmail;
 
 	String vehicleId;
 
-	public PackageRecommendationRequest(String userId, String vehicleId) {
-		this.userId = userId;
+	public PackageRecommendationRequest(String userEmail, String vehicleId) {
+		this.userEmail = userEmail;
 		this.vehicleId = vehicleId;
 	}
 
 	public PackageRecommendationRequest() {
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	public String getVehicleId() {

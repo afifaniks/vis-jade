@@ -16,17 +16,16 @@ import org.slf4j.LoggerFactory;
 import vis.agents.AgentActionIdentifier;
 import vis.agents.AuthenticationAgent;
 import vis.dto.request.LoginRequest;
-import vis.dto.request.SignupRequest;
 import vis.dto.response.TokenResponse;
 import vis.ontology.VISOntology;
 import vis.ontology.predicates.LoginSuccess;
 import vis.ontology.predicates.SignupSuccess;
 import vis.services.AuthenticationService;
 import vis.services.JwtAuthenticationService;
+import vis.services.schema.SignupRequestSchema;
 import vis.services.schema.SignupStatusSchema;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class AuthenticationBehaviour extends CyclicBehaviour {
 
@@ -69,7 +68,7 @@ public class AuthenticationBehaviour extends CyclicBehaviour {
 							new LoginSuccess(response.getAccessToken(), response.getRefreshToken()));
 			}
 			else if (action.getAction().equals("signup")) {
-				SignupRequest signupRequest = gson.fromJson(action.getContents(), SignupRequest.class);
+				SignupRequestSchema signupRequest = gson.fromJson(action.getContents(), SignupRequestSchema.class);
 				SignupStatusSchema response = authenticationService.signup(signupRequest);
 				if (response.getStatus() == 200) {
 					myAgent.getContentManager()

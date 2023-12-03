@@ -1,67 +1,42 @@
 package vis.constants;
 
-import vis.entity.DBEntity;
-
 import java.io.Serializable;
 
 public class DBOperation implements Serializable {
 
-	public enum OperationType {
+	public enum Operation {
 
-		READ, WRITE, UPDATE, DELETE
+		LOGIN, SIGNUP, GET_PACKAGES, SUBSCRIBE, CLAIM
 
 	}
 
-	String tableName;
+	Operation operation;
 
-	OperationType operationType;
+	Object additionalObject;
 
-	String query;
-
-	DBEntity entity;
-
-	public DBOperation(String tableName, OperationType operationType, DBEntity entity) {
-		this.tableName = tableName;
-		this.operationType = operationType;
-		this.entity = entity;
+	public DBOperation(Operation operation, Object additionalObject) {
+		this.operation = operation;
+		this.additionalObject = additionalObject;
 	}
 
-	public DBOperation(String tableName, OperationType operationType, String query) {
-		this.tableName = tableName;
-		this.operationType = operationType;
-		this.query = query;
+	public DBOperation(Operation operation) {
+		this.operation = operation;
 	}
 
-	public String getTableName() {
-		return tableName;
+	public Operation getOperation() {
+		return operation;
 	}
 
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
+	public void setOperation(Operation operation) {
+		this.operation = operation;
 	}
 
-	public OperationType getOperationType() {
-		return operationType;
+	public Object getAdditionalObject() {
+		return additionalObject;
 	}
 
-	public void setOperationType(OperationType operationType) {
-		this.operationType = operationType;
-	}
-
-	public String getQuery() {
-		return query;
-	}
-
-	public void setQuery(String query) {
-		this.query = query;
-	}
-
-	public DBEntity getEntity() {
-		return entity;
-	}
-
-	public void setEntity(DBEntity entity) {
-		this.entity = entity;
+	public void setAdditionalObject(Object additionalObject) {
+		this.additionalObject = additionalObject;
 	}
 
 }

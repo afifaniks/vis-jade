@@ -1,8 +1,8 @@
-package vis.dto.request;
+package vis.services.schema;
 
 import java.io.Serializable;
 
-public class SignupRequest implements Serializable {
+public class SignupRequestSchema implements Serializable {
 
 	String email;
 
@@ -24,10 +24,10 @@ public class SignupRequest implements Serializable {
 
 	String bloodGroup;
 
-	public SignupRequest() {
+	public SignupRequestSchema() {
 	}
 
-	public SignupRequest(String email, String name, String password, String phone, String address, String dob,
+	public SignupRequestSchema(String email, String name, String password, String phone, String address, String dob,
 			Double height, String gender, String eyeColor, String bloodGroup) {
 		this.email = email;
 		this.name = name;
