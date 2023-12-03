@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import vis.agents.AgentActionIdentifier;
 import vis.agents.AgentIdentifier;
 import vis.dto.request.*;
-import vis.dto.response.*;
+import vis.dto.response.PackageRecommendationResponse;
+import vis.dto.response.StatusResponse;
+import vis.dto.response.TokenResponse;
+import vis.dto.response.VehicleRegistrationResponse;
 import vis.services.AgentGatewayService;
 import vis.services.schema.AgentOperationStatusSchema;
-import vis.services.schema.InsurancePackageSchema;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,9 +93,17 @@ public class BackendController {
 	}
 
 	@PostMapping("/claim-insurance")
-	public ClaimResponse claimInsurance(@RequestBody ClaimRequest claimRequest) {
-		// TODO: To be implemented
-		return new ClaimResponse(200, "Insurance claim successful");
+	public StatusResponse claimInsurance(@RequestBody ClaimRequest claimRequest) {
+		try {
+			AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.INSURANCE_CLAIM, "claim",
+					gson.toJson(claimRequest));
+			AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
+					AgentOperationStatusSchema.class);
+			return new StatusResponse(operationStatus.getStatus(), operationStatus.getMessage());
+		}
+		catch (Exception e) {
+			return new StatusResponse(500, "Insurance claim failed");
+		}
 	}
 
 }
