@@ -1,6 +1,8 @@
 package vis.dto.request;
 
-public class LoginRequest {
+import java.io.Serializable;
+
+public class LoginRequest implements Serializable {
 
 	String username;
 

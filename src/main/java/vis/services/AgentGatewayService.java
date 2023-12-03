@@ -71,7 +71,7 @@ public class AgentGatewayService {
 						myAgent.send(message);
 						response = myAgent.blockingReceive();
 						adminResponse[0] = response.getContent();
-						logger.debug("Response from Admin agent: " + response);
+						logger.info("Response from Admin agent: " + response);
 					}
 				});
 

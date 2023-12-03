@@ -10,6 +10,7 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.lang.acl.UnreadableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vis.agents.AuthenticationAgent;
@@ -21,17 +22,18 @@ import vis.ontology.predicates.Recommendation;
 import vis.ontology.predicates.SystemError;
 import vis.ontology.predicates.SubscriptionSuccess;
 import vis.services.CustomerAssistantService;
-import vis.services.CustomerAssistantStatusImpl;
+import vis.services.CustomerAssistantServiceImpl;
 import vis.services.schema.InsurancePackageSchema;
 import vis.services.schema.RecommendationRequestSchema;
 import vis.services.schema.SubscriptionSchema;
 import vis.services.schema.SubscriptionStatusSchema;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CustomerAssistantBehaviour extends CyclicBehaviour {
 
-	private final CustomerAssistantService customerAssistantService = new CustomerAssistantStatusImpl();
+	private final CustomerAssistantService customerAssistantService;
 
 	private final Codec codec = new SLCodec();
 
@@ -44,6 +46,7 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 
 	public CustomerAssistantBehaviour(Agent agent) {
 		super(agent);
+		customerAssistantService = new CustomerAssistantServiceImpl(agent);
 	}
 
 	@Override
@@ -106,7 +109,7 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 	}
 
 	private void recommendPackages(Action actionContent, ACLMessage responseMessage)
-			throws Codec.CodecException, OntologyException {
+			throws Codec.CodecException, OntologyException, UnreadableException, IOException {
 		PackageRecommendation packageRecommendationAction = (PackageRecommendation) actionContent.getAction();
 		RecommendationRequestSchema recommendationRequestSchema = new RecommendationRequestSchema(
 				packageRecommendationAction.getUser().getUserId(),

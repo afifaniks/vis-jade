@@ -1,0 +1,54 @@
+package vis.services;
+
+import jade.core.AID;
+import jade.core.Agent;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.UnreadableException;
+import vis.constants.AgentIdentifier;
+import vis.constants.DBOperation;
+import vis.services.schema.InsurancePackageSchema;
+import vis.services.schema.RecommendationRequestSchema;
+import vis.services.schema.SubscriptionSchema;
+import vis.services.schema.SubscriptionStatusSchema;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class CustomerAssistantServiceImpl implements CustomerAssistantService {
+	private Agent agent;
+
+	public CustomerAssistantServiceImpl(Agent agent) {
+		this.agent = agent;
+	}
+
+	@Override
+	public ArrayList<InsurancePackageSchema> getPackageRecommendation(
+			RecommendationRequestSchema recommendationRequestSchema) throws UnreadableException, IOException {
+
+		DBOperation dbOperation = new DBOperation(DBOperation.Operation.GET_PACKAGES, recommendationRequestSchema);
+
+		ACLMessage dbRequestMessage = new ACLMessage(ACLMessage.REQUEST);
+		dbRequestMessage.addReceiver(new AID(AgentIdentifier.DATABASE, AID.ISLOCALNAME));
+		dbRequestMessage.setContentObject(dbOperation);
+
+		this.agent.send(dbRequestMessage);
+
+		ACLMessage responseMessage = this.agent.blockingReceive();
+		List results = (List) responseMessage.getContentObject();
+
+		return new ArrayList<>() {
+			{
+				add(new InsurancePackageSchema("1", "Test Package", "Description", 33.44, 4));
+				add(new InsurancePackageSchema("2", "Test Package 2", "Description 2", 332.44, 41));
+			}
+		};
+	}
+
+	@Override
+	public SubscriptionStatusSchema subscribePackage(SubscriptionSchema subscriptionSchema) {
+		// TODO: Write to database
+		return new SubscriptionStatusSchema(200, "Subscription successful");
+	}
+
+}

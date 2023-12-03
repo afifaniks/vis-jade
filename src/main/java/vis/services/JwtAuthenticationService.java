@@ -39,8 +39,7 @@ public class JwtAuthenticationService implements AuthenticationService {
 
 	@Override
 	public TokenResponse login(LoginRequest loginRequest) throws IOException, UnreadableException {
-		DBOperation dbOperation = new DBOperation("UserEntity", DBOperation.OperationType.READ, "email = '"
-				+ loginRequest.getUsername() + "' AND " + " password = '" + loginRequest.getPassword() + "'");
+		DBOperation dbOperation = new DBOperation(DBOperation.Operation.LOGIN, loginRequest);
 
 		ACLMessage dbRequestMessage = new ACLMessage(ACLMessage.REQUEST);
 		dbRequestMessage.addReceiver(new AID(AgentIdentifier.DATABASE, AID.ISLOCALNAME));
@@ -49,12 +48,12 @@ public class JwtAuthenticationService implements AuthenticationService {
 		this.agent.send(dbRequestMessage);
 
 		ACLMessage responseMessage = this.agent.blockingReceive();
-		List results = (List) responseMessage.getContentObject();
+		DBTransactionStatusSchema statusSchema = (DBTransactionStatusSchema) responseMessage.getContentObject();
 
-		String accessToken = "";
-		String refreshToken = "";
+		String accessToken = null;
+		String refreshToken = null;
 
-		if (!results.isEmpty()) {
+		if (statusSchema.getStatus() == 200) {
 			accessToken = generateToken(loginRequest.getUsername(), ACCESS_TOKEN_EXPIRATION_TIME);
 			refreshToken = generateToken(loginRequest.getUsername(), REFRESH_TOKEN_EXPIRATION_TIME);
 		}
@@ -64,8 +63,7 @@ public class JwtAuthenticationService implements AuthenticationService {
 
 	@Override
 	public SignupStatusSchema signup(SignupRequest signupDto) throws IOException, UnreadableException {
-		DBOperation dbOperation = new DBOperation(DBTableNames.USER, DBOperation.OperationType.WRITE,
-				gson.fromJson(gson.toJson(signupDto), UserEntity.class));
+		DBOperation dbOperation = new DBOperation(DBOperation.Operation.SIGNUP, signupDto);
 
 		ACLMessage dbRequestMessage = new ACLMessage(ACLMessage.REQUEST);
 		dbRequestMessage.addReceiver(new AID(AgentIdentifier.DATABASE, AID.ISLOCALNAME));
