@@ -1,7 +1,7 @@
 package vis.entity;
 
 import jakarta.persistence.*;
-import vis.agents.DBTableNames;
+import vis.constants.DBTableNames;
 
 import java.io.Serializable;
 import java.util.UUID;

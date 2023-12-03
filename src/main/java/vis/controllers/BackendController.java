@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import vis.agents.AgentActionIdentifier;
-import vis.agents.AgentIdentifier;
+import vis.constants.AgentIdentifier;
 import vis.dto.request.*;
 import vis.dto.response.PackageRecommendationResponse;
 import vis.dto.response.StatusResponse;
@@ -46,9 +46,9 @@ public class BackendController {
 		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "signup",
 				gson.toJson(signupDto));
 
-		// GatewayResponseDto responseDto = gatewayService.request(action);
-		// TODO: tbd implementation
-		return new StatusResponse(200, "Signup successful");
+		AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
+				AgentOperationStatusSchema.class);
+		return new StatusResponse(operationStatus.getStatus(), operationStatus.getMessage());
 	}
 
 	@PostMapping("/register-vehicle")

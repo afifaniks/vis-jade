@@ -1,4 +1,4 @@
-package vis.agents;
+package vis.constants;
 
 public class AgentIdentifier {
 

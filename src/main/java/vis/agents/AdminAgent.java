@@ -17,6 +17,7 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vis.constants.AgentIdentifier;
 import vis.dto.request.ClaimRequest;
 import vis.dto.request.PackageRecommendationRequest;
 import vis.dto.request.SubscribePackageRequest;

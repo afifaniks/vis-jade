@@ -12,7 +12,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vis.agents.AuthenticationAgent;
-import vis.agents.DBOperation;
+import vis.constants.DBOperation;
 import vis.entity.DBEntity;
 import vis.services.schema.DBTransactionStatusSchema;
 
