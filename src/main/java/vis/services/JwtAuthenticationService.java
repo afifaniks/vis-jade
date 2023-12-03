@@ -19,6 +19,7 @@ import vis.services.schema.SignupStatusSchema;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 public class JwtAuthenticationService implements AuthenticationService {
 
@@ -26,7 +27,7 @@ public class JwtAuthenticationService implements AuthenticationService {
 
 	private Gson gson = new Gson();
 
-	private static final String SECRET_KEY = "yourSecr456hfdh4566r45etKey";
+	private static final String SECRET_KEY = "yourSecr456hfdghjghuj45h4566rghfghhfghryt45etKey";
 
 	private static final long ACCESS_TOKEN_EXPIRATION_TIME = 900_000; // 15 minutes
 
@@ -37,12 +38,26 @@ public class JwtAuthenticationService implements AuthenticationService {
 	}
 
 	@Override
-	public TokenResponse login(LoginRequest loginRequest) {
-		// Validate the username and password (implement your own validation logic)
+	public TokenResponse login(LoginRequest loginRequest) throws IOException, UnreadableException {
+		DBOperation dbOperation = new DBOperation("UserEntity", DBOperation.OperationType.READ, "email = '"
+				+ loginRequest.getUsername() + "' AND " + " password = '" + loginRequest.getPassword() + "'");
 
-		// Assuming validation is successful, generate tokens
-		String accessToken = generateToken(loginRequest.getUsername(), ACCESS_TOKEN_EXPIRATION_TIME);
-		String refreshToken = generateToken(loginRequest.getUsername(), REFRESH_TOKEN_EXPIRATION_TIME);
+		ACLMessage dbRequestMessage = new ACLMessage(ACLMessage.REQUEST);
+		dbRequestMessage.addReceiver(new AID(AgentIdentifier.DATABASE, AID.ISLOCALNAME));
+		dbRequestMessage.setContentObject(dbOperation);
+
+		this.agent.send(dbRequestMessage);
+
+		ACLMessage responseMessage = this.agent.blockingReceive();
+		List results = (List) responseMessage.getContentObject();
+
+		String accessToken = "";
+		String refreshToken = "";
+
+		if (!results.isEmpty()) {
+			accessToken = generateToken(loginRequest.getUsername(), ACCESS_TOKEN_EXPIRATION_TIME);
+			refreshToken = generateToken(loginRequest.getUsername(), REFRESH_TOKEN_EXPIRATION_TIME);
+		}
 
 		return new TokenResponse(accessToken, refreshToken);
 	}

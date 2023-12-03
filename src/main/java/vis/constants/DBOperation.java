@@ -26,6 +26,12 @@ public class DBOperation implements Serializable {
 		this.entity = entity;
 	}
 
+	public DBOperation(String tableName, OperationType operationType, String query) {
+		this.tableName = tableName;
+		this.operationType = operationType;
+		this.query = query;
+	}
+
 	public String getTableName() {
 		return tableName;
 	}

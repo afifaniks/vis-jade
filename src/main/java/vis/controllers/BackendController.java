@@ -37,8 +37,10 @@ public class BackendController {
 		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "login",
 				gson.toJson(loginRequest));
 
-		// GatewayResponseDto responseDto = gatewayService.request(action);
-		return new TokenResponse("access_token", "refresh_token");
+		AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
+				AgentOperationStatusSchema.class);
+
+		return gson.fromJson(operationStatus.getMessage(), TokenResponse.class);
 	}
 
 	@PostMapping("/signup")

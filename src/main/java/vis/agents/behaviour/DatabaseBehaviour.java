@@ -1,5 +1,6 @@
 package vis.agents.behaviour;
 
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -9,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vis.agents.AuthenticationAgent;
@@ -17,16 +19,15 @@ import vis.entity.DBEntity;
 import vis.services.schema.DBTransactionStatusSchema;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseBehaviour extends CyclicBehaviour {
 
 	private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
 
-	private final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure() // configures
-																										// settings
-																										// from
-																										// hibernate.cfg.xml
-		.build();
+	private final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
 
 	private SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 
@@ -43,9 +44,13 @@ public class DatabaseBehaviour extends CyclicBehaviour {
 
 			if (operation.getOperationType() == DBOperation.OperationType.WRITE) {
 				writeEntity(operation);
+				respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(200, "Successful"));
 			}
 
-			respondSender(receivedMessage);
+			if (operation.getOperationType() == DBOperation.OperationType.READ) {
+				List results = readEntity(operation);
+				respondSender(receivedMessage.getSender(), (Serializable) results);
+			}
 
 		}
 		catch (UnreadableException | IOException e) {
@@ -53,10 +58,18 @@ public class DatabaseBehaviour extends CyclicBehaviour {
 		}
 	}
 
-	private void respondSender(ACLMessage receivedMessage) throws IOException {
+	private List readEntity(DBOperation operation) {
+		Session session = sessionFactory.openSession();
+		String hql = "FROM " + operation.getTableName() + " WHERE " + operation.getQuery();
+		Query query = session.createQuery(hql);
+
+		return query.list();
+	}
+
+	private void respondSender(AID sender, Serializable object) throws IOException {
 		ACLMessage responseMessage = new ACLMessage(ACLMessage.INFORM);
-		responseMessage.addReceiver(receivedMessage.getSender());
-		responseMessage.setContentObject(new DBTransactionStatusSchema(200, "Successful"));
+		responseMessage.addReceiver(sender);
+		responseMessage.setContentObject(object);
 		myAgent.send(responseMessage);
 	}
 
