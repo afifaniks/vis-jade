@@ -1,6 +1,8 @@
 package vis.services.schema;
 
-public class SignupStatusSchema extends AgentOperationStatusSchema {
+import java.io.Serializable;
+
+public class SignupStatusSchema extends AgentOperationStatusSchema implements Serializable {
 
 	public SignupStatusSchema(Integer status, String message) {
 		super(status, message);

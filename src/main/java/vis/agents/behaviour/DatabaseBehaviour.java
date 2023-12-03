@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import vis.agents.AuthenticationAgent;
 import vis.constants.DBOperation;
 import vis.dto.request.LoginRequest;
-import vis.dto.request.PackageRecommendationRequest;
 import vis.services.DatabaseService;
 import vis.services.DatabaseServiceImpl;
 import vis.services.schema.DBTransactionStatusSchema;
@@ -21,7 +20,6 @@ import vis.services.schema.SignupRequestSchema;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseBehaviour extends CyclicBehaviour {
 

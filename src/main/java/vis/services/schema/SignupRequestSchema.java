@@ -1,6 +1,8 @@
 package vis.services.schema;
 
-public class SignupRequestSchema {
+import java.io.Serializable;
+
+public class SignupRequestSchema implements Serializable {
 
 	String email;
 

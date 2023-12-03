@@ -1,6 +1,8 @@
 package vis.dto.request;
 
-public class SignupRequest {
+import java.io.Serializable;
+
+public class SignupRequest implements Serializable {
 
 	String email;
 

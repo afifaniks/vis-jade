@@ -9,17 +9,14 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import vis.constants.AgentIdentifier;
 import vis.constants.DBOperation;
-import vis.constants.DBTableNames;
 import vis.dto.request.LoginRequest;
-import vis.dto.request.SignupRequest;
 import vis.dto.response.TokenResponse;
-import vis.entity.UserEntity;
 import vis.services.schema.DBTransactionStatusSchema;
+import vis.services.schema.SignupRequestSchema;
 import vis.services.schema.SignupStatusSchema;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 
 public class JwtAuthenticationService implements AuthenticationService {
 
@@ -62,7 +59,7 @@ public class JwtAuthenticationService implements AuthenticationService {
 	}
 
 	@Override
-	public SignupStatusSchema signup(SignupRequest signupDto) throws IOException, UnreadableException {
+	public SignupStatusSchema signup(SignupRequestSchema signupDto) throws IOException, UnreadableException {
 		DBOperation dbOperation = new DBOperation(DBOperation.Operation.SIGNUP, signupDto);
 
 		ACLMessage dbRequestMessage = new ACLMessage(ACLMessage.REQUEST);
