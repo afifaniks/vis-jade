@@ -2,32 +2,21 @@ package vis.dto;
 
 public class GatewayResponseDto {
 
-	int statusCode;
+	String jsonContent;
 
-	String message;
+	public GatewayResponseDto(String jsonContent) {
+		this.jsonContent = jsonContent;
+	}
 
 	public GatewayResponseDto() {
 	}
 
-	public GatewayResponseDto(int statusCode, String message) {
-		this.statusCode = statusCode;
-		this.message = message;
+	public String getJsonContent() {
+		return jsonContent;
 	}
 
-	public int getStatusCode() {
-		return statusCode;
-	}
-
-	public void setStatusCode(int statusCode) {
-		this.statusCode = statusCode;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
+	public void setJsonContent(String jsonContent) {
+		this.jsonContent = jsonContent;
 	}
 
 }

@@ -1,25 +1,21 @@
-package vis.ontology.actions;
+package vis.ontology.predicates;
 
-import jade.content.AgentAction;
+import jade.content.Predicate;
 import vis.ontology.concepts.InsurancePackage;
 import vis.ontology.concepts.User;
-import vis.ontology.predicates.Vehicle;
 
-public class SubscribePackage implements AgentAction {
+public class SubscriptionSuccess implements Predicate {
 
 	private InsurancePackage insurancePackage;
 
 	private User user;
 
-	private Vehicle vehicle;
-
-	public SubscribePackage(InsurancePackage insurancePackage, User user, Vehicle vehicle) {
+	public SubscriptionSuccess(InsurancePackage insurancePackage, User user) {
 		this.insurancePackage = insurancePackage;
 		this.user = user;
-		this.vehicle = vehicle;
 	}
 
-	public SubscribePackage() {
+	public SubscriptionSuccess() {
 	}
 
 	public InsurancePackage getInsurancePackage() {
@@ -36,14 +32,6 @@ public class SubscribePackage implements AgentAction {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
-
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
 	}
 
 }
