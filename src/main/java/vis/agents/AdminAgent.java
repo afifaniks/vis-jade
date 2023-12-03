@@ -103,7 +103,6 @@ public class AdminAgent extends Agent {
 								new Action(new AID(AgentIdentifier.CUSTOMER_ASSISTANT, AID.ISLOCALNAME), action));
 				}
 				else if (Objects.equals(request.getTargetAgent(), AgentIdentifier.CUSTOMER_ASSISTANT)) {
-					logger.info("Request received for target agent: " + request.getTargetAgent());
 					message.addReceiver(new AID(AgentIdentifier.CUSTOMER_ASSISTANT, AID.ISLOCALNAME));
 
 					if (request.getAction().equals("subscribe")) {
@@ -147,6 +146,11 @@ public class AdminAgent extends Agent {
 					ClaimSuccess claimSuccess = (ClaimSuccess) contentElement;
 					return gson.toJson(new AgentOperationStatusSchema(200,
 							"Claim successful for user: " + claimSuccess.getUser().getUserId()));
+				}
+				else if (contentElement instanceof SignupSuccess) {
+					SignupSuccess signupSuccess = (SignupSuccess) contentElement;
+					return gson
+						.toJson(new AgentOperationStatusSchema(signupSuccess.getStatus(), signupSuccess.getMessage()));
 				}
 				else if (contentElement instanceof SystemError) {
 					return gson.toJson(new AgentOperationStatusSchema(500, "Request failed"));
