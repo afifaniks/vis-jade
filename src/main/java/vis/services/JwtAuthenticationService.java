@@ -1,6 +1,7 @@
 package vis.services;
 
 import com.google.gson.Gson;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jade.core.AID;
@@ -78,13 +79,28 @@ public class JwtAuthenticationService implements AuthenticationService {
 		return new SignupStatusSchema(500, "Signup failed");
 	}
 
-	private String generateToken(String subject, long expirationTime) {
+	public String generateToken(String subject, long expirationTime) {
 		return Jwts.builder()
 			.setSubject(subject)
 			.setIssuedAt(new Date(System.currentTimeMillis()))
 			.setExpiration(new Date(System.currentTimeMillis() + expirationTime))
 			.signWith(SignatureAlgorithm.HS256, SECRET_KEY)
 			.compact();
+	}
+
+	public boolean validateToken(String token) {
+		try {
+			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+			return true;
+		} catch (Exception e) {
+			// Token is invalid
+			return false;
+		}
+	}
+
+	public String extractUsername(String token) {
+		Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+		return claims.getSubject();
 	}
 
 }
