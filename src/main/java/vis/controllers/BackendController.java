@@ -33,6 +33,7 @@ public class BackendController {
 	}
 
 	@PostMapping("/login")
+
 	public TokenResponse login(@RequestBody LoginRequest loginRequest) {
 		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "login",
 				gson.toJson(loginRequest));
