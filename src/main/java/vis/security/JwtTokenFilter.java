@@ -1,20 +1,22 @@
 package vis.security;
 
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-import vis.services.JwtAuthenticationService;
+import vis.services.TokenValidationService;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
 public class JwtTokenFilter extends OncePerRequestFilter {
 
-    private final JwtAuthenticationService jwtAuthenticationService;
+    private final TokenValidationService tokenValidationService;
 
-    public JwtTokenFilter(JwtAuthenticationService jwtAuthenticationService) {
-        this.jwtAuthenticationService = jwtAuthenticationService;
+    public JwtTokenFilter(TokenValidationService tokenValidationService) {
+        this.tokenValidationService = tokenValidationService;
     }
 
     @Override
@@ -23,8 +25,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7);
-            if (jwtAuthenticationService.validateToken(token)) {
-                String username = jwtAuthenticationService.extractUsername(token);
+            if (tokenValidationService.validateToken(token)) {
+                String username = tokenValidationService.extractUsername(token);
                 List<SimpleGrantedAuthority> authorities = Collections.emptyList(); // If no roles, use empty list
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

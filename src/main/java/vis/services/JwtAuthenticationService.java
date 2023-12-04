@@ -8,6 +8,7 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
+import org.springframework.stereotype.Service;
 import vis.constants.AgentIdentifier;
 import vis.constants.DBOperation;
 import vis.dto.request.LoginRequest;
@@ -19,6 +20,7 @@ import vis.services.schema.SignupStatusSchema;
 import java.io.IOException;
 import java.util.Date;
 
+@Service
 public class JwtAuthenticationService implements AuthenticationService {
 
 	private Agent agent;
@@ -88,19 +90,19 @@ public class JwtAuthenticationService implements AuthenticationService {
 			.compact();
 	}
 
-	public boolean validateToken(String token) {
-		try {
-			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
-			return true;
-		} catch (Exception e) {
-			// Token is invalid
-			return false;
-		}
-	}
-
-	public String extractUsername(String token) {
-		Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
-		return claims.getSubject();
-	}
+//	public boolean validateToken(String token) {
+//		try {
+//			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+//			return true;
+//		} catch (Exception e) {
+//			// Token is invalid
+//			return false;
+//		}
+//	}
+//
+//	public String extractUsername(String token) {
+//		Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+//		return claims.getSubject();
+//	}
 
 }

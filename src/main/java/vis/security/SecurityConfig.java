@@ -6,16 +6,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import vis.services.JwtAuthenticationService;
+import vis.services.TokenValidationService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final JwtAuthenticationService jwtAuthenticationService;
+    private final TokenValidationService tokenValidationService;
 
-    public SecurityConfig(JwtAuthenticationService jwtAuthenticationService) {
-        this.jwtAuthenticationService = jwtAuthenticationService;
+    public SecurityConfig(TokenValidationService tokenValidationService) {
+        this.tokenValidationService = tokenValidationService;
     }
 
     @Bean
@@ -23,7 +23,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeRequests(auth -> auth.anyRequest().authenticated())
-                .addFilter(new JwtTokenFilter(jwtAuthenticationService));
+                .addFilter(new JwtTokenFilter(tokenValidationService));
 
         return http.build();
     }
