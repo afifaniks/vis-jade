@@ -2,6 +2,8 @@ package vis.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jade.wrapper.ControllerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +55,7 @@ public class BackendController {
 		return new StatusResponse(operationStatus.getStatus(), operationStatus.getMessage());
 	}
 
+	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
 	@PostMapping("/register-vehicle")
 	public VehicleRegistrationResponse registerVehicle(
 			@RequestBody VehicleRegistrationRequest vehicleRegistrationRequest) {
