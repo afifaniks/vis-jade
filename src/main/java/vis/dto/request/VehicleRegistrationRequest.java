@@ -2,8 +2,6 @@ package vis.dto.request;
 
 public class VehicleRegistrationRequest {
 
-	String vehicleId;
-
 	String userId;
 
 	String vehicleName;
@@ -22,10 +20,7 @@ public class VehicleRegistrationRequest {
 
 	Integer mileage;
 
-	public VehicleRegistrationRequest(String vehicleId, String userId, String vehicleName, String vehicleModel,
-			String vehicleType, String licenseNumber, String registrationNumber, String purchaseDate,
-			String vehicleStatus, Integer mileage) {
-		this.vehicleId = vehicleId;
+	public VehicleRegistrationRequest(String userId, String vehicleName, String vehicleModel, String vehicleType, String licenseNumber, String registrationNumber, String purchaseDate, String vehicleStatus, Integer mileage) {
 		this.userId = userId;
 		this.vehicleName = vehicleName;
 		this.vehicleModel = vehicleModel;
@@ -38,14 +33,6 @@ public class VehicleRegistrationRequest {
 	}
 
 	public VehicleRegistrationRequest() {
-	}
-
-	public String getVehicleId() {
-		return vehicleId;
-	}
-
-	public void setVehicleId(String vehicleId) {
-		this.vehicleId = vehicleId;
 	}
 
 	public String getUserId() {
@@ -119,5 +106,4 @@ public class VehicleRegistrationRequest {
 	public void setMileage(Integer mileage) {
 		this.mileage = mileage;
 	}
-
 }
