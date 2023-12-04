@@ -2,6 +2,8 @@ package vis.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jade.wrapper.ControllerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +55,7 @@ public class BackendController {
 		return new StatusResponse(operationStatus.getStatus(), operationStatus.getMessage());
 	}
 
+	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
 	@PostMapping("/register-vehicle")
 	public VehicleRegistrationResponse registerVehicle(
 			@RequestBody VehicleRegistrationRequest vehicleRegistrationRequest) {
@@ -60,6 +63,7 @@ public class BackendController {
 		return new VehicleRegistrationResponse(200, "Registration successful");
 	}
 
+	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
 	@PostMapping("/get-packages")
 	public ArrayList<PackageRecommendationResponse> getPackageRecommendation(
 			@RequestBody PackageRecommendationRequest packageRecommendationRequest) {
@@ -80,6 +84,7 @@ public class BackendController {
 		}
 	}
 
+	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
 	@PostMapping("/subscribe-package")
 	public StatusResponse subscribePackage(@RequestBody SubscribePackageRequest subscribePackageRequest) {
 		try {
@@ -94,6 +99,7 @@ public class BackendController {
 		}
 	}
 
+	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
 	@PostMapping("/claim-insurance")
 	public StatusResponse claimInsurance(@RequestBody ClaimRequest claimRequest) {
 		try {
