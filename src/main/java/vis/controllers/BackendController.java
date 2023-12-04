@@ -63,6 +63,7 @@ public class BackendController {
 		return new VehicleRegistrationResponse(200, "Registration successful");
 	}
 
+	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
 	@PostMapping("/get-packages")
 	public ArrayList<PackageRecommendationResponse> getPackageRecommendation(
 			@RequestBody PackageRecommendationRequest packageRecommendationRequest) {
@@ -83,6 +84,7 @@ public class BackendController {
 		}
 	}
 
+	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
 	@PostMapping("/subscribe-package")
 	public StatusResponse subscribePackage(@RequestBody SubscribePackageRequest subscribePackageRequest) {
 		try {
@@ -97,6 +99,7 @@ public class BackendController {
 		}
 	}
 
+	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
 	@PostMapping("/claim-insurance")
 	public StatusResponse claimInsurance(@RequestBody ClaimRequest claimRequest) {
 		try {
