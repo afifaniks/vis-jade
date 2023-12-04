@@ -1,0 +1,247 @@
+.productForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(10, 26, 44);
+    /* background: -webkit-linear-gradient(-90deg, rgba(10,26,44,1) 0, rgba(255,255,255,1) 100%);
+    background: -moz-linear-gradient(180deg, rgba(10,26,44,1) 0, rgba(255,255,255,1) 100%);
+    background: linear-gradient(180deg, rgb(10, 26, 44) 0, rgba(255,255,255,1) 100%); */
+    background-position: 50% 50%;
+    height: max-content;
+    z-index: 1;
+
+}
+
+.productForm_Container {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    max-width: 800px;
+    height: fit-content;
+    /* display: flex;
+    flex-direction: column; */
+    border-radius: 5px;
+    border: 2px solid lightgray;
+    padding: 20px;
+    background-color: white;
+    min-width: 40%;
+    }
+
+.productForm_Container > h1{
+    font-weight: 500;
+    margin-bottom: 2px;
+    font-size:20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgb(6, 37, 85);
+    border-bottom-width: 1px;
+}
+.productForm_Container > form > input{
+    display: inline-block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    padding: 10px 2px;
+    border: 1px solid #b7b7b7;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    font: normal 16px/normal "Times New Roman", Times, serif;
+    color: rgb(0, 0, 0);
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: rgba(255,255,255,0.83);
+    -webkit-box-shadow: 3px 3px 2px -2px rgba(43, 72, 105, 0.93) ;
+    box-shadow: 3px 3px 2px -2px rgba(43, 72, 105, 0.93) ;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.66) ;
+    -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+
+    height: 30px;
+    margin-bottom: 10px;
+    background-color: white;
+    width: 98%;
+
+}
+
+.productForm_category>form {
+    align-content: left;
+}
+
+.productForm_category_container {
+    display: block;
+    position: relative;
+    padding-left: 700px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+.productForm_category_container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    border-radius: 3px;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #eee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .productForm_category_container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .productForm_category_container input:checked ~ .checkmark {
+    background-color: #ffffff;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .productForm_category_container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .productForm_category_container .checkmark:after {
+    left: 5px;
+    top: 0px;
+    width: 3px;
+    height: 10px;
+    border: solid rgb(5, 161, 0);
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  
+  /* .buttuns{
+    display:flex;
+    flex-direction: column;
+  } */
+
+.productForm_Container_button1 {
+    margin-top: 5px;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    border-radius: 30px;
+    color: #FFFFFF;
+    font-family: Times New Roman;
+    font-size: 15px;
+    font-weight: 100;
+    padding: 10px;
+    background-color: #000000;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    width: 15%;
+    min-width: 100px;
+}
+
+.productForm_Container_button1:hover {
+    background: #ffffff;
+    color:rgb(0, 0, 0);
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    border-radius: 60px;
+    text-decoration: none;
+}
+
+.productForm__CatSubTag{
+  display: none;
+}
+.productForm__CatSubTag__options{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed rgb(0, 0, 0);
+  border-bottom-width: 1px; 
+}
+
+.productForm__CatSubTag__options > p{
+  align-items: center;
+}
+
+.productForm__CatSubTag__dropdown{
+  margin-top: 5%;
+  height: 30px;
+  width: 100px;
+}
+
+.productForm__CatSubTag__Tag{
+  display: flex;
+  justify-content: space-between;
+}
+
+.productForm__CatSubTag__Tag__input{
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  float: none;
+  z-index: auto;
+  width: 25%;
+  height: 5%;
+  position: static;
+  cursor: default;
+  opacity: 1;
+  margin-top: 6%;
+  padding: 5px;
+  overflow: visible;
+  border: 1px solid #000000;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  font: normal 11px/normal "Times New Roman", Times, serif;
+  color: rgba(0,0,0,1);
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  background: rgba(252,252,252,1);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.66) ;
+  -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -webkit-transform: none;
+  transform: none;
+  -webkit-transform-origin: 50% 50% 0;
+  transform-origin: 50% 50% 0;
+}
+
+.productForm__CatSubTag__Tag__AddBoxIcon{
+  margin-top: 6%;
+  margin-left: -30%;
+}
+
+.productForm__Img{
+  display:none;
+}
+
+.productForm__getImage__form__header{
+  display:flex;
+  justify-content: space-between;
+}
+.productForm__getImage__form__header > h4{
+  width: 40%;
+  font-family: 'Times New Roman', Times, serif;
+}

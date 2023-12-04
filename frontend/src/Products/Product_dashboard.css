@@ -1,0 +1,23 @@
+.product__dashboard{
+    display:flex;
+    border-bottom: 1px solid lightgray;
+
+}
+.product__dashboard > p{
+    padding: 0px 10px;
+    width: 15%;
+    align-items: center;
+}
+.product__dashboard__edit{
+    align-content: right;
+    color:rgb(222, 206, 238);
+    cursor: pointer;
+    margin: 10px;
+}
+.product__dashboard__delete{
+    color: rgb(182, 118, 118);
+    align-content: right;
+    cursor: pointer;
+    margin: 10px;
+
+}

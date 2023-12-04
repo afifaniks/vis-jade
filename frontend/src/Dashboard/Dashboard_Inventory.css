@@ -1,0 +1,76 @@
+.dashboard_inventory{
+    border-style: solid;
+    border-radius: 5px;
+    border-color: rgb(134, 131, 131);
+    padding: 10px;
+    background-color: white;
+    margin: 20px 25px;
+    border-width: 1px;
+}
+
+.dashboard_inventory_header{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.dashboard_inventory_header > p{
+    flex: 10 1 auto;
+}
+
+.dashboard_inventory_header__addProduct {
+    margin: 0 20px;
+    background: #ffffff;
+    background-image: -webkit-linear-gradient(top, #F6F6F6, #8C8C8C);
+    background-image: -moz-linear-gradient(top, #F6F6F6, #8C8C8C);
+    background-image: -ms-linear-gradient(top, #F6F6F6, #8C8C8C);
+    background-image: -o-linear-gradient(top, #F6F6F6, #8C8C8C);
+    background-image: -webkit-gradient(to bottom, #F6F6F6, #8C8C8C);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    color: #008b5d;
+    font-family: Times New Roman;
+    font-size: 15px;
+    font-weight: 100;
+    padding: 10px;
+    -webkit-box-shadow: 1px 1px 1px 0 #000000;
+    -moz-box-shadow: 1px 1px 1px 0 #000000;
+    box-shadow: 1px 1px 2px 0 #000000;
+    border: solid #009973 1px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+ }
+ 
+ .dashboard_inventory_header__addProduct:hover {
+    border: solid #00f8ba 1px;
+    background: #e8fffa;
+    background-image: -webkit-linear-gradient(top, #8C8C8C, #F6F6F6);
+    background-image: -moz-linear-gradient(top, #8C8C8C, #F6F6F6);
+    background-image: -ms-linear-gradient(top, #8C8C8C, #F6F6F6);
+    background-image: -o-linear-gradient(top, #8C8C8C, #F6F6F6);
+    background-image: -webkit-gradient(to bottom, #8C8C8C, #F6F6F6);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    text-decoration: none;
+ }
+
+
+.dashboard_inventory_names{
+    display: flex;
+    border-bottom: 1px solid rgb(0, 0, 0);
+    border-bottom-width: 2px;
+}
+.dashboard_inventory_names > span{
+    padding: 5px 10px;
+    width: 15%;
+}
+
+.dashboard_inventory_products{
+    display:flex;
+    flex-direction:column;
+}
+
