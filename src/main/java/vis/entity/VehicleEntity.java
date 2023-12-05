@@ -123,7 +123,7 @@ public class VehicleEntity implements DBEntity, Serializable {
     public String toString() {
         return "Vehicle{" +
                 "id=" + id +
-                ", user_id=" + userEmail +
+                ", user_email=" + userEmail +
                 ", vehicle_name='" + vehicle_name + '\'' +
                 ", vehicle_model='" + vehicle_model + '\'' +
                 ", vehicle_type='" + vehicle_type + '\'' +
