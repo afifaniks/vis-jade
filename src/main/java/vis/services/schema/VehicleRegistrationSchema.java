@@ -1,11 +1,10 @@
 package vis.services.schema;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 public class VehicleRegistrationSchema implements Serializable {
 
-    UUID user_id;
+    String userEmail;
     String vehicle_name;
     String vehicle_model;
     String vehicle_type;
@@ -18,8 +17,8 @@ public class VehicleRegistrationSchema implements Serializable {
     public VehicleRegistrationSchema() {
     }
 
-    public VehicleRegistrationSchema(UUID user_id, String vehicle_name, String vehicle_model, String vehicle_type, String license_number_plate, String vehicle_registration_number, String purchase_date, String vehicle_status, float mileage) {
-        this.user_id = user_id;
+    public VehicleRegistrationSchema(String userEmail, String vehicle_name, String vehicle_model, String vehicle_type, String license_number_plate, String vehicle_registration_number, String purchase_date, String vehicle_status, float mileage) {
+        this.userEmail = userEmail;
         this.vehicle_name = vehicle_name;
         this.vehicle_model = vehicle_model;
         this.vehicle_type = vehicle_type;
@@ -30,12 +29,12 @@ public class VehicleRegistrationSchema implements Serializable {
         this.mileage = mileage;
     }
 
-    public UUID getUser_id() {
-        return user_id;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUser_id(UUID user_id) {
-        this.user_id = user_id;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getVehicle_name() {

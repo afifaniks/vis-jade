@@ -5,12 +5,12 @@ import jade.content.Concept;
 public class Vehicle implements Concept {
 
 	String vehicleId;
-	String userId;
+	String userEmail;
 	String vehicleName;
 	String vehicleModel;
 	String vehicleType;
 	String licenseNumber;
-	String registrationNumber;
+	String vehicle_registration_number;
 	String purchaseDate;
 	String vehicleStatus;
 	float mileage;
@@ -18,19 +18,21 @@ public class Vehicle implements Concept {
 	public Vehicle() {
 	}
 
-	public Vehicle(String registrationNumber, String licenseNumber, String vehicleName, String vehicleModel, String vehicleType, String purchaseDate, String userId) {
-		this.registrationNumber = registrationNumber;
-		this.licenseNumber = licenseNumber;
+	public Vehicle(String userEmail, String vehicleName, String vehicleModel, String vehicleType, String licenseNumber, String vehicle_registration_number, String purchaseDate, String vehicleStatus, float mileage) {
+		this.userEmail = userEmail;
 		this.vehicleName = vehicleName;
 		this.vehicleModel = vehicleModel;
 		this.vehicleType = vehicleType;
+		this.licenseNumber = licenseNumber;
+		this.vehicle_registration_number = vehicle_registration_number;
 		this.purchaseDate = purchaseDate;
-		this.userId = userId;
+		this.vehicleStatus = vehicleStatus;
+		this.mileage = mileage;
 	}
 
-	public Vehicle(String vehicleId, String userId) {
+	public Vehicle(String vehicleId, String userEmail) {
 		this.vehicleId = vehicleId;
-		this.userId = userId;
+		this.userEmail = userEmail;
 	}
 
 	public String getVehicleId() {
@@ -41,12 +43,12 @@ public class Vehicle implements Concept {
 		this.vehicleId = vehicleId;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	public String getVehicleName() {
@@ -81,12 +83,12 @@ public class Vehicle implements Concept {
 		this.licenseNumber = licenseNumber;
 	}
 
-	public String getRegistrationNumber() {
-		return registrationNumber;
+	public String getVehicle_registration_number() {
+		return vehicle_registration_number;
 	}
 
-	public void setRegistrationNumber(String registrationNumber) {
-		this.registrationNumber = registrationNumber;
+	public void setVehicle_registration_number(String vehicle_registration_number) {
+		this.vehicle_registration_number = vehicle_registration_number;
 	}
 
 	public String getPurchaseDate() {

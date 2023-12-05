@@ -14,7 +14,7 @@ public class VehicleEntity implements DBEntity, Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    UUID user_id;
+    UUID userEmail;
     String vehicle_name;
     String vehicle_model;
     String vehicle_type;
@@ -27,8 +27,8 @@ public class VehicleEntity implements DBEntity, Serializable {
     public VehicleEntity() {
     }
 
-    public VehicleEntity(UUID user_id, String vehicle_name, String vehicle_model, String vehicle_type, String license_plate_number, String vehicle_registration_number, String purchase_date, String vehicle_status, float mileage) {
-        this.user_id = user_id;
+    public VehicleEntity(UUID userEmail, String vehicle_name, String vehicle_model, String vehicle_type, String license_plate_number, String vehicle_registration_number, String purchase_date, String vehicle_status, float mileage) {
+        this.userEmail = userEmail;
         this.vehicle_name = vehicle_name;
         this.vehicle_model = vehicle_model;
         this.vehicle_type = vehicle_type;
@@ -47,12 +47,12 @@ public class VehicleEntity implements DBEntity, Serializable {
         this.id = id;
     }
 
-    public UUID getUser_id() {
-        return user_id;
+    public UUID getUserEmail() {
+        return userEmail;
     }
 
-    public void setUser_id(UUID user_id) {
-        this.user_id = user_id;
+    public void setUserEmail(UUID userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getVehicle_name() {
@@ -123,7 +123,7 @@ public class VehicleEntity implements DBEntity, Serializable {
     public String toString() {
         return "Vehicle{" +
                 "id=" + id +
-                ", user_id=" + user_id +
+                ", user_id=" + userEmail +
                 ", vehicle_name='" + vehicle_name + '\'' +
                 ", vehicle_model='" + vehicle_model + '\'' +
                 ", vehicle_type='" + vehicle_type + '\'' +
