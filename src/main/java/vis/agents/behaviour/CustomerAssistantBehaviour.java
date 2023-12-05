@@ -38,8 +38,7 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 
     private final Ontology ontology = VISOntology.getInstance();
 
-    MessageTemplate messageTemplate = MessageTemplate.and(MessageTemplate.MatchLanguage(codec.getName()),
-            MessageTemplate.MatchOntology(ontology.getName()));
+    MessageTemplate messageTemplate = MessageTemplate.and(MessageTemplate.MatchLanguage(codec.getName()), MessageTemplate.MatchOntology(ontology.getName()));
 
     private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
 
@@ -86,19 +85,14 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
         }
     }
 
-    private void subscribePackage(Action actionContent, ACLMessage responseMessage)
-            throws Codec.CodecException, OntologyException, UnreadableException, IOException {
+    private void subscribePackage(Action actionContent, ACLMessage responseMessage) throws Codec.CodecException, OntologyException, UnreadableException, IOException {
         SubscribePackage subscribePackage = (SubscribePackage) actionContent.getAction();
-        SubscriptionSchema subscriptionSchemaRequest = new SubscriptionSchema(subscribePackage.getUser().getUserId(),
-                subscribePackage.getVehicle().getVehicleId(), subscribePackage.getInsurancePackage().getPackageId());
+        SubscriptionSchema subscriptionSchemaRequest = new SubscriptionSchema(subscribePackage.getUser().getUserId(), subscribePackage.getVehicle().getVehicleId(), subscribePackage.getInsurancePackage().getPackageId());
 
-        SubscriptionStatusSchema subscriptionStatus = customerAssistantService
-                .subscribePackage(subscriptionSchemaRequest);
+        SubscriptionStatusSchema subscriptionStatus = customerAssistantService.subscribePackage(subscriptionSchemaRequest);
 
         if (subscriptionStatus.getStatus() == 200) {
-            myAgent.getContentManager()
-                    .fillContent(responseMessage,
-                            new SubscriptionSuccess(subscribePackage.getInsurancePackage(), subscribePackage.getUser()));
+            myAgent.getContentManager().fillContent(responseMessage, new SubscriptionSuccess(subscribePackage.getInsurancePackage(), subscribePackage.getUser()));
             logger.info("Package subscription successful");
         } else {
             SystemError systemError = new SystemError(500, "Subscription error");
@@ -109,26 +103,19 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
         myAgent.send(responseMessage);
     }
 
-    private void recommendPackages(Action actionContent, ACLMessage responseMessage)
-            throws Codec.CodecException, OntologyException, UnreadableException, IOException {
+    private void recommendPackages(Action actionContent, ACLMessage responseMessage) throws Codec.CodecException, OntologyException, UnreadableException, IOException {
         PackageRecommendation packageRecommendationAction = (PackageRecommendation) actionContent.getAction();
-        RecommendationRequestSchema recommendationRequestSchema = new RecommendationRequestSchema(
-                packageRecommendationAction.getUser().getEmail(),
-                packageRecommendationAction.getVehicle().getVehicleId());
+        RecommendationRequestSchema recommendationRequestSchema = new RecommendationRequestSchema(packageRecommendationAction.getUser().getEmail(), packageRecommendationAction.getVehicle().getVehicleId());
 
-        ArrayList<InsurancePackageSchema> recommendations = customerAssistantService
-                .getPackageRecommendation(recommendationRequestSchema);
+        ArrayList<InsurancePackageSchema> recommendations = customerAssistantService.getPackageRecommendation(recommendationRequestSchema);
 
         if (recommendations != null && !recommendations.isEmpty()) {
             ArrayList<InsurancePackage> packageConcepts = new ArrayList<>();
 
             for (InsurancePackageSchema pkg : recommendations) {
-                packageConcepts.add(new InsurancePackage(pkg.getPackageId(), pkg.getPackageName(),
-                        pkg.getPackageDescription(), pkg.getPackagePrice(), pkg.getTenure()));
+                packageConcepts.add(new InsurancePackage(pkg.getPackageId(), pkg.getPackageName(), pkg.getPackageDescription(), pkg.getPackagePrice(), pkg.getTenure()));
             }
-            myAgent.getContentManager()
-                    .fillContent(responseMessage,
-                            new Recommendation(packageRecommendationAction.getUser(), packageConcepts));
+            myAgent.getContentManager().fillContent(responseMessage, new Recommendation(packageRecommendationAction.getUser(), packageConcepts));
             logger.info("Packages recommended.");
         } else {
             SystemError systemError = new SystemError(500, "Internal error occurred while generating recommendation.");
@@ -138,20 +125,14 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
         myAgent.send(responseMessage);
     }
 
-    private void registerVehicle(Action actionContent, ACLMessage responseMessage)
-            throws Codec.CodecException, OntologyException, UnreadableException, IOException {
+    private void registerVehicle(Action actionContent, ACLMessage responseMessage) throws Codec.CodecException, OntologyException, UnreadableException, IOException {
         VehicleRegistration vehicleRegistration = (VehicleRegistration) actionContent.getAction();
-        VehicleRegistrationSchema vehicleRegistrationSchema = new VehicleRegistrationSchema(
-                vehicleRegistration.getUser().getEmail(),
-                vehicleRegistration.getVehicle().getVehicleName(), vehicleRegistration.getVehicle().getVehicleModel(), vehicleRegistration.getVehicle().getVehicleType(), vehicleRegistration.getVehicle().getLicenseNumber(), vehicleRegistration.getVehicle().getVehicleRegistrationNumber(), vehicleRegistration.getVehicle().getPurchaseDate(), vehicleRegistration.getVehicle().getVehicleStatus(), vehicleRegistration.getVehicle().getMileage());
+        VehicleRegistrationSchema vehicleRegistrationSchema = new VehicleRegistrationSchema(vehicleRegistration.getUser().getEmail(), vehicleRegistration.getVehicle().getVehicleName(), vehicleRegistration.getVehicle().getVehicleModel(), vehicleRegistration.getVehicle().getVehicleType(), vehicleRegistration.getVehicle().getLicenseNumber(), vehicleRegistration.getVehicle().getVehicleRegistrationNumber(), vehicleRegistration.getVehicle().getPurchaseDate(), vehicleRegistration.getVehicle().getVehicleStatus(), vehicleRegistration.getVehicle().getMileage());
 
-        VehicleRegistrationStatusSchema vehicleRegistrationStatusSchema = customerAssistantService
-                .registerVehicle(vehicleRegistrationSchema);
+        VehicleRegistrationStatusSchema vehicleRegistrationStatusSchema = customerAssistantService.registerVehicle(vehicleRegistrationSchema);
 
         if (vehicleRegistrationStatusSchema.getStatus() == 200) {
-            myAgent.getContentManager()
-                    .fillContent(responseMessage,
-                            new VehicleRegistrationSuccess(vehicleRegistration.getUser().getUserId(), vehicleRegistration.getVehicle().getVehicleId()));
+            myAgent.getContentManager().fillContent(responseMessage, new VehicleRegistrationSuccess(vehicleRegistration.getUser().getUserId(), vehicleRegistration.getVehicle().getVehicleId()));
             logger.info("Vehicle Registration successful");
         } else {
             SystemError systemError = new SystemError(500, "Vehicle Registration error");

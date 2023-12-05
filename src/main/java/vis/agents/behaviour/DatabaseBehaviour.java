@@ -37,8 +37,7 @@ public class DatabaseBehaviour extends CyclicBehaviour {
 
             if (operation.getOperation() == DBOperation.Operation.LOGIN) {
                 LoginRequest loginRequest = (LoginRequest) operation.getAdditionalObject();
-                boolean loginSuccess = this.databaseService.login(loginRequest.getUsername(),
-                        loginRequest.getPassword());
+                boolean loginSuccess = this.databaseService.login(loginRequest.getUsername(), loginRequest.getPassword());
 
                 if (loginSuccess) {
                     respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(200, "Successful"));
@@ -70,10 +69,8 @@ public class DatabaseBehaviour extends CyclicBehaviour {
             }
 
             if (operation.getOperation() == DBOperation.Operation.GET_PACKAGES) {
-                RecommendationRequestSchema recommendationRequestSchema = (RecommendationRequestSchema) operation
-                        .getAdditionalObject();
-                ArrayList<InsurancePackageSchema> packages = this.databaseService.getPackages(
-                        recommendationRequestSchema.getUserEmail(), recommendationRequestSchema.getVehicleId());
+                RecommendationRequestSchema recommendationRequestSchema = (RecommendationRequestSchema) operation.getAdditionalObject();
+                ArrayList<InsurancePackageSchema> packages = this.databaseService.getPackages(recommendationRequestSchema.getUserEmail(), recommendationRequestSchema.getVehicleId());
 
                 respondSender(receivedMessage.getSender(), packages);
             }

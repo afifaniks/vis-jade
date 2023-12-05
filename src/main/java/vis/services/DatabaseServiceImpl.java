@@ -39,16 +39,14 @@ public class DatabaseServiceImpl implements DatabaseService {
     @Override
     public boolean login(String email, String password) {
         Session session = sessionFactory.openSession();
-        String hql = "FROM UserEntity" + " WHERE email = " + "'" + email + "'" + " AND password = " + "'" + password
-                + "'";
+        String hql = "FROM UserEntity" + " WHERE email = " + "'" + email + "'" + " AND password = " + "'" + password + "'";
 
         Query query = session.createQuery(hql);
         List<UserEntity> userEntities = query.list();
 
         session.close();
 
-        if (userEntities.isEmpty())
-            return false;
+        if (userEntities.isEmpty()) return false;
 
         return true;
     }
