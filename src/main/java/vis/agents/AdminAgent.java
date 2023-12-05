@@ -121,7 +121,7 @@ public class AdminAgent extends Agent {
 								VehicleRegistrationRequest.class);
 						action = new VehicleRegistration(
 								new User(vehicleRegistrationRequest.getUserId()),
-								new Vehicle());
+								new Vehicle(vehicleRegistrationRequest.getRegistrationNumber(), vehicleRegistrationRequest.getLicenseNumber(), vehicleRegistrationRequest.getVehicleName(), vehicleRegistrationRequest.getVehicleModel(), vehicleRegistrationRequest.getVehicleType(), vehicleRegistrationRequest.getPurchaseDate(), vehicleRegistrationRequest.getUserId()));
 					}
 					if (request.getAction().equals("get-package")) {
 						PackageRecommendationRequest packageRequest = gson.fromJson(request.getContents(),

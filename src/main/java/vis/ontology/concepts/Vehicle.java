@@ -5,22 +5,32 @@ import jade.content.Concept;
 public class Vehicle implements Concept {
 
 	String vehicleId;
-
 	String userId;
 	String vehicleName;
 	String vehicleModel;
 	String vehicleType;
 	String licenseNumber;
+	String registrationNumber;
 	String purchaseDate;
 	String vehicleStatus;
 	float mileage;
 
-	public Vehicle(String vehicleId, String userId) {
-		this.vehicleId = vehicleId;
+	public Vehicle() {
+	}
+
+	public Vehicle(String registrationNumber, String licenseNumber, String vehicleName, String vehicleModel, String vehicleType, String purchaseDate, String userId) {
+		this.registrationNumber = registrationNumber;
+		this.licenseNumber = licenseNumber;
+		this.vehicleName = vehicleName;
+		this.vehicleModel = vehicleModel;
+		this.vehicleType = vehicleType;
+		this.purchaseDate = purchaseDate;
 		this.userId = userId;
 	}
 
-	public Vehicle() {
+	public Vehicle(String vehicleId, String userId) {
+		this.vehicleId = vehicleId;
+		this.userId = userId;
 	}
 
 	public String getVehicleId() {
@@ -69,6 +79,14 @@ public class Vehicle implements Concept {
 
 	public void setLicenseNumber(String licenseNumber) {
 		this.licenseNumber = licenseNumber;
+	}
+
+	public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
 	}
 
 	public String getPurchaseDate() {
