@@ -59,8 +59,12 @@ public class BackendController {
 	@PostMapping("/register-vehicle")
 	public VehicleRegistrationResponse registerVehicle(
 			@RequestBody VehicleRegistrationRequest vehicleRegistrationRequest) {
-		// TODO: To be implemented
-		return new VehicleRegistrationResponse(200, "Registration successful");
+		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "vehicle-registration",
+				gson.toJson(vehicleRegistrationRequest));
+
+		AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
+				AgentOperationStatusSchema.class);
+		return new VehicleRegistrationResponse(operationStatus.getStatus(), operationStatus.getMessage());
 	}
 
 	@Operation(security = @SecurityRequirement(name = "bearerAuth"))

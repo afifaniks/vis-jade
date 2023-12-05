@@ -1,35 +1,50 @@
-package vis.dto.request;
+package vis.entity;
 
-public class VehicleRegistrationRequest {
+import jakarta.persistence.*;
+import vis.constants.DBTableNames;
+
+import java.util.UUID;
+import java.io.Serializable;
+
+@Entity
+@Table(name = DBTableNames.VEHICLE)
+public class VehicleEntity implements DBEntity, Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID Id;
 
     String userEmail;
-
     String vehicleName;
-
     String vehicleModel;
-
     String vehicleType;
-
-    String licenseNumber;
-
+    String licenseNumberPlate;
     String vehicleRegistrationNumber;
-
     String purchaseDate;
-
     String vehicleStatus;
+    float mileage;
 
-    Integer mileage;
+    public VehicleEntity() {
+    }
 
-    public VehicleRegistrationRequest(String userEmail, String vehicleName, String vehicleModel, String vehicleType, String licenseNumber, String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus, Integer mileage) {
+    public VehicleEntity(String userEmail, String vehicleName, String vehicleModel, String vehicleType, String licenseNumberPlate, String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus, float mileage) {
         this.userEmail = userEmail;
         this.vehicleName = vehicleName;
         this.vehicleModel = vehicleModel;
         this.vehicleType = vehicleType;
-        this.licenseNumber = licenseNumber;
+        this.licenseNumberPlate = licenseNumberPlate;
         this.vehicleRegistrationNumber = vehicleRegistrationNumber;
         this.purchaseDate = purchaseDate;
         this.vehicleStatus = vehicleStatus;
         this.mileage = mileage;
+    }
+
+    public UUID getId() {
+        return Id;
+    }
+
+    public void setId(UUID id) {
+        Id = id;
     }
 
     public String getUserEmail() {
@@ -64,12 +79,12 @@ public class VehicleRegistrationRequest {
         this.vehicleType = vehicleType;
     }
 
-    public String getLicenseNumber() {
-        return licenseNumber;
+    public String getLicenseNumberPlate() {
+        return licenseNumberPlate;
     }
 
-    public void setLicenseNumber(String licenseNumber) {
-        this.licenseNumber = licenseNumber;
+    public void setLicenseNumberPlate(String licenseNumberPlate) {
+        this.licenseNumberPlate = licenseNumberPlate;
     }
 
     public String getVehicleRegistrationNumber() {
@@ -96,11 +111,11 @@ public class VehicleRegistrationRequest {
         this.vehicleStatus = vehicleStatus;
     }
 
-    public Integer getMileage() {
+    public float getMileage() {
         return mileage;
     }
 
-    public void setMileage(Integer mileage) {
+    public void setMileage(float mileage) {
         this.mileage = mileage;
     }
 }

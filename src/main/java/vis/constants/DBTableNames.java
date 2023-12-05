@@ -6,4 +6,6 @@ public class DBTableNames {
 
 	public static final String PACKAGE = "packages";
 
+	public static final String VEHICLE = "vehicle";
+
 }

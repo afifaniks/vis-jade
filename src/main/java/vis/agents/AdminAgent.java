@@ -21,13 +21,16 @@ import vis.constants.AgentIdentifier;
 import vis.dto.request.ClaimRequest;
 import vis.dto.request.PackageRecommendationRequest;
 import vis.dto.request.SubscribePackageRequest;
+import vis.dto.request.VehicleRegistrationRequest;
 import vis.ontology.VISOntology;
 import vis.ontology.actions.ClaimInsurance;
 import vis.ontology.actions.PackageRecommendation;
 import vis.ontology.actions.SubscribePackage;
+import vis.ontology.actions.VehicleRegistration;
 import vis.ontology.concepts.InsurancePackage;
 import vis.ontology.concepts.Subscription;
 import vis.ontology.concepts.User;
+import vis.ontology.concepts.Vehicle;
 import vis.ontology.predicates.*;
 import vis.services.schema.AgentOperationStatusSchema;
 
@@ -113,6 +116,21 @@ public class AdminAgent extends Agent {
 								new User(packageRequest.getUserId()),
 								new Vehicle(packageRequest.getVehicleId(), packageRequest.getUserId()));
 					}
+					if (request.getAction().equals("vehicle-registration")) {
+						VehicleRegistrationRequest vehicleRegistrationRequest = gson.fromJson(request.getContents(),
+								VehicleRegistrationRequest.class);
+						action = new VehicleRegistration(
+								new User("", vehicleRegistrationRequest.getUserEmail()),
+								new Vehicle(vehicleRegistrationRequest.getUserEmail(),
+										vehicleRegistrationRequest.getVehicleName(),
+										vehicleRegistrationRequest.getVehicleModel(),
+										vehicleRegistrationRequest.getVehicleType(),
+										vehicleRegistrationRequest.getLicenseNumber(),
+										vehicleRegistrationRequest.getVehicleRegistrationNumber(),
+										vehicleRegistrationRequest.getPurchaseDate(),
+										vehicleRegistrationRequest.getVehicleStatus(),
+										vehicleRegistrationRequest.getMileage()));
+					}
 					if (request.getAction().equals("get-package")) {
 						PackageRecommendationRequest packageRequest = gson.fromJson(request.getContents(),
 								PackageRecommendationRequest.class);
@@ -140,6 +158,9 @@ public class AdminAgent extends Agent {
 
 				if (contentElement instanceof SubscriptionSuccess) {
 					return gson.toJson(new AgentOperationStatusSchema(200, "Subscription successful."));
+				}
+				else if(contentElement instanceof VehicleRegistrationSuccess) {
+					return gson.toJson(new AgentOperationStatusSchema(200, "Vehicle registration successful."));
 				}
 				else if (contentElement instanceof Recommendation) {
 					Recommendation recommendation = (Recommendation) contentElement;

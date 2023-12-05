@@ -6,14 +6,10 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import vis.constants.AgentIdentifier;
 import vis.constants.DBOperation;
-import vis.services.schema.InsurancePackageSchema;
-import vis.services.schema.RecommendationRequestSchema;
-import vis.services.schema.SubscriptionSchema;
-import vis.services.schema.SubscriptionStatusSchema;
+import vis.services.schema.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CustomerAssistantServiceImpl implements CustomerAssistantService {
 
@@ -46,4 +42,22 @@ public class CustomerAssistantServiceImpl implements CustomerAssistantService {
 		return new SubscriptionStatusSchema(200, "Subscription successful");
 	}
 
+	@Override
+	public VehicleRegistrationStatusSchema registerVehicle(VehicleRegistrationSchema vehicleRegistrationSchema) throws IOException, UnreadableException {
+		DBOperation dbOperation = new DBOperation(DBOperation.Operation.REGISTER_VEHICLE, vehicleRegistrationSchema);
+
+		ACLMessage dbRequestMessage = new ACLMessage(ACLMessage.REQUEST);
+		dbRequestMessage.addReceiver(new AID(AgentIdentifier.DATABASE, AID.ISLOCALNAME));
+		dbRequestMessage.setContentObject(dbOperation);
+
+		this.agent.send(dbRequestMessage);
+
+		ACLMessage responseMessage = this.agent.blockingReceive();
+		DBTransactionStatusSchema statusSchema = (DBTransactionStatusSchema) responseMessage.getContentObject();
+
+		if (statusSchema.getStatus() == 200) {
+			return new VehicleRegistrationStatusSchema(200, "Vehicle Registration successful");
+		}
+		return new VehicleRegistrationStatusSchema(500, "Vehicle Registration unsuccessful");
+	}
 }

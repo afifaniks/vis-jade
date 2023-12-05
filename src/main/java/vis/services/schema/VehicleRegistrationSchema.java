@@ -1,31 +1,28 @@
-package vis.dto.request;
+package vis.services.schema;
 
-public class VehicleRegistrationRequest {
+import java.io.Serializable;
+
+public class VehicleRegistrationSchema implements Serializable {
 
     String userEmail;
-
     String vehicleName;
-
     String vehicleModel;
-
     String vehicleType;
-
-    String licenseNumber;
-
+    String licenseNumberPlate;
     String vehicleRegistrationNumber;
-
     String purchaseDate;
-
     String vehicleStatus;
+    float mileage;
 
-    Integer mileage;
+    public VehicleRegistrationSchema() {
+    }
 
-    public VehicleRegistrationRequest(String userEmail, String vehicleName, String vehicleModel, String vehicleType, String licenseNumber, String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus, Integer mileage) {
+    public VehicleRegistrationSchema(String userEmail, String vehicleName, String vehicleModel, String vehicleType, String licenseNumberPlate, String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus, float mileage) {
         this.userEmail = userEmail;
         this.vehicleName = vehicleName;
         this.vehicleModel = vehicleModel;
         this.vehicleType = vehicleType;
-        this.licenseNumber = licenseNumber;
+        this.licenseNumberPlate = licenseNumberPlate;
         this.vehicleRegistrationNumber = vehicleRegistrationNumber;
         this.purchaseDate = purchaseDate;
         this.vehicleStatus = vehicleStatus;
@@ -64,12 +61,12 @@ public class VehicleRegistrationRequest {
         this.vehicleType = vehicleType;
     }
 
-    public String getLicenseNumber() {
-        return licenseNumber;
+    public String getLicenseNumberPlate() {
+        return licenseNumberPlate;
     }
 
-    public void setLicenseNumber(String licenseNumber) {
-        this.licenseNumber = licenseNumber;
+    public void setLicenseNumberPlate(String licenseNumberPlate) {
+        this.licenseNumberPlate = licenseNumberPlate;
     }
 
     public String getVehicleRegistrationNumber() {
@@ -96,11 +93,12 @@ public class VehicleRegistrationRequest {
         this.vehicleStatus = vehicleStatus;
     }
 
-    public Integer getMileage() {
+    public float getMileage() {
         return mileage;
     }
 
-    public void setMileage(Integer mileage) {
+    public void setMileage(float mileage) {
         this.mileage = mileage;
     }
 }
+
