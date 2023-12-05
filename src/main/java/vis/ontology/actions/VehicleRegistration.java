@@ -1,10 +1,10 @@
 package vis.ontology.actions;
 
-import jade.content.onto.basic.Action;
+import jade.content.AgentAction;
 import vis.ontology.concepts.User;
 import vis.ontology.concepts.Vehicle;
 
-public class VehicleRegistration extends Action {
+public class VehicleRegistration implements AgentAction {
 
     private User user;
     private Vehicle vehicle;

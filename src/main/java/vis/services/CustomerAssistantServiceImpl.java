@@ -13,7 +13,6 @@ import vis.services.schema.SubscriptionStatusSchema;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CustomerAssistantServiceImpl implements CustomerAssistantService {
 

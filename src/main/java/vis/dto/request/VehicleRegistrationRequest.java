@@ -12,7 +12,7 @@ public class VehicleRegistrationRequest {
 
     String licenseNumber;
 
-    String vehicle_registration_number;
+    String vehicleRegistrationNumber;
 
     String purchaseDate;
 
@@ -20,13 +20,13 @@ public class VehicleRegistrationRequest {
 
     Integer mileage;
 
-    public VehicleRegistrationRequest(String userEmail, String vehicleName, String vehicleModel, String vehicleType, String licenseNumber, String vehicle_registration_number, String purchaseDate, String vehicleStatus, Integer mileage) {
+    public VehicleRegistrationRequest(String userEmail, String vehicleName, String vehicleModel, String vehicleType, String licenseNumber, String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus, Integer mileage) {
         this.userEmail = userEmail;
         this.vehicleName = vehicleName;
         this.vehicleModel = vehicleModel;
         this.vehicleType = vehicleType;
         this.licenseNumber = licenseNumber;
-        this.vehicle_registration_number = vehicle_registration_number;
+        this.vehicleRegistrationNumber = vehicleRegistrationNumber;
         this.purchaseDate = purchaseDate;
         this.vehicleStatus = vehicleStatus;
         this.mileage = mileage;
@@ -75,12 +75,12 @@ public class VehicleRegistrationRequest {
         this.licenseNumber = licenseNumber;
     }
 
-    public String getVehicle_registration_number() {
-        return vehicle_registration_number;
+    public String getVehicleRegistrationNumber() {
+        return vehicleRegistrationNumber;
     }
 
-    public void setVehicle_registration_number(String vehicle_registration_number) {
-        this.vehicle_registration_number = vehicle_registration_number;
+    public void setVehicleRegistrationNumber(String vehicleRegistrationNumber) {
+        this.vehicleRegistrationNumber = vehicleRegistrationNumber;
     }
 
     public String getPurchaseDate() {
