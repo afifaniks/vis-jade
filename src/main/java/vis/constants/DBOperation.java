@@ -6,7 +6,7 @@ public class DBOperation implements Serializable {
 
 	public enum Operation {
 
-		LOGIN, SIGNUP, GET_PACKAGES, SUBSCRIBE, CLAIM
+		LOGIN, SIGNUP, GET_PACKAGES, SUBSCRIBE, CLAIM, REGISTER_VEHICLE
 
 	}
 
