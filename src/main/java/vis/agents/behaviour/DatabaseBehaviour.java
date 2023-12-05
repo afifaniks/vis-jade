@@ -78,6 +78,17 @@ public class DatabaseBehaviour extends CyclicBehaviour {
                 respondSender(receivedMessage.getSender(), packages);
             }
 
+            if (operation.getOperation() == DBOperation.Operation.SUBSCRIBE) {
+                SubscriptionSchema subscriptionSchema = (SubscriptionSchema) operation.getAdditionalObject();
+                boolean subscriptionSuccess = this.databaseService.subscribe(subscriptionSchema);
+
+                if (subscriptionSuccess) {
+                    respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(200, "Successful"));
+                } else {
+                    respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(500, "Failed"));
+                }
+            }
+
         } catch (UnreadableException | IOException e) {
             throw new RuntimeException(e);
         }

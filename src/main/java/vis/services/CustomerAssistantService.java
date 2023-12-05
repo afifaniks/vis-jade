@@ -11,7 +11,7 @@ public interface CustomerAssistantService {
 	ArrayList<InsurancePackageSchema> getPackageRecommendation(RecommendationRequestSchema recommendationRequestSchema)
 			throws UnreadableException, IOException;
 
-	SubscriptionStatusSchema subscribePackage(SubscriptionSchema subscriptionSchema);
+	SubscriptionStatusSchema subscribePackage(SubscriptionSchema subscriptionSchema) throws IOException, UnreadableException;
 
 	VehicleRegistrationStatusSchema registerVehicle(VehicleRegistrationSchema vehicleRegistrationSchema) throws UnreadableException, IOException;
 

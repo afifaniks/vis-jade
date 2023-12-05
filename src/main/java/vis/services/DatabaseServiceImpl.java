@@ -13,10 +13,12 @@ import org.slf4j.LoggerFactory;
 import vis.agents.AuthenticationAgent;
 import vis.dto.request.VehicleRegistrationRequest;
 import vis.entity.InsurancePackageEntity;
+import vis.entity.SubscriptionEntity;
 import vis.entity.UserEntity;
 import vis.entity.VehicleEntity;
 import vis.services.schema.InsurancePackageSchema;
 import vis.services.schema.SignupRequestSchema;
+import vis.services.schema.SubscriptionSchema;
 import vis.services.schema.VehicleRegistrationSchema;
 
 import java.util.ArrayList;
@@ -85,9 +87,16 @@ public class DatabaseServiceImpl implements DatabaseService {
         return insurancePackageSchemas;
     }
 
-    @Override
-    public boolean subscribe(String userEmail, String vehicleId, String packageId) {
-        return false;
+    public boolean subscribe(SubscriptionSchema subscriptionSchema) {
+        SubscriptionEntity subscriptionEntity = gson.fromJson(gson.toJson(subscriptionSchema), SubscriptionEntity.class);
+        logger.info("Writing entity: " + subscriptionEntity);
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.persist(subscriptionEntity);
+        session.getTransaction().commit();
+        session.close();
+
+        return true;
     }
 
     private UserEntity getUser(String email) {

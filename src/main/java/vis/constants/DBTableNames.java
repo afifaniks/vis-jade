@@ -8,4 +8,6 @@ public class DBTableNames {
 
 	public static final String VEHICLE = "vehicle";
 
+	public static final String SUBSCRIPTION = "subscription";
+
 }

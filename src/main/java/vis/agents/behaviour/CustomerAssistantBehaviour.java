@@ -87,7 +87,7 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
     }
 
     private void subscribePackage(Action actionContent, ACLMessage responseMessage)
-            throws Codec.CodecException, OntologyException {
+            throws Codec.CodecException, OntologyException, UnreadableException, IOException {
         SubscribePackage subscribePackage = (SubscribePackage) actionContent.getAction();
         SubscriptionSchema subscriptionSchemaRequest = new SubscriptionSchema(subscribePackage.getUser().getUserId(),
                 subscribePackage.getVehicle().getVehicleId(), subscribePackage.getInsurancePackage().getPackageId());

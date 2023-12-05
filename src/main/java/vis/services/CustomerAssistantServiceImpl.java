@@ -37,9 +37,22 @@ public class CustomerAssistantServiceImpl implements CustomerAssistantService {
 	}
 
 	@Override
-	public SubscriptionStatusSchema subscribePackage(SubscriptionSchema subscriptionSchema) {
-		// TODO: Write to database
-		return new SubscriptionStatusSchema(200, "Subscription successful");
+	public SubscriptionStatusSchema subscribePackage(SubscriptionSchema subscriptionSchema) throws IOException, UnreadableException {
+		DBOperation dbOperation = new DBOperation(DBOperation.Operation.SUBSCRIBE, subscriptionSchema);
+
+		ACLMessage dbRequestMessage = new ACLMessage(ACLMessage.REQUEST);
+		dbRequestMessage.addReceiver(new AID(AgentIdentifier.DATABASE, AID.ISLOCALNAME));
+		dbRequestMessage.setContentObject(dbOperation);
+
+		this.agent.send(dbRequestMessage);
+
+		ACLMessage responseMessage = this.agent.blockingReceive();
+		DBTransactionStatusSchema statusSchema = (DBTransactionStatusSchema) responseMessage.getContentObject();
+
+		if (statusSchema.getStatus() == 200) {
+			return new SubscriptionStatusSchema(200, "Subscription successful");
+		}
+		return new SubscriptionStatusSchema(500, "Subscription unsuccessful");
 	}
 
 	@Override
