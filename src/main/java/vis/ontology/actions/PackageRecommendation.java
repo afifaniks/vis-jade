@@ -2,7 +2,7 @@ package vis.ontology.actions;
 
 import jade.content.AgentAction;
 import vis.ontology.concepts.User;
-import vis.ontology.predicates.Vehicle;
+import vis.ontology.concepts.Vehicle;
 
 public class PackageRecommendation implements AgentAction {
 

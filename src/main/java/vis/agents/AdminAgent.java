@@ -28,6 +28,7 @@ import vis.ontology.actions.SubscribePackage;
 import vis.ontology.concepts.InsurancePackage;
 import vis.ontology.concepts.Subscription;
 import vis.ontology.concepts.User;
+import vis.ontology.concepts.Vehicle;
 import vis.ontology.predicates.*;
 import vis.services.schema.AgentOperationStatusSchema;
 

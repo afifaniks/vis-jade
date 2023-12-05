@@ -1,4 +1,4 @@
-package vis.ontology.predicates;
+package vis.ontology.concepts;
 
 import jade.content.Concept;
 
