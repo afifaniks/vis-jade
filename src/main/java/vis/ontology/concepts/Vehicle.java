@@ -10,7 +10,7 @@ public class Vehicle implements Concept {
 	String vehicleModel;
 	String vehicleType;
 	String licenseNumber;
-	String vehicle_registration_number;
+	String vehicleRegistrationNumber;
 	String purchaseDate;
 	String vehicleStatus;
 	float mileage;
@@ -18,13 +18,13 @@ public class Vehicle implements Concept {
 	public Vehicle() {
 	}
 
-	public Vehicle(String userEmail, String vehicleName, String vehicleModel, String vehicleType, String licenseNumber, String vehicle_registration_number, String purchaseDate, String vehicleStatus, float mileage) {
+	public Vehicle(String userEmail, String vehicleName, String vehicleModel, String vehicleType, String licenseNumber, String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus, float mileage) {
 		this.userEmail = userEmail;
 		this.vehicleName = vehicleName;
 		this.vehicleModel = vehicleModel;
 		this.vehicleType = vehicleType;
 		this.licenseNumber = licenseNumber;
-		this.vehicle_registration_number = vehicle_registration_number;
+		this.vehicleRegistrationNumber = vehicleRegistrationNumber;
 		this.purchaseDate = purchaseDate;
 		this.vehicleStatus = vehicleStatus;
 		this.mileage = mileage;
@@ -83,12 +83,12 @@ public class Vehicle implements Concept {
 		this.licenseNumber = licenseNumber;
 	}
 
-	public String getVehicle_registration_number() {
-		return vehicle_registration_number;
+	public String getVehicleRegistrationNumber() {
+		return vehicleRegistrationNumber;
 	}
 
-	public void setVehicle_registration_number(String vehicle_registration_number) {
-		this.vehicle_registration_number = vehicle_registration_number;
+	public void setVehicleRegistrationNumber(String vehicle_registration_number) {
+		this.vehicleRegistrationNumber = vehicle_registration_number;
 	}
 
 	public String getPurchaseDate() {

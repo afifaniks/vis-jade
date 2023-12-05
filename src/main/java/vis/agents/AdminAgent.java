@@ -120,8 +120,8 @@ public class AdminAgent extends Agent {
 						VehicleRegistrationRequest vehicleRegistrationRequest = gson.fromJson(request.getContents(),
 								VehicleRegistrationRequest.class);
 						action = new VehicleRegistration(
-								new User(vehicleRegistrationRequest.getEmailId()),
-								new Vehicle(vehicleRegistrationRequest.getEmailId(),
+								new User("", vehicleRegistrationRequest.getUserEmail()),
+								new Vehicle(vehicleRegistrationRequest.getUserEmail(),
 										vehicleRegistrationRequest.getVehicleName(),
 										vehicleRegistrationRequest.getVehicleModel(),
 										vehicleRegistrationRequest.getVehicleType(),
@@ -158,6 +158,9 @@ public class AdminAgent extends Agent {
 
 				if (contentElement instanceof SubscriptionSuccess) {
 					return gson.toJson(new AgentOperationStatusSchema(200, "Subscription successful."));
+				}
+				else if(contentElement instanceof VehicleRegistrationSuccess) {
+					return gson.toJson(new AgentOperationStatusSchema(200, "Vehicle registration successful."));
 				}
 				else if (contentElement instanceof Recommendation) {
 					Recommendation recommendation = (Recommendation) contentElement;

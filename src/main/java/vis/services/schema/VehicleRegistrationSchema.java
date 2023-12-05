@@ -5,27 +5,27 @@ import java.io.Serializable;
 public class VehicleRegistrationSchema implements Serializable {
 
     String userEmail;
-    String vehicle_name;
-    String vehicle_model;
-    String vehicle_type;
-    String license_number_plate;
-    String vehicle_registration_number;
-    String purchase_date;
-    String vehicle_status;
+    String vehicleName;
+    String vehicleModel;
+    String vehicleType;
+    String licenseNumberPlate;
+    String vehicleRegistrationNumber;
+    String purchaseDate;
+    String vehicleStatus;
     float mileage;
 
     public VehicleRegistrationSchema() {
     }
 
-    public VehicleRegistrationSchema(String userEmail, String vehicle_name, String vehicle_model, String vehicle_type, String license_number_plate, String vehicle_registration_number, String purchase_date, String vehicle_status, float mileage) {
+    public VehicleRegistrationSchema(String userEmail, String vehicleName, String vehicleModel, String vehicleType, String licenseNumberPlate, String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus, float mileage) {
         this.userEmail = userEmail;
-        this.vehicle_name = vehicle_name;
-        this.vehicle_model = vehicle_model;
-        this.vehicle_type = vehicle_type;
-        this.license_number_plate = license_number_plate;
-        this.vehicle_registration_number = vehicle_registration_number;
-        this.purchase_date = purchase_date;
-        this.vehicle_status = vehicle_status;
+        this.vehicleName = vehicleName;
+        this.vehicleModel = vehicleModel;
+        this.vehicleType = vehicleType;
+        this.licenseNumberPlate = licenseNumberPlate;
+        this.vehicleRegistrationNumber = vehicleRegistrationNumber;
+        this.purchaseDate = purchaseDate;
+        this.vehicleStatus = vehicleStatus;
         this.mileage = mileage;
     }
 
@@ -37,60 +37,60 @@ public class VehicleRegistrationSchema implements Serializable {
         this.userEmail = userEmail;
     }
 
-    public String getVehicle_name() {
-        return vehicle_name;
+    public String getVehicleName() {
+        return vehicleName;
     }
 
-    public void setVehicle_name(String vehicle_name) {
-        this.vehicle_name = vehicle_name;
+    public void setVehicleName(String vehicleName) {
+        this.vehicleName = vehicleName;
     }
 
-    public String getVehicle_model() {
-        return vehicle_model;
+    public String getVehicleModel() {
+        return vehicleModel;
     }
 
-    public void setVehicle_model(String vehicle_model) {
-        this.vehicle_model = vehicle_model;
+    public void setVehicleModel(String vehicleModel) {
+        this.vehicleModel = vehicleModel;
     }
 
-    public String getVehicle_type() {
-        return vehicle_type;
+    public String getVehicleType() {
+        return vehicleType;
     }
 
-    public void setVehicle_type(String vehicle_type) {
-        this.vehicle_type = vehicle_type;
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
     }
 
-    public String getLicense_number_plate() {
-        return license_number_plate;
+    public String getLicenseNumberPlate() {
+        return licenseNumberPlate;
     }
 
-    public void setLicense_number_plate(String license_number_plate) {
-        this.license_number_plate = license_number_plate;
+    public void setLicenseNumberPlate(String licenseNumberPlate) {
+        this.licenseNumberPlate = licenseNumberPlate;
     }
 
-    public String getVehicle_registration_number() {
-        return vehicle_registration_number;
+    public String getVehicleRegistrationNumber() {
+        return vehicleRegistrationNumber;
     }
 
-    public void setVehicle_registration_number(String vehicle_registration_number) {
-        this.vehicle_registration_number = vehicle_registration_number;
+    public void setVehicleRegistrationNumber(String vehicleRegistrationNumber) {
+        this.vehicleRegistrationNumber = vehicleRegistrationNumber;
     }
 
-    public String getPurchase_date() {
-        return purchase_date;
+    public String getPurchaseDate() {
+        return purchaseDate;
     }
 
-    public void setPurchase_date(String purchase_date) {
-        this.purchase_date = purchase_date;
+    public void setPurchaseDate(String purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 
-    public String getVehicle_status() {
-        return vehicle_status;
+    public String getVehicleStatus() {
+        return vehicleStatus;
     }
 
-    public void setVehicle_status(String vehicle_status) {
-        this.vehicle_status = vehicle_status;
+    public void setVehicleStatus(String vehicleStatus) {
+        this.vehicleStatus = vehicleStatus;
     }
 
     public float getMileage() {

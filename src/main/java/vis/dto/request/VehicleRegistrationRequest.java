@@ -32,10 +32,7 @@ public class VehicleRegistrationRequest {
         this.mileage = mileage;
     }
 
-    public VehicleRegistrationRequest() {
-    }
-
-    public String getEmailId() {
+    public String getUserEmail() {
         return userEmail;
     }
 
@@ -106,5 +103,4 @@ public class VehicleRegistrationRequest {
     public void setMileage(Integer mileage) {
         this.mileage = mileage;
     }
-
 }
