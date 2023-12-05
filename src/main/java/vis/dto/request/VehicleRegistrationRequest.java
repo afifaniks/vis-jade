@@ -4,6 +4,8 @@ public class VehicleRegistrationRequest {
 
 	String userId;
 
+	String vehicleId;
+
 	String vehicleName;
 
 	String vehicleModel;
@@ -20,8 +22,9 @@ public class VehicleRegistrationRequest {
 
 	Integer mileage;
 
-	public VehicleRegistrationRequest(String userId, String vehicleName, String vehicleModel, String vehicleType, String licenseNumber, String registrationNumber, String purchaseDate, String vehicleStatus, Integer mileage) {
+	public VehicleRegistrationRequest(String userId, String vehicleId, String vehicleName, String vehicleModel, String vehicleType, String licenseNumber, String registrationNumber, String purchaseDate, String vehicleStatus, Integer mileage) {
 		this.userId = userId;
+		this.vehicleId = vehicleId;
 		this.vehicleName = vehicleName;
 		this.vehicleModel = vehicleModel;
 		this.vehicleType = vehicleType;
@@ -41,6 +44,14 @@ public class VehicleRegistrationRequest {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getVehicleId() {
+		return vehicleId;
+	}
+
+	public void setVehicleId(String vehicleId) {
+		this.vehicleId = vehicleId;
 	}
 
 	public String getVehicleName() {
@@ -106,4 +117,5 @@ public class VehicleRegistrationRequest {
 	public void setMileage(Integer mileage) {
 		this.mileage = mileage;
 	}
+
 }

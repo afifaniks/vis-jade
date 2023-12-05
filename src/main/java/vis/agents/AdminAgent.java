@@ -21,10 +21,12 @@ import vis.constants.AgentIdentifier;
 import vis.dto.request.ClaimRequest;
 import vis.dto.request.PackageRecommendationRequest;
 import vis.dto.request.SubscribePackageRequest;
+import vis.dto.request.VehicleRegistrationRequest;
 import vis.ontology.VISOntology;
 import vis.ontology.actions.ClaimInsurance;
 import vis.ontology.actions.PackageRecommendation;
 import vis.ontology.actions.SubscribePackage;
+import vis.ontology.actions.VehicleRegistration;
 import vis.ontology.concepts.InsurancePackage;
 import vis.ontology.concepts.Subscription;
 import vis.ontology.concepts.User;
@@ -113,6 +115,13 @@ public class AdminAgent extends Agent {
 						action = new SubscribePackage(new InsurancePackage(packageRequest.getPackageId()),
 								new User(packageRequest.getUserId()),
 								new Vehicle(packageRequest.getVehicleId(), packageRequest.getUserId()));
+					}
+					if (request.getAction().equals("vehicle-registration")) {
+						VehicleRegistrationRequest vehicleRegistrationRequest = gson.fromJson(request.getContents(),
+								VehicleRegistrationRequest.class);
+						action = new VehicleRegistration(
+								new User(vehicleRegistrationRequest.getUserId()),
+								new Vehicle(vehicleRegistrationRequest.getVehicleId(), vehicleRegistrationRequest.getUserId()));
 					}
 					if (request.getAction().equals("get-package")) {
 						PackageRecommendationRequest packageRequest = gson.fromJson(request.getContents(),

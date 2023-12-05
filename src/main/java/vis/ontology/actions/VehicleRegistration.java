@@ -1,34 +1,35 @@
 package vis.ontology.actions;
 
 import jade.content.onto.basic.Action;
+import vis.ontology.concepts.User;
+import vis.ontology.concepts.Vehicle;
 
 public class VehicleRegistration extends Action {
 
-    private int status;
+    private User user;
+    private Vehicle vehicle;
 
-    private String message;
-
-    public VehicleRegistration(int status, String message) {
-        this.status = status;
-        this.message = message;
+    public VehicleRegistration(User user, Vehicle vehicle) {
+        this.user = user;
+        this.vehicle = vehicle;
     }
 
     public VehicleRegistration() {
     }
 
-    public int getStatus() {
-        return status;
+    public User getUser() {
+        return user;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getMessage() {
-        return message;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 }
