@@ -64,7 +64,7 @@ function Signup() {
         event.preventDefault();
 
 
-        const url = `${API_URL}/signup/`;
+        const url = `${API_URL}/signup`;
         fetch(url, {
             method: 'POST',
             headers: {
@@ -79,8 +79,8 @@ function Signup() {
                 'dob': dob,
                 'height': height,
                 'gender': gender,
-                'eyecolor': eyecolor,
-                'bloodgroup': bloodgroup
+                'eyeColor': eyecolor,
+                'bloodGroup': bloodgroup
             })
         })
         .then(resp => {

@@ -20,25 +20,27 @@ function Login(props) {
     //  } )
 
     const handleResponse = async (res) => {
-        if(!res.token){
-            setMassage(res.non_field_errors[0]);
-        }
-        else {
+         if(!res.accessToken){
+             setMassage("res.non_field_errors[0]");
+         }
+         else {
             setMassage('');
             dispatch({
                 type: 'SET_USER',
-                token: res.token
+                token: res.accessToken,
+                refreshToken: res.refreshToken
             });
-            localStorage.setItem('token', res.token);
+            localStorage.setItem('token', res.accessToken);
             let user = null;
-            user = await GetUser({...state, token: res.token});
-            user.role == 'company' ? history.push("/dashboard") : history.push("/");
+           // user = await GetUser({...state, token: res.token});
+           // user.role == 'company' ? history.push("/dashboard") : history.push("/");
+           history("/dashboard")
         }
     }
     
     const signIn = (event, email, password) => {
         event.preventDefault();
-        const url = `${API_URL}/auth/`;
+        const url = `${API_URL}/login`;
         fetch(url, {
             method: 'POST',
             headers: {
