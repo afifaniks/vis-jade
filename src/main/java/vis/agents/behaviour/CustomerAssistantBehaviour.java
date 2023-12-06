@@ -15,14 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vis.agents.AuthenticationAgent;
 import vis.ontology.VISOntology;
+import vis.ontology.actions.GetUser;
 import vis.ontology.actions.PackageRecommendation;
 import vis.ontology.actions.SubscribePackage;
 import vis.ontology.actions.VehicleRegistration;
 import vis.ontology.concepts.InsurancePackage;
-import vis.ontology.predicates.Recommendation;
-import vis.ontology.predicates.SystemError;
-import vis.ontology.predicates.SubscriptionSuccess;
-import vis.ontology.predicates.VehicleRegistrationSuccess;
+import vis.ontology.predicates.*;
 import vis.services.CustomerAssistantService;
 import vis.services.CustomerAssistantServiceImpl;
 import vis.services.schema.*;
@@ -77,6 +75,10 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 
                 if (actionContent.getAction() instanceof VehicleRegistration) {
                     registerVehicle(actionContent, responseMessage);
+                }
+
+                if (actionContent.getAction() instanceof GetUser) {
+                    getUser(actionContent, responseMessage);
                 }
             }
         } catch (Exception e) {
@@ -143,5 +145,22 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
         myAgent.send(responseMessage);
     }
 
+    private void getUser(Action actionContent, ACLMessage responseMessage) throws OntologyException, Codec.CodecException, UnreadableException, IOException {
+        GetUser getUser = (GetUser) actionContent.getAction();
+        GetUserRequestSchema getUserRequestSchema = new GetUserRequestSchema(getUser.getUser().getUserId(), getUser.getUser().getEmail(), getUser.getUser().getName(), getUser.getUser().getPhone(), getUser.getUser().getAddress(), getUser.getUser().getDob(), getUser.getUser().getHeight(), getUser.getUser().getGender(), getUser.getUser().getEyeColor(), getUser.getUser().getBloodGroup());
+
+        GetUserStatusSchema getUserStatusSchema = customerAssistantService.getUser(getUserRequestSchema);
+
+        if (getUserStatusSchema.getStatus() == 200) {
+            myAgent.getContentManager().fillContent(responseMessage, new GetUserSuccess(getUser.getUser()));
+            logger.info("User Retrieved: " + getUser.getUser());
+        } else {
+            SystemError systemError = new SystemError(500, "User Retrieval error");
+            myAgent.getContentManager().fillContent(responseMessage, systemError);
+            logger.error("Could not retrieve the user");
+        }
+
+        myAgent.send(responseMessage);
+    }
 
 }

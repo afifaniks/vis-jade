@@ -16,10 +16,7 @@ import vis.entity.InsurancePackageEntity;
 import vis.entity.SubscriptionEntity;
 import vis.entity.UserEntity;
 import vis.entity.VehicleEntity;
-import vis.services.schema.InsurancePackageSchema;
-import vis.services.schema.SignupRequestSchema;
-import vis.services.schema.SubscriptionSchema;
-import vis.services.schema.VehicleRegistrationSchema;
+import vis.services.schema.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,6 +118,19 @@ public class DatabaseServiceImpl implements DatabaseService {
         session.close();
 
         return true;
+    }
+
+    public GetUserRequestSchema getUserRequest(String userId) {
+        Session session = sessionFactory.openSession();
+        String hql = "FROM UserEntity" + " WHERE id = " + "'" + userId + "'";
+        Query query = session.createQuery(hql);
+        List<UserEntity> userEntities = query.list();
+
+        if (!userEntities.isEmpty()) {
+            return gson.fromJson(gson.toJson(userEntities.get(0)), GetUserRequestSchema.class);
+        }
+
+        return null;
     }
 
 }

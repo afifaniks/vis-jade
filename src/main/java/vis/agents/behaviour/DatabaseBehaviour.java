@@ -75,6 +75,13 @@ public class DatabaseBehaviour extends CyclicBehaviour {
                 respondSender(receivedMessage.getSender(), packages);
             }
 
+            if (operation.getOperation() == DBOperation.Operation.GET_USER) {
+                GetUserRequestSchema getUserRequestSchema = (GetUserRequestSchema) operation.getAdditionalObject();
+                GetUserRequestSchema user = this.databaseService.getUserRequest(getUserRequestSchema.getUserId());
+
+                respondSender(receivedMessage.getSender(), user);
+            }
+
             if (operation.getOperation() == DBOperation.Operation.SUBSCRIBE) {
                 SubscriptionSchema subscriptionSchema = (SubscriptionSchema) operation.getAdditionalObject();
                 boolean subscriptionSuccess = this.databaseService.subscribe(subscriptionSchema);
