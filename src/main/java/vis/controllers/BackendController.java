@@ -118,4 +118,17 @@ public class BackendController {
 		}
 	}
 
+	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
+	@PostMapping("/get-user")
+	public StatusResponse getUser(@RequestBody UserRequest userRequest) {
+		try {
+			// TODO: Complete this method
+			System.out.print(userRequest);
+			return null;
+		}
+		catch (Exception e) {
+			return new StatusResponse(500, "User retrieval failed");
+		}
+	}
+
 }
