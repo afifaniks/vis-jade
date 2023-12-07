@@ -1,25 +1,27 @@
 package vis.services.schema;
 
-public class SubscriptionRequestSchema {
+import java.io.Serializable;
 
-	private String userId;
+public class SubscriptionRequestSchema implements Serializable {
+
+	private String userEmail;
 
 	private String vehicleId;
 
 	private String packageId;
 
-	public SubscriptionRequestSchema(String userId, String vehicleId, String packageId) {
-		this.userId = userId;
+	public SubscriptionRequestSchema(String userEmail, String vehicleId, String packageId) {
+		this.userEmail = userEmail;
 		this.vehicleId = vehicleId;
 		this.packageId = packageId;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	public String getVehicleId() {

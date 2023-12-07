@@ -2,25 +2,25 @@ package vis.dto.request;
 
 public class ClaimRequest {
 
-	String userId;
+	String userEmail;
 
 	String subscriptionId;
 
-	public ClaimRequest(String userId, String subscriptionId) {
-		this.userId = userId;
+	public ClaimRequest(String userEmail, String subscriptionId) {
+		this.userEmail = userEmail;
 		this.subscriptionId = subscriptionId;
 	}
 
-	public ClaimRequest(String userId) {
-		this.userId = userId;
+	public ClaimRequest(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	public String getSubscriptionId() {

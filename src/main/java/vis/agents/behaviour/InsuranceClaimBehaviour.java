@@ -23,7 +23,7 @@ import vis.services.schema.InsuranceClaimStatusSchema;
 
 public class InsuranceClaimBehaviour extends SimpleBehaviour {
 
-	private final InsuranceClaimService insuranceClaimService = new InsuranceClaimServiceImpl();
+	private final InsuranceClaimService insuranceClaimService;
 
 	private final Codec codec = new SLCodec();
 
@@ -36,6 +36,7 @@ public class InsuranceClaimBehaviour extends SimpleBehaviour {
 
 	public InsuranceClaimBehaviour(Agent agent) {
 		super(agent);
+		insuranceClaimService = new InsuranceClaimServiceImpl(agent);
 	}
 
 	@Override

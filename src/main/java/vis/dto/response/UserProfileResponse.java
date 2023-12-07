@@ -31,9 +31,9 @@ public class UserProfileResponse {
 
 	ArrayList<InsurancePackageSchema> subscribedPackages = new ArrayList<>();
 
-	public UserProfileResponse(String id, String email, String name, String phone, String address, String dob, Double height,
-							   String gender, String eyeColor, String bloodGroup, ArrayList<VehicleSchema> vehicles,
-							   ArrayList<InsurancePackageSchema> subscribedPackages) {
+	public UserProfileResponse(String id, String email, String name, String phone, String address, String dob,
+			Double height, String gender, String eyeColor, String bloodGroup, ArrayList<VehicleSchema> vehicles,
+			ArrayList<InsurancePackageSchema> subscribedPackages) {
 		this.id = id;
 		this.email = email;
 		this.name = name;

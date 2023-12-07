@@ -2,24 +2,24 @@ package vis.services.schema;
 
 public class ClaimRequestSchema {
 
-	String userId;
+	String userEmail;
 
 	String subscriptionId;
 
-	public ClaimRequestSchema(String userId, String subscriptionId) {
-		this.userId = userId;
+	public ClaimRequestSchema(String userEmail, String subscriptionId) {
+		this.userEmail = userEmail;
 		this.subscriptionId = subscriptionId;
 	}
 
 	public ClaimRequestSchema() {
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	public String getSubscriptionId() {

@@ -18,7 +18,9 @@ import vis.entity.VehicleEntity;
 import vis.services.schema.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class DatabaseServiceImpl implements DatabaseService {
 
@@ -84,8 +86,8 @@ public class DatabaseServiceImpl implements DatabaseService {
 	}
 
 	public boolean subscribe(SubscriptionRequestSchema subscriptionRequestSchema) {
-		SubscriptionEntity subscriptionEntity = gson.fromJson(gson.toJson(subscriptionRequestSchema),
-				SubscriptionEntity.class);
+		SubscriptionEntity subscriptionEntity = new SubscriptionEntity(subscriptionRequestSchema.getUserEmail(),
+				subscriptionRequestSchema.getVehicleId(), subscriptionRequestSchema.getPackageId(), new Date());
 		logger.info("Writing entity: " + subscriptionEntity);
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -145,7 +147,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 		}
 
 		// Get Subscriptions
-		hql = "FROM SubscriptionEntity" + " WHERE userId = " + "'" + user.getId() + "'";
+		hql = "FROM SubscriptionEntity" + " WHERE userEmail = " + "'" + user.getEmail() + "'";
 		query = session.createQuery(hql);
 		List<SubscriptionEntity> subscriptionEntities = query.list();
 		ArrayList<InsurancePackageSchema> insurancePackageSchemas = new ArrayList<>();
@@ -154,12 +156,21 @@ public class DatabaseServiceImpl implements DatabaseService {
 			hql = "FROM InsurancePackageEntity" + " WHERE id = " + "'" + subscription.getPackageId() + "'";
 			query = session.createQuery(hql);
 			InsurancePackageEntity insurancePackage = (InsurancePackageEntity) query.list().get(0);
-			insurancePackageSchemas.add(gson.fromJson(gson.toJson(insurancePackage), InsurancePackageSchema.class));
+			InsurancePackageSchema packageSchema = gson.fromJson(gson.toJson(insurancePackage),
+					InsurancePackageSchema.class);
+			packageSchema.setPackageId(insurancePackage.getId());
+			insurancePackageSchemas.add(packageSchema);
 		}
 
 		return new UserProfileSchema(user.getId().toString(), user.getEmail(), user.getName(), user.getPhone(),
 				user.getAddress(), user.getDob(), user.getHeight(), user.getGender(), user.getEyeColor(),
 				user.getBloodGroup(), vehicles, insurancePackageSchemas);
+	}
+
+	@Override
+	public boolean claimInsurance(ClaimRequestSchema claimRequestSchema) {
+		// TODO
+		return false;
 	}
 
 }

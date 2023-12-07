@@ -18,4 +18,6 @@ public interface DatabaseService {
 
 	UserProfileSchema getUserRequest(String email);
 
+	boolean claimInsurance(ClaimRequestSchema claimRequestSchema);
+
 }
