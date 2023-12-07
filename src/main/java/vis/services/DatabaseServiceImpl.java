@@ -20,7 +20,6 @@ import vis.services.schema.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 public class DatabaseServiceImpl implements DatabaseService {
 
@@ -150,21 +149,23 @@ public class DatabaseServiceImpl implements DatabaseService {
 		hql = "FROM SubscriptionEntity" + " WHERE userEmail = " + "'" + user.getEmail() + "'";
 		query = session.createQuery(hql);
 		List<SubscriptionEntity> subscriptionEntities = query.list();
-		ArrayList<InsurancePackageSchema> insurancePackageSchemas = new ArrayList<>();
+		ArrayList<SubscribedPackageSchema> subscribedPackages = new ArrayList<>();
 
 		for (SubscriptionEntity subscription : subscriptionEntities) {
 			hql = "FROM InsurancePackageEntity" + " WHERE id = " + "'" + subscription.getPackageId() + "'";
 			query = session.createQuery(hql);
 			InsurancePackageEntity insurancePackage = (InsurancePackageEntity) query.list().get(0);
-			InsurancePackageSchema packageSchema = gson.fromJson(gson.toJson(insurancePackage),
-					InsurancePackageSchema.class);
+			SubscribedPackageSchema packageSchema = gson.fromJson(gson.toJson(insurancePackage),
+					SubscribedPackageSchema.class);
 			packageSchema.setPackageId(insurancePackage.getId());
-			insurancePackageSchemas.add(packageSchema);
+			packageSchema.setSubscribedOn(subscription.getSubscribedOn());
+			packageSchema.setClaimedOn(subscription.getClaimedOn());
+			subscribedPackages.add(packageSchema);
 		}
 
 		return new UserProfileSchema(user.getId().toString(), user.getEmail(), user.getName(), user.getPhone(),
 				user.getAddress(), user.getDob(), user.getHeight(), user.getGender(), user.getEyeColor(),
-				user.getBloodGroup(), vehicles, insurancePackageSchemas);
+				user.getBloodGroup(), vehicles, subscribedPackages);
 	}
 
 	@Override
