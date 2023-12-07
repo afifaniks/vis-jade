@@ -18,5 +18,6 @@
         <mapping class="vis.entity.UserEntity"/>
         <mapping class="vis.entity.InsurancePackageEntity"/>
         <mapping class="vis.entity.VehicleEntity"/>
+        <mapping class="vis.entity.SubscriptionEntity" />
     </session-factory>
 </hibernate-configuration>

@@ -18,15 +18,9 @@ import jade.lang.acl.UnreadableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vis.constants.AgentIdentifier;
-import vis.dto.request.ClaimRequest;
-import vis.dto.request.PackageRecommendationRequest;
-import vis.dto.request.SubscribePackageRequest;
-import vis.dto.request.VehicleRegistrationRequest;
+import vis.dto.request.*;
 import vis.ontology.VISOntology;
-import vis.ontology.actions.ClaimInsurance;
-import vis.ontology.actions.PackageRecommendation;
-import vis.ontology.actions.SubscribePackage;
-import vis.ontology.actions.VehicleRegistration;
+import vis.ontology.actions.*;
 import vis.ontology.concepts.InsurancePackage;
 import vis.ontology.concepts.Subscription;
 import vis.ontology.concepts.User;
@@ -119,8 +113,7 @@ public class AdminAgent extends Agent {
 					if (request.getAction().equals("vehicle-registration")) {
 						VehicleRegistrationRequest vehicleRegistrationRequest = gson.fromJson(request.getContents(),
 								VehicleRegistrationRequest.class);
-						action = new VehicleRegistration(
-								new User("", vehicleRegistrationRequest.getUserEmail()),
+						action = new VehicleRegistration(new User("", vehicleRegistrationRequest.getUserEmail()),
 								new Vehicle(vehicleRegistrationRequest.getUserEmail(),
 										vehicleRegistrationRequest.getVehicleName(),
 										vehicleRegistrationRequest.getVehicleModel(),
@@ -138,6 +131,13 @@ public class AdminAgent extends Agent {
 						user.setEmail(packageRequest.getUserEmail());
 						action = new PackageRecommendation(user,
 								new Vehicle(packageRequest.getVehicleId(), packageRequest.getUserEmail()));
+					}
+
+					if (request.getAction().equals("get-user")) {
+						UserRequest userRequest = gson.fromJson(request.getContents(), UserRequest.class);
+						User user = new User();
+						user.setEmail(userRequest.getEmail());
+						action = new GetUser(user);
 					}
 
 					myAgent.getContentManager()
@@ -159,7 +159,7 @@ public class AdminAgent extends Agent {
 				if (contentElement instanceof SubscriptionSuccess) {
 					return gson.toJson(new AgentOperationStatusSchema(200, "Subscription successful."));
 				}
-				else if(contentElement instanceof VehicleRegistrationSuccess) {
+				else if (contentElement instanceof VehicleRegistrationSuccess) {
 					return gson.toJson(new AgentOperationStatusSchema(200, "Vehicle registration successful."));
 				}
 				else if (contentElement instanceof Recommendation) {
@@ -176,11 +176,18 @@ public class AdminAgent extends Agent {
 					return gson
 						.toJson(new AgentOperationStatusSchema(signupSuccess.getStatus(), signupSuccess.getMessage()));
 				}
-				else if (contentElement instanceof LoginSuccess loginSuccess) {
+				else if (contentElement instanceof LoginSuccess) {
+					LoginSuccess loginSuccess = (LoginSuccess) contentElement;
 					return gson.toJson(new AgentOperationStatusSchema(200, gson.toJson(loginSuccess)));
 				}
+				else if (contentElement instanceof GetUserSuccess) {
+					GetUserSuccess getUserSuccess = (GetUserSuccess) contentElement;
+					return gson.toJson(new AgentOperationStatusSchema(200, gson.toJson(getUserSuccess.getUser())));
+				}
 				else if (contentElement instanceof SystemError) {
-					return gson.toJson(new AgentOperationStatusSchema(500, "Request failed"));
+					SystemError systemError = (SystemError) contentElement;
+					return gson
+						.toJson(new AgentOperationStatusSchema(systemError.getStatus(), systemError.getMessage()));
 				}
 
 				return null;

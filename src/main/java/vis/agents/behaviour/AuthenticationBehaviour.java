@@ -20,6 +20,7 @@ import vis.dto.response.TokenResponse;
 import vis.ontology.VISOntology;
 import vis.ontology.predicates.LoginSuccess;
 import vis.ontology.predicates.SignupSuccess;
+import vis.ontology.predicates.SystemError;
 import vis.services.AuthenticationService;
 import vis.services.JwtAuthenticationService;
 import vis.services.schema.SignupRequestSchema;
@@ -73,6 +74,10 @@ public class AuthenticationBehaviour extends CyclicBehaviour {
 				if (response.getStatus() == 200) {
 					myAgent.getContentManager()
 						.fillContent(responseMessage, new SignupSuccess(response.getStatus(), response.getMessage()));
+				}
+				else {
+					myAgent.getContentManager()
+						.fillContent(responseMessage, new SystemError(response.getStatus(), response.getMessage()));
 				}
 			}
 

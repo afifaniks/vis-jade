@@ -4,101 +4,111 @@ import java.io.Serializable;
 
 public class VehicleRegistrationSchema implements Serializable {
 
-    String userEmail;
-    String vehicleName;
-    String vehicleModel;
-    String vehicleType;
-    String licenseNumberPlate;
-    String vehicleRegistrationNumber;
-    String purchaseDate;
-    String vehicleStatus;
-    float mileage;
+	String userEmail;
 
-    public VehicleRegistrationSchema() {
-    }
+	String vehicleName;
 
-    public VehicleRegistrationSchema(String userEmail, String vehicleName, String vehicleModel, String vehicleType, String licenseNumberPlate, String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus, float mileage) {
-        this.userEmail = userEmail;
-        this.vehicleName = vehicleName;
-        this.vehicleModel = vehicleModel;
-        this.vehicleType = vehicleType;
-        this.licenseNumberPlate = licenseNumberPlate;
-        this.vehicleRegistrationNumber = vehicleRegistrationNumber;
-        this.purchaseDate = purchaseDate;
-        this.vehicleStatus = vehicleStatus;
-        this.mileage = mileage;
-    }
+	String vehicleModel;
 
-    public String getUserEmail() {
-        return userEmail;
-    }
+	String vehicleType;
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
+	String licenseNumberPlate;
 
-    public String getVehicleName() {
-        return vehicleName;
-    }
+	String vehicleRegistrationNumber;
 
-    public void setVehicleName(String vehicleName) {
-        this.vehicleName = vehicleName;
-    }
+	String purchaseDate;
 
-    public String getVehicleModel() {
-        return vehicleModel;
-    }
+	String vehicleStatus;
 
-    public void setVehicleModel(String vehicleModel) {
-        this.vehicleModel = vehicleModel;
-    }
+	float mileage;
 
-    public String getVehicleType() {
-        return vehicleType;
-    }
+	public VehicleRegistrationSchema() {
+	}
 
-    public void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
-    }
+	public VehicleRegistrationSchema(String userEmail, String vehicleName, String vehicleModel, String vehicleType,
+			String licenseNumberPlate, String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus,
+			float mileage) {
+		this.userEmail = userEmail;
+		this.vehicleName = vehicleName;
+		this.vehicleModel = vehicleModel;
+		this.vehicleType = vehicleType;
+		this.licenseNumberPlate = licenseNumberPlate;
+		this.vehicleRegistrationNumber = vehicleRegistrationNumber;
+		this.purchaseDate = purchaseDate;
+		this.vehicleStatus = vehicleStatus;
+		this.mileage = mileage;
+	}
 
-    public String getLicenseNumberPlate() {
-        return licenseNumberPlate;
-    }
+	public String getUserEmail() {
+		return userEmail;
+	}
 
-    public void setLicenseNumberPlate(String licenseNumberPlate) {
-        this.licenseNumberPlate = licenseNumberPlate;
-    }
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
 
-    public String getVehicleRegistrationNumber() {
-        return vehicleRegistrationNumber;
-    }
+	public String getVehicleName() {
+		return vehicleName;
+	}
 
-    public void setVehicleRegistrationNumber(String vehicleRegistrationNumber) {
-        this.vehicleRegistrationNumber = vehicleRegistrationNumber;
-    }
+	public void setVehicleName(String vehicleName) {
+		this.vehicleName = vehicleName;
+	}
 
-    public String getPurchaseDate() {
-        return purchaseDate;
-    }
+	public String getVehicleModel() {
+		return vehicleModel;
+	}
 
-    public void setPurchaseDate(String purchaseDate) {
-        this.purchaseDate = purchaseDate;
-    }
+	public void setVehicleModel(String vehicleModel) {
+		this.vehicleModel = vehicleModel;
+	}
 
-    public String getVehicleStatus() {
-        return vehicleStatus;
-    }
+	public String getVehicleType() {
+		return vehicleType;
+	}
 
-    public void setVehicleStatus(String vehicleStatus) {
-        this.vehicleStatus = vehicleStatus;
-    }
+	public void setVehicleType(String vehicleType) {
+		this.vehicleType = vehicleType;
+	}
 
-    public float getMileage() {
-        return mileage;
-    }
+	public String getLicenseNumberPlate() {
+		return licenseNumberPlate;
+	}
 
-    public void setMileage(float mileage) {
-        this.mileage = mileage;
-    }
+	public void setLicenseNumberPlate(String licenseNumberPlate) {
+		this.licenseNumberPlate = licenseNumberPlate;
+	}
+
+	public String getVehicleRegistrationNumber() {
+		return vehicleRegistrationNumber;
+	}
+
+	public void setVehicleRegistrationNumber(String vehicleRegistrationNumber) {
+		this.vehicleRegistrationNumber = vehicleRegistrationNumber;
+	}
+
+	public String getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	public void setPurchaseDate(String purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
+
+	public String getVehicleStatus() {
+		return vehicleStatus;
+	}
+
+	public void setVehicleStatus(String vehicleStatus) {
+		this.vehicleStatus = vehicleStatus;
+	}
+
+	public float getMileage() {
+		return mileage;
+	}
+
+	public void setMileage(float mileage) {
+		this.mileage = mileage;
+	}
+
 }
-

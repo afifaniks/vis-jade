@@ -6,16 +6,16 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jade.wrapper.ControllerException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import vis.agents.AgentActionIdentifier;
 import vis.constants.AgentIdentifier;
 import vis.dto.request.*;
-import vis.dto.response.PackageRecommendationResponse;
-import vis.dto.response.StatusResponse;
-import vis.dto.response.TokenResponse;
-import vis.dto.response.VehicleRegistrationResponse;
+import vis.dto.response.*;
 import vis.services.AgentGatewayService;
 import vis.services.schema.AgentOperationStatusSchema;
 
@@ -42,6 +42,10 @@ public class BackendController {
 		AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
 				AgentOperationStatusSchema.class);
 
+		if (operationStatus.getStatus() != 200) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 		return gson.fromJson(operationStatus.getMessage(), TokenResponse.class);
 	}
 
@@ -52,6 +56,11 @@ public class BackendController {
 
 		AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
 				AgentOperationStatusSchema.class);
+
+		if (operationStatus.getStatus() != 200) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 		return new StatusResponse(operationStatus.getStatus(), operationStatus.getMessage());
 	}
 
@@ -59,11 +68,16 @@ public class BackendController {
 	@PostMapping("/register-vehicle")
 	public VehicleRegistrationResponse registerVehicle(
 			@RequestBody VehicleRegistrationRequest vehicleRegistrationRequest) {
-		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "vehicle-registration",
-				gson.toJson(vehicleRegistrationRequest));
+		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT,
+				"vehicle-registration", gson.toJson(vehicleRegistrationRequest));
 
 		AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
 				AgentOperationStatusSchema.class);
+
+		if (operationStatus.getStatus() != 200) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 		return new VehicleRegistrationResponse(operationStatus.getStatus(), operationStatus.getMessage());
 	}
 
@@ -99,7 +113,7 @@ public class BackendController {
 			return new StatusResponse(operationStatus.getStatus(), operationStatus.getMessage());
 		}
 		catch (Exception e) {
-			return new StatusResponse(500, "Subscription failed");
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -114,8 +128,24 @@ public class BackendController {
 			return new StatusResponse(operationStatus.getStatus(), operationStatus.getMessage());
 		}
 		catch (Exception e) {
-			return new StatusResponse(500, "Insurance claim failed");
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
+	@PostMapping("/get-user")
+	public UserProfileResponse getUser(@RequestBody UserRequest userRequest) {
+		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "get-user",
+				gson.toJson(userRequest));
+
+		AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
+				AgentOperationStatusSchema.class);
+
+		if (operationStatus.getStatus() != 200) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+
+		return gson.fromJson(operationStatus.getMessage(), UserProfileResponse.class);
 	}
 
 }

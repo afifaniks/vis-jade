@@ -1,37 +1,40 @@
 package vis.ontology.predicates;
+
 import jade.content.Predicate;
 
-public class VehicleRegistrationSuccess implements Predicate{
-    String userId;
-    String vehicleId;
+public class VehicleRegistrationSuccess implements Predicate {
 
-    public VehicleRegistrationSuccess(String userId, String vehicleId) {
-        this.userId = userId;
-        this.vehicleId = vehicleId;
-    }
+	String userId;
 
-    public VehicleRegistrationSuccess() {
-    }
+	String vehicleId;
 
-    public String getUserId() {
-        return userId;
-    }
+	public VehicleRegistrationSuccess(String userId, String vehicleId) {
+		this.userId = userId;
+		this.vehicleId = vehicleId;
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public VehicleRegistrationSuccess() {
+	}
 
-    public void setVehicleId(String vehicleId) {
-        this.vehicleId = vehicleId;
-    }
+	public String getUserId() {
+		return userId;
+	}
 
-    public String getVehicleId() {
-        return vehicleId;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    @Override
-    public String toString() {
-        return "VehicleRegistrationSuccess [userId=" + userId + ", vehicleId=" + vehicleId + "]";
-    }
+	public void setVehicleId(String vehicleId) {
+		this.vehicleId = vehicleId;
+	}
+
+	public String getVehicleId() {
+		return vehicleId;
+	}
+
+	@Override
+	public String toString() {
+		return "VehicleRegistrationSuccess [userId=" + userId + ", vehicleId=" + vehicleId + "]";
+	}
 
 }

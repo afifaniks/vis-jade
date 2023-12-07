@@ -1,9 +1,6 @@
 package vis.services;
 
-import vis.dto.request.VehicleRegistrationRequest;
-import vis.services.schema.InsurancePackageSchema;
-import vis.services.schema.SignupRequestSchema;
-import vis.services.schema.VehicleRegistrationSchema;
+import vis.services.schema.*;
 
 import java.util.ArrayList;
 
@@ -15,8 +12,10 @@ public interface DatabaseService {
 
 	ArrayList<InsurancePackageSchema> getPackages(String userEmail, String vehicleId);
 
-	boolean subscribe(String userEmail, String vehicleId, String packageId);
+	boolean subscribe(SubscriptionRequestSchema subscriptionRequestSchema);
 
 	boolean vehicleRegistration(VehicleRegistrationSchema vehicleRegistrationData);
+
+	UserProfileSchema getUserRequest(String email);
 
 }

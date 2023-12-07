@@ -13,40 +13,39 @@ import java.util.List;
 
 @Component
 public class TokenFilter implements Filter {
-    private List<String> protectedRoutes = Arrays.asList(
-            APIRoutes.SUBSCRIBE,
-            APIRoutes.REGISTER_VEHICLE,
-            APIRoutes.GET_PACKAGES,
-            APIRoutes.CLAIM,
-            APIRoutes.PROFILE
-    );
 
-    private boolean validateToken(String token) {
-        String SECRET_KEY = "yourSecr456hfdghjghuj45h4566rghfghhfghryt45etKey";
-        try {
-            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
-            return true;
-        } catch (Exception e) {
-            // Token is invalid
-            return false;
-        }
-    }
+	private List<String> protectedRoutes = Arrays.asList(APIRoutes.SUBSCRIBE, APIRoutes.REGISTER_VEHICLE,
+			APIRoutes.GET_PACKAGES, APIRoutes.CLAIM, APIRoutes.PROFILE);
 
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
-        final String requestURI = ((RequestFacade) servletRequest).getRequestURI();
+	private boolean validateToken(String token) {
+		String SECRET_KEY = "yourSecr456hfdghjghuj45h4566rghfghhfghryt45etKey";
+		try {
+			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+			return true;
+		}
+		catch (Exception e) {
+			// Token is invalid
+			return false;
+		}
+	}
 
-        if (protectedRoutes.contains(requestURI)) {
-            String auth = req.getHeader("Authorization");
-            String token = auth.replace("Bearer ", "");
+	@Override
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+			throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest) servletRequest;
+		final String requestURI = ((RequestFacade) servletRequest).getRequestURI();
 
-            if (!validateToken(token)) {
-                throw new ServletException("Invalid token");
-            }
+		if (protectedRoutes.contains(requestURI)) {
+			String auth = req.getHeader("Authorization");
+			String token = auth.replace("Bearer ", "");
 
-        }
+			if (!validateToken(token)) {
+				 throw new ServletException("Invalid token");
+			}
 
-        filterChain.doFilter(servletRequest, servletResponse);
-    }
+		}
+
+		filterChain.doFilter(servletRequest, servletResponse);
+	}
+
 }

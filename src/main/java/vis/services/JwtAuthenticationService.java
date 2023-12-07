@@ -75,7 +75,7 @@ public class JwtAuthenticationService implements AuthenticationService {
 			return new SignupStatusSchema(200, "Signup successful");
 		}
 
-		return new SignupStatusSchema(500, "Signup failed");
+		return new SignupStatusSchema(statusSchema.getStatus(), statusSchema.getMessage());
 	}
 
 	private String generateToken(String subject, long expirationTime) {

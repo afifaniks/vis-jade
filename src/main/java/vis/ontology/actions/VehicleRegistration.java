@@ -6,30 +6,32 @@ import vis.ontology.concepts.Vehicle;
 
 public class VehicleRegistration implements AgentAction {
 
-    private User user;
-    private Vehicle vehicle;
+	private User user;
 
-    public VehicleRegistration(User user, Vehicle vehicle) {
-        this.user = user;
-        this.vehicle = vehicle;
-    }
+	private Vehicle vehicle;
 
-    public VehicleRegistration() {
-    }
+	public VehicleRegistration(User user, Vehicle vehicle) {
+		this.user = user;
+		this.vehicle = vehicle;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public VehicleRegistration() {
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
-    }
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
 }
