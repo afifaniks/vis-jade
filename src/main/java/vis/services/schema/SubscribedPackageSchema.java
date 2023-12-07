@@ -4,47 +4,51 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class SubscribedPackageSchema extends InsurancePackageSchema implements Serializable {
-    String id;
 
-    Date subscribedOn;
+	String id;
 
-    Date claimedOn;
+	Date subscribedOn;
 
-    public SubscribedPackageSchema(String packageId, String packageName, String packageDescription, Double packagePrice, Integer tenure) {
-        super(packageId, packageName, packageDescription, packagePrice, tenure);
-    }
+	Date claimedOn;
 
-    public SubscribedPackageSchema(String id, String packageId, String packageName, String packageDescription, Double packagePrice, Integer tenure, Date subscribedOn, Date claimedOn) {
-        super(packageId, packageName, packageDescription, packagePrice, tenure);
-        this.id = id;
-        this.subscribedOn = subscribedOn;
-        this.claimedOn = claimedOn;
-    }
+	public SubscribedPackageSchema(String packageId, String packageName, String packageDescription, Double packagePrice,
+			Integer tenure) {
+		super(packageId, packageName, packageDescription, packagePrice, tenure);
+	}
 
-    public SubscribedPackageSchema() {
-    }
+	public SubscribedPackageSchema(String id, String packageId, String packageName, String packageDescription,
+			Double packagePrice, Integer tenure, Date subscribedOn, Date claimedOn) {
+		super(packageId, packageName, packageDescription, packagePrice, tenure);
+		this.id = id;
+		this.subscribedOn = subscribedOn;
+		this.claimedOn = claimedOn;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public SubscribedPackageSchema() {
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public Date getSubscribedOn() {
-        return subscribedOn;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setSubscribedOn(Date subscribedOn) {
-        this.subscribedOn = subscribedOn;
-    }
+	public Date getSubscribedOn() {
+		return subscribedOn;
+	}
 
-    public Date getClaimedOn() {
-        return claimedOn;
-    }
+	public void setSubscribedOn(Date subscribedOn) {
+		this.subscribedOn = subscribedOn;
+	}
 
-    public void setClaimedOn(Date claimedOn) {
-        this.claimedOn = claimedOn;
-    }
+	public Date getClaimedOn() {
+		return claimedOn;
+	}
+
+	public void setClaimedOn(Date claimedOn) {
+		this.claimedOn = claimedOn;
+	}
+
 }
