@@ -157,6 +157,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 			InsurancePackageEntity insurancePackage = (InsurancePackageEntity) query.list().get(0);
 			SubscribedPackageSchema packageSchema = gson.fromJson(gson.toJson(insurancePackage),
 					SubscribedPackageSchema.class);
+			packageSchema.setId(subscription.getId());
 			packageSchema.setPackageId(insurancePackage.getId());
 			packageSchema.setSubscribedOn(subscription.getSubscribedOn());
 			packageSchema.setClaimedOn(subscription.getClaimedOn());
@@ -170,7 +171,15 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	public boolean claimInsurance(ClaimRequestSchema claimRequestSchema) {
-		// TODO
+		Session session = sessionFactory.openSession();
+		String hql = "FROM SubscriptionEntity" + " WHERE id = " + "'" + claimRequestSchema.getSubscriptionId() + "'";
+		Query query = session.createQuery(hql);
+		List<UserEntity> userEntities = query.list();
+
+		if (userEntities.isEmpty()) {
+			return true;
+		}
+
 		return false;
 	}
 
