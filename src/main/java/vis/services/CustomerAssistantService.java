@@ -8,12 +8,15 @@ import java.util.ArrayList;
 
 public interface CustomerAssistantService {
 
-    ArrayList<InsurancePackageSchema> getPackageRecommendation(RecommendationRequestSchema recommendationRequestSchema) throws UnreadableException, IOException;
+	ArrayList<InsurancePackageSchema> getPackageRecommendation(RecommendationRequestSchema recommendationRequestSchema)
+			throws UnreadableException, IOException;
 
-    SubscriptionStatusSchema subscribePackage(SubscriptionSchema subscriptionSchema) throws IOException, UnreadableException;
+	SubscriptionStatusSchema subscribePackage(SubscriptionRequestSchema subscriptionRequestSchema)
+			throws IOException, UnreadableException;
 
-    VehicleRegistrationStatusSchema registerVehicle(VehicleRegistrationSchema vehicleRegistrationSchema) throws UnreadableException, IOException;
+	VehicleRegistrationStatusSchema registerVehicle(VehicleRegistrationSchema vehicleRegistrationSchema)
+			throws UnreadableException, IOException;
 
-    GetUserStatusSchema getUser(GetUserRequestSchema getUserRequestSchema) throws UnreadableException, IOException;
+	UserProfileSchema getUser(GetUserRequestSchema getUserRequestSchema) throws UnreadableException, IOException;
 
 }

@@ -1,23 +1,25 @@
 package vis.ontology.predicates;
 
 import jade.content.Predicate;
-import vis.ontology.concepts.User;
+import vis.services.schema.UserProfileSchema;
 
 public class GetUserSuccess implements Predicate {
-    private User user;
 
-    public GetUserSuccess() {
-    }
+	private UserProfileSchema user;
 
-    public GetUserSuccess(User user) {
-        this.user = user;
-    }
+	public GetUserSuccess() {
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public GetUserSuccess(UserProfileSchema user) {
+		this.user = user;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public UserProfileSchema getUser() {
+		return user;
+	}
+
+	public void setUser(UserProfileSchema user) {
+		this.user = user;
+	}
+
 }

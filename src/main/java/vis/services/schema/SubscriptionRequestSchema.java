@@ -1,6 +1,6 @@
 package vis.services.schema;
 
-public class SubscriptionSchema {
+public class SubscriptionRequestSchema {
 
 	private String userId;
 
@@ -8,7 +8,7 @@ public class SubscriptionSchema {
 
 	private String packageId;
 
-	public SubscriptionSchema(String userId, String vehicleId, String packageId) {
+	public SubscriptionRequestSchema(String userId, String vehicleId, String packageId) {
 		this.userId = userId;
 		this.vehicleId = vehicleId;
 		this.packageId = packageId;

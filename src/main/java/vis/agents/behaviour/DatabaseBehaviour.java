@@ -5,6 +5,7 @@ import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vis.agents.AuthenticationAgent;
@@ -17,94 +18,113 @@ import vis.services.schema.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class DatabaseBehaviour extends CyclicBehaviour {
 
-    private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
+	private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
 
-    private final DatabaseService databaseService = new DatabaseServiceImpl();
+	private final DatabaseService databaseService = new DatabaseServiceImpl();
 
-    public DatabaseBehaviour(Agent agent) {
-        super(agent);
-    }
+	public DatabaseBehaviour(Agent agent) {
+		super(agent);
+	}
 
-    @Override
-    public void action() {
-        ACLMessage receivedMessage = myAgent.blockingReceive();
-        try {
+	@Override
+	public void action() {
+		ACLMessage receivedMessage = myAgent.blockingReceive();
+		try {
 
-            DBOperation operation = (DBOperation) receivedMessage.getContentObject();
+			DBOperation operation = (DBOperation) receivedMessage.getContentObject();
 
-            if (operation.getOperation() == DBOperation.Operation.LOGIN) {
-                LoginRequest loginRequest = (LoginRequest) operation.getAdditionalObject();
-                boolean loginSuccess = this.databaseService.login(loginRequest.getUsername(), loginRequest.getPassword());
+			if (operation.getOperation() == DBOperation.Operation.LOGIN) {
+				LoginRequest loginRequest = (LoginRequest) operation.getAdditionalObject();
+				boolean loginSuccess = this.databaseService.login(loginRequest.getUsername(),
+						loginRequest.getPassword());
 
-                if (loginSuccess) {
-                    respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(200, "Successful"));
-                } else {
-                    respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(500, "Failed"));
-                }
-            }
+				if (loginSuccess) {
+					respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(200, "Successful"));
+				}
+				else {
+					respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(500, "Failed"));
+				}
+			}
 
-            if (operation.getOperation() == DBOperation.Operation.SIGNUP) {
-                SignupRequestSchema signupRequest = (SignupRequestSchema) operation.getAdditionalObject();
-                boolean signupSuccess = this.databaseService.signup(signupRequest);
+			if (operation.getOperation() == DBOperation.Operation.SIGNUP) {
+				SignupRequestSchema signupRequest = (SignupRequestSchema) operation.getAdditionalObject();
+				boolean signupSuccess = this.databaseService.signup(signupRequest);
 
-                if (signupSuccess) {
-                    respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(200, "Successful"));
-                } else {
-                    respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(500, "Failed"));
-                }
-            }
+				if (signupSuccess) {
+					respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(200, "Successful"));
+				}
+				else {
+					respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(500, "Failed"));
+				}
+			}
 
-            if (operation.getOperation() == DBOperation.Operation.REGISTER_VEHICLE) {
-                VehicleRegistrationSchema vehicleRegistrationSchema = (VehicleRegistrationSchema) operation.getAdditionalObject();
-                boolean vehicleRegistrationSuccess = this.databaseService.vehicleRegistration(vehicleRegistrationSchema);
+			if (operation.getOperation() == DBOperation.Operation.REGISTER_VEHICLE) {
+				VehicleRegistrationSchema vehicleRegistrationSchema = (VehicleRegistrationSchema) operation
+					.getAdditionalObject();
+				boolean vehicleRegistrationSuccess = this.databaseService
+					.vehicleRegistration(vehicleRegistrationSchema);
 
-                if (vehicleRegistrationSuccess) {
-                    respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(200, "Successful"));
-                } else {
-                    respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(500, "Failed"));
-                }
-            }
+				if (vehicleRegistrationSuccess) {
+					respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(200, "Successful"));
+				}
+				else {
+					respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(500, "Failed"));
+				}
+			}
 
-            if (operation.getOperation() == DBOperation.Operation.GET_PACKAGES) {
-                RecommendationRequestSchema recommendationRequestSchema = (RecommendationRequestSchema) operation.getAdditionalObject();
-                ArrayList<InsurancePackageSchema> packages = this.databaseService.getPackages(recommendationRequestSchema.getUserEmail(), recommendationRequestSchema.getVehicleId());
+			if (operation.getOperation() == DBOperation.Operation.GET_PACKAGES) {
+				RecommendationRequestSchema recommendationRequestSchema = (RecommendationRequestSchema) operation
+					.getAdditionalObject();
+				ArrayList<InsurancePackageSchema> packages = this.databaseService.getPackages(
+						recommendationRequestSchema.getUserEmail(), recommendationRequestSchema.getVehicleId());
 
-                respondSender(receivedMessage.getSender(), packages);
-            }
+				respondSender(receivedMessage.getSender(), packages);
+			}
 
-            if (operation.getOperation() == DBOperation.Operation.GET_USER) {
-                GetUserRequestSchema getUserRequestSchema = (GetUserRequestSchema) operation.getAdditionalObject();
-                logger.info("Getting user: " + getUserRequestSchema.getEmail());
-                GetUserRequestSchema user = this.databaseService.getUserRequest(getUserRequestSchema.getEmail());
+			if (operation.getOperation() == DBOperation.Operation.GET_USER) {
+				GetUserRequestSchema getUserRequestSchema = (GetUserRequestSchema) operation.getAdditionalObject();
+				logger.info("Getting user: " + getUserRequestSchema.getEmail());
+				UserProfileSchema user = this.databaseService.getUserRequest(getUserRequestSchema.getEmail());
 
-                respondSender(receivedMessage.getSender(), user);
-            }
+				respondSender(receivedMessage.getSender(), user);
+			}
 
-            if (operation.getOperation() == DBOperation.Operation.SUBSCRIBE) {
-                SubscriptionSchema subscriptionSchema = (SubscriptionSchema) operation.getAdditionalObject();
-                boolean subscriptionSuccess = this.databaseService.subscribe(subscriptionSchema);
+			if (operation.getOperation() == DBOperation.Operation.SUBSCRIBE) {
+				SubscriptionRequestSchema subscriptionRequestSchema = (SubscriptionRequestSchema) operation
+					.getAdditionalObject();
+				boolean subscriptionSuccess = this.databaseService.subscribe(subscriptionRequestSchema);
 
-                if (subscriptionSuccess) {
-                    respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(200, "Successful"));
-                } else {
-                    respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(500, "Failed"));
-                }
-            }
+				if (subscriptionSuccess) {
+					respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(200, "Successful"));
+				}
+				else {
+					respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(500, "Failed"));
+				}
+			}
 
-        } catch (UnreadableException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+		}
+		catch (UnreadableException | IOException e) {
+			logger.error(e.toString());
+		}
+		catch (ConstraintViolationException e) {
+			logger.error(e.toString());
+			try {
+				respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(403, "Already exists"));
+			}
+			catch (IOException ex) {
+				throw new RuntimeException(ex);
+			}
+		}
+	}
 
-    private void respondSender(AID sender, Object object) throws IOException {
-        ACLMessage responseMessage = new ACLMessage(ACLMessage.INFORM);
-        responseMessage.addReceiver(sender);
-        responseMessage.setContentObject((Serializable) object);
-        myAgent.send(responseMessage);
-    }
+	private void respondSender(AID sender, Object object) throws IOException {
+		ACLMessage responseMessage = new ACLMessage(ACLMessage.INFORM);
+		responseMessage.addReceiver(sender);
+		responseMessage.setContentObject((Serializable) object);
+		myAgent.send(responseMessage);
+	}
 
 }

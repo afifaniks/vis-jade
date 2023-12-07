@@ -5,20 +5,30 @@ import jade.content.Concept;
 public class Vehicle implements Concept {
 
 	String vehicleId;
+
 	String userEmail;
+
 	String vehicleName;
+
 	String vehicleModel;
+
 	String vehicleType;
+
 	String licenseNumber;
+
 	String vehicleRegistrationNumber;
+
 	String purchaseDate;
+
 	String vehicleStatus;
+
 	float mileage;
 
 	public Vehicle() {
 	}
 
-	public Vehicle(String userEmail, String vehicleName, String vehicleModel, String vehicleType, String licenseNumber, String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus, float mileage) {
+	public Vehicle(String userEmail, String vehicleName, String vehicleModel, String vehicleType, String licenseNumber,
+			String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus, float mileage) {
 		this.userEmail = userEmail;
 		this.vehicleName = vehicleName;
 		this.vehicleModel = vehicleModel;
@@ -114,18 +124,5 @@ public class Vehicle implements Concept {
 	public void setMileage(float mileage) {
 		this.mileage = mileage;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

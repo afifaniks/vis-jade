@@ -10,52 +10,55 @@ import java.util.UUID;
 @Table(name = DBTableNames.SUBSCRIPTION)
 public class SubscriptionEntity implements DBEntity, Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID Id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private UUID Id;
 
-    String userId;
-    String vehicleId;
-    String packageId;
+	String userId;
 
-    public SubscriptionEntity() {
-    }
+	String vehicleId;
 
-    public SubscriptionEntity(String userId, String vehicleId, String packageId) {
-        this.userId = userId;
-        this.vehicleId = vehicleId;
-        this.packageId = packageId;
-    }
+	String packageId;
 
-    public UUID getId() {
-        return Id;
-    }
+	public SubscriptionEntity() {
+	}
 
-    public void setId(UUID id) {
-        Id = id;
-    }
+	public SubscriptionEntity(String userId, String vehicleId, String packageId) {
+		this.userId = userId;
+		this.vehicleId = vehicleId;
+		this.packageId = packageId;
+	}
 
-    public String getUserId() {
-        return userId;
-    }
+	public UUID getId() {
+		return Id;
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public void setId(UUID id) {
+		Id = id;
+	}
 
-    public String getVehicleId() {
-        return vehicleId;
-    }
+	public String getUserId() {
+		return userId;
+	}
 
-    public void setVehicleId(String vehicleId) {
-        this.vehicleId = vehicleId;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public String getPackageId() {
-        return packageId;
-    }
+	public String getVehicleId() {
+		return vehicleId;
+	}
 
-    public void setPackageId(String packageId) {
-        this.packageId = packageId;
-    }
+	public void setVehicleId(String vehicleId) {
+		this.vehicleId = vehicleId;
+	}
+
+	public String getPackageId() {
+		return packageId;
+	}
+
+	public void setPackageId(String packageId) {
+		this.packageId = packageId;
+	}
+
 }

@@ -1,25 +1,15 @@
-package vis.entity;
-
-import jakarta.persistence.*;
-import vis.constants.DBTableNames;
+package vis.services.schema;
 
 import java.io.Serializable;
-import java.util.UUID;
+import java.util.ArrayList;
 
-@Entity
-@Table(name = DBTableNames.USER)
-public class UserEntity implements DBEntity, Serializable {
+public class UserProfileSchema implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID id;
+	String id;
 
-	@Column(unique = true)
 	String email;
 
 	String name;
-
-	String password;
 
 	String phone;
 
@@ -35,14 +25,16 @@ public class UserEntity implements DBEntity, Serializable {
 
 	String bloodGroup;
 
-	public UserEntity() {
-	}
+	ArrayList<VehicleSchema> vehicles = new ArrayList<>();
 
-	public UserEntity(String email, String name, String password, String phone, String address, String dob,
-			Double height, String gender, String eyeColor, String bloodGroup) {
+	ArrayList<InsurancePackageSchema> subscribedPackages = new ArrayList<>();
+
+	public UserProfileSchema(String id, String email, String name, String phone, String address, String dob,
+			Double height, String gender, String eyeColor, String bloodGroup, ArrayList<VehicleSchema> vehicles,
+			ArrayList<InsurancePackageSchema> subscribedPackages) {
+		this.id = id;
 		this.email = email;
 		this.name = name;
-		this.password = password;
 		this.phone = phone;
 		this.address = address;
 		this.dob = dob;
@@ -50,13 +42,18 @@ public class UserEntity implements DBEntity, Serializable {
 		this.gender = gender;
 		this.eyeColor = eyeColor;
 		this.bloodGroup = bloodGroup;
+		this.vehicles = vehicles;
+		this.subscribedPackages = subscribedPackages;
 	}
 
-	public UUID getId() {
+	public UserProfileSchema() {
+	}
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -74,14 +71,6 @@ public class UserEntity implements DBEntity, Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getPhone() {
@@ -140,12 +129,20 @@ public class UserEntity implements DBEntity, Serializable {
 		this.bloodGroup = bloodGroup;
 	}
 
-	@Override
-	public String toString() {
-		return "User{" + "id=" + id + ", email='" + email + '\'' + ", name='" + name + '\'' + ", password='" + password
-				+ '\'' + ", phone='" + phone + '\'' + ", address='" + address + '\'' + ", dob='" + dob + '\''
-				+ ", height=" + height + ", gender='" + gender + '\'' + ", eyeColor='" + eyeColor + '\''
-				+ ", bloodGroup='" + bloodGroup + '\'' + '}';
+	public ArrayList<VehicleSchema> getVehicles() {
+		return vehicles;
+	}
+
+	public void setVehicles(ArrayList<VehicleSchema> vehicles) {
+		this.vehicles = vehicles;
+	}
+
+	public ArrayList<InsurancePackageSchema> getSubscribedPackages() {
+		return subscribedPackages;
+	}
+
+	public void setSubscribedPackages(ArrayList<InsurancePackageSchema> subscribedPackages) {
+		this.subscribedPackages = subscribedPackages;
 	}
 
 }

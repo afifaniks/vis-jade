@@ -3,20 +3,19 @@ package vis.services;
 import vis.services.schema.*;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 public interface DatabaseService {
 
-    boolean login(String email, String password);
+	boolean login(String email, String password);
 
-    boolean signup(SignupRequestSchema userData);
+	boolean signup(SignupRequestSchema userData);
 
-    ArrayList<InsurancePackageSchema> getPackages(String userEmail, String vehicleId);
+	ArrayList<InsurancePackageSchema> getPackages(String userEmail, String vehicleId);
 
-    boolean subscribe(SubscriptionSchema subscriptionSchema);
+	boolean subscribe(SubscriptionRequestSchema subscriptionRequestSchema);
 
-    boolean vehicleRegistration(VehicleRegistrationSchema vehicleRegistrationData);
+	boolean vehicleRegistration(VehicleRegistrationSchema vehicleRegistrationData);
 
-    GetUserRequestSchema getUserRequest(String email);
+	UserProfileSchema getUserRequest(String email);
 
 }

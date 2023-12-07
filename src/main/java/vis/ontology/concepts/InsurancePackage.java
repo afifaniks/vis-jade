@@ -4,7 +4,7 @@ import jade.content.Concept;
 
 public class InsurancePackage implements Concept {
 
-	private String packageId;
+	private String id;
 
 	String packageName;
 
@@ -14,28 +14,28 @@ public class InsurancePackage implements Concept {
 
 	Integer tenure;
 
-	public InsurancePackage(String packageId, String packageName, String packageDescription, Double packagePrice,
+	public InsurancePackage(String id, String packageName, String packageDescription, Double packagePrice,
 			Integer tenure) {
-		this.packageId = packageId;
+		this.id = id;
 		this.packageName = packageName;
 		this.packageDescription = packageDescription;
 		this.packagePrice = packagePrice;
 		this.tenure = tenure;
 	}
 
-	public InsurancePackage(String packageId) {
-		this.packageId = packageId;
+	public InsurancePackage(String id) {
+		this.id = id;
 	}
 
 	public InsurancePackage() {
 	}
 
-	public String getPackageId() {
-		return packageId;
+	public String getId() {
+		return id;
 	}
 
-	public void setPackageId(String packageId) {
-		this.packageId = packageId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getPackageName() {

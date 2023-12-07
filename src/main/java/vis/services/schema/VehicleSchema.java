@@ -1,8 +1,8 @@
-package vis.dto.request;
+package vis.services.schema;
 
-public class VehicleRegistrationRequest {
+import java.io.Serializable;
 
-	String userEmail;
+public class VehicleSchema implements Serializable {
 
 	String vehicleName;
 
@@ -10,7 +10,7 @@ public class VehicleRegistrationRequest {
 
 	String vehicleType;
 
-	String licenseNumber;
+	String licenseNumberPlate;
 
 	String vehicleRegistrationNumber;
 
@@ -18,28 +18,21 @@ public class VehicleRegistrationRequest {
 
 	String vehicleStatus;
 
-	Integer mileage;
+	float mileage;
 
-	public VehicleRegistrationRequest(String userEmail, String vehicleName, String vehicleModel, String vehicleType,
-			String licenseNumber, String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus,
-			Integer mileage) {
-		this.userEmail = userEmail;
+	public VehicleSchema(String vehicleName, String vehicleModel, String vehicleType, String licenseNumberPlate,
+			String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus, float mileage) {
 		this.vehicleName = vehicleName;
 		this.vehicleModel = vehicleModel;
 		this.vehicleType = vehicleType;
-		this.licenseNumber = licenseNumber;
+		this.licenseNumberPlate = licenseNumberPlate;
 		this.vehicleRegistrationNumber = vehicleRegistrationNumber;
 		this.purchaseDate = purchaseDate;
 		this.vehicleStatus = vehicleStatus;
 		this.mileage = mileage;
 	}
 
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public VehicleSchema() {
 	}
 
 	public String getVehicleName() {
@@ -66,12 +59,12 @@ public class VehicleRegistrationRequest {
 		this.vehicleType = vehicleType;
 	}
 
-	public String getLicenseNumber() {
-		return licenseNumber;
+	public String getLicenseNumberPlate() {
+		return licenseNumberPlate;
 	}
 
-	public void setLicenseNumber(String licenseNumber) {
-		this.licenseNumber = licenseNumber;
+	public void setLicenseNumberPlate(String licenseNumberPlate) {
+		this.licenseNumberPlate = licenseNumberPlate;
 	}
 
 	public String getVehicleRegistrationNumber() {
@@ -98,11 +91,11 @@ public class VehicleRegistrationRequest {
 		this.vehicleStatus = vehicleStatus;
 	}
 
-	public Integer getMileage() {
+	public float getMileage() {
 		return mileage;
 	}
 
-	public void setMileage(Integer mileage) {
+	public void setMileage(float mileage) {
 		this.mileage = mileage;
 	}
 

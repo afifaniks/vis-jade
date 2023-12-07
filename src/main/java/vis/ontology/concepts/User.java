@@ -9,12 +9,19 @@ public class User implements Concept {
 	String email;
 
 	String name;
+
 	String phone;
+
 	String address;
+
 	String dob;
+
 	Double height;
+
 	String gender;
+
 	String eyeColor;
+
 	String bloodGroup;
 
 	public User(String userId) {
@@ -26,7 +33,8 @@ public class User implements Concept {
 		this.email = email;
 	}
 
-	public User(String userId, String email, String name, String phone, String address, String dob, Double height, String gender, String eyeColor, String bloodGroup) {
+	public User(String userId, String email, String name, String phone, String address, String dob, Double height,
+			String gender, String eyeColor, String bloodGroup) {
 		this.userId = userId;
 		this.email = email;
 		this.name = name;
@@ -121,4 +129,5 @@ public class User implements Concept {
 	public void setBloodGroup(String bloodGroup) {
 		this.bloodGroup = bloodGroup;
 	}
+
 }
