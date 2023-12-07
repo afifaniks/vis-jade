@@ -2,14 +2,14 @@ package vis.dto.request;
 
 public class SubscribePackageRequest {
 
-	String userId;
+	String userEmail;
 
 	String vehicleId;
 
 	String packageId;
 
-	public SubscribePackageRequest(String userId, String vehicleId, String packageId) {
-		this.userId = userId;
+	public SubscribePackageRequest(String userEmail, String vehicleId, String packageId) {
+		this.userEmail = userEmail;
 		this.vehicleId = vehicleId;
 		this.packageId = packageId;
 	}
@@ -17,12 +17,12 @@ public class SubscribePackageRequest {
 	public SubscribePackageRequest() {
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	public String getVehicleId() {

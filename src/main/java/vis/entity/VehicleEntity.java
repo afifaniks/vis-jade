@@ -12,7 +12,7 @@ public class VehicleEntity implements DBEntity, Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID Id;
+	private String id;
 
 	String userEmail;
 
@@ -49,12 +49,12 @@ public class VehicleEntity implements DBEntity, Serializable {
 		this.mileage = mileage;
 	}
 
-	public UUID getId() {
-		return Id;
+	public String getId() {
+		return id;
 	}
 
-	public void setId(UUID id) {
-		Id = id;
+	public void setId(String id) {
+		id = id;
 	}
 
 	public String getUserEmail() {

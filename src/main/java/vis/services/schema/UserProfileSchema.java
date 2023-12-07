@@ -27,11 +27,11 @@ public class UserProfileSchema implements Serializable {
 
 	ArrayList<VehicleSchema> vehicles = new ArrayList<>();
 
-	ArrayList<InsurancePackageSchema> subscribedPackages = new ArrayList<>();
+	ArrayList<SubscribedPackageSchema> subscribedPackages = new ArrayList<>();
 
 	public UserProfileSchema(String id, String email, String name, String phone, String address, String dob,
 			Double height, String gender, String eyeColor, String bloodGroup, ArrayList<VehicleSchema> vehicles,
-			ArrayList<InsurancePackageSchema> subscribedPackages) {
+			ArrayList<SubscribedPackageSchema> subscribedPackages) {
 		this.id = id;
 		this.email = email;
 		this.name = name;
@@ -137,11 +137,11 @@ public class UserProfileSchema implements Serializable {
 		this.vehicles = vehicles;
 	}
 
-	public ArrayList<InsurancePackageSchema> getSubscribedPackages() {
+	public ArrayList<SubscribedPackageSchema> getSubscribedPackages() {
 		return subscribedPackages;
 	}
 
-	public void setSubscribedPackages(ArrayList<InsurancePackageSchema> subscribedPackages) {
+	public void setSubscribedPackages(ArrayList<SubscribedPackageSchema> subscribedPackages) {
 		this.subscribedPackages = subscribedPackages;
 	}
 

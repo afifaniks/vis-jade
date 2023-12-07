@@ -93,8 +93,9 @@ public class AdminAgent extends Agent {
 				}
 				else if (Objects.equals(request.getTargetAgent(), AgentIdentifier.INSURANCE_CLAIM)) {
 					ClaimRequest packageRequest = gson.fromJson(request.getContents(), ClaimRequest.class);
-					action = new ClaimInsurance(new User(packageRequest.getUserId()),
-							new Subscription(packageRequest.getSubscriptionId()));
+					User user = new User();
+					user.setEmail(packageRequest.getUserEmail());
+					action = new ClaimInsurance(user, new Subscription(packageRequest.getSubscriptionId()));
 					message.addReceiver(new AID(AgentIdentifier.INSURANCE_CLAIM, AID.ISLOCALNAME));
 					myAgent.getContentManager()
 						.fillContent(message,
@@ -106,9 +107,10 @@ public class AdminAgent extends Agent {
 					if (request.getAction().equals("subscribe")) {
 						SubscribePackageRequest packageRequest = gson.fromJson(request.getContents(),
 								SubscribePackageRequest.class);
-						action = new SubscribePackage(new InsurancePackage(packageRequest.getPackageId()),
-								new User(packageRequest.getUserId()),
-								new Vehicle(packageRequest.getVehicleId(), packageRequest.getUserId()));
+						User user = new User();
+						user.setEmail(packageRequest.getUserEmail());
+						action = new SubscribePackage(new InsurancePackage(packageRequest.getPackageId()), user,
+								new Vehicle(packageRequest.getVehicleId(), packageRequest.getUserEmail()));
 					}
 					if (request.getAction().equals("vehicle-registration")) {
 						VehicleRegistrationRequest vehicleRegistrationRequest = gson.fromJson(request.getContents(),

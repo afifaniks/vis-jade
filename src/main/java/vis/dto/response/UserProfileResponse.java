@@ -1,6 +1,7 @@
 package vis.dto.response;
 
 import vis.services.schema.InsurancePackageSchema;
+import vis.services.schema.SubscribedPackageSchema;
 import vis.services.schema.VehicleSchema;
 
 import java.util.ArrayList;
@@ -29,11 +30,11 @@ public class UserProfileResponse {
 
 	ArrayList<VehicleSchema> vehicles = new ArrayList<>();
 
-	ArrayList<InsurancePackageSchema> subscribedPackages = new ArrayList<>();
+	ArrayList<SubscribedPackageSchema> subscribedPackages = new ArrayList<>();
 
-	public UserProfileResponse(String id, String email, String name, String phone, String address, String dob, Double height,
-							   String gender, String eyeColor, String bloodGroup, ArrayList<VehicleSchema> vehicles,
-							   ArrayList<InsurancePackageSchema> subscribedPackages) {
+	public UserProfileResponse(String id, String email, String name, String phone, String address, String dob,
+			Double height, String gender, String eyeColor, String bloodGroup, ArrayList<VehicleSchema> vehicles,
+			ArrayList<SubscribedPackageSchema> subscribedPackages) {
 		this.id = id;
 		this.email = email;
 		this.name = name;
@@ -139,11 +140,11 @@ public class UserProfileResponse {
 		this.vehicles = vehicles;
 	}
 
-	public ArrayList<InsurancePackageSchema> getSubscribedPackages() {
+	public ArrayList<SubscribedPackageSchema> getSubscribedPackages() {
 		return subscribedPackages;
 	}
 
-	public void setSubscribedPackages(ArrayList<InsurancePackageSchema> subscribedPackages) {
+	public void setSubscribedPackages(ArrayList<SubscribedPackageSchema> subscribedPackages) {
 		this.subscribedPackages = subscribedPackages;
 	}
 

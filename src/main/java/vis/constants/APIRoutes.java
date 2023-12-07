@@ -16,4 +16,6 @@ public class APIRoutes {
 
 	public static final String PROFILE = "/profile";
 
+	public static final String GET_USER = "/get-user";
+
 }

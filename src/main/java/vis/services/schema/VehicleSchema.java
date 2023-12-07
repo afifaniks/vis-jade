@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class VehicleSchema implements Serializable {
 
+	String id;
+
 	String vehicleName;
 
 	String vehicleModel;
@@ -30,6 +32,14 @@ public class VehicleSchema implements Serializable {
 		this.purchaseDate = purchaseDate;
 		this.vehicleStatus = vehicleStatus;
 		this.mileage = mileage;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public VehicleSchema() {

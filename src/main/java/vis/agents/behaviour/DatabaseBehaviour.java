@@ -105,6 +105,18 @@ public class DatabaseBehaviour extends CyclicBehaviour {
 				}
 			}
 
+			if (operation.getOperation() == DBOperation.Operation.CLAIM) {
+				ClaimRequestSchema claimRequestSchema = (ClaimRequestSchema) operation.getAdditionalObject();
+				boolean claimSuccess = this.databaseService.claimInsurance(claimRequestSchema);
+
+				if (claimSuccess) {
+					respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(200, "Successful"));
+				}
+				else {
+					respondSender(receivedMessage.getSender(), new DBTransactionStatusSchema(500, "Failed"));
+				}
+			}
+
 		}
 		catch (UnreadableException | IOException e) {
 			logger.error(e.toString());
