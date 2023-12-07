@@ -172,11 +172,14 @@ public class DatabaseServiceImpl implements DatabaseService {
 	@Override
 	public boolean claimInsurance(ClaimRequestSchema claimRequestSchema) {
 		Session session = sessionFactory.openSession();
-		String hql = "FROM SubscriptionEntity" + " WHERE id = " + "'" + claimRequestSchema.getSubscriptionId() + "'";
-		Query query = session.createQuery(hql);
-		List<UserEntity> userEntities = query.list();
+		SubscriptionEntity subscription = session.get(SubscriptionEntity.class, claimRequestSchema.getSubscriptionId());
+		if (subscription != null) {
+			subscription.setClaimedOn(new Date());
+			session.beginTransaction();
+			session.persist(subscription);
+			session.getTransaction().commit();
+			session.close();
 
-		if (userEntities.isEmpty()) {
 			return true;
 		}
 

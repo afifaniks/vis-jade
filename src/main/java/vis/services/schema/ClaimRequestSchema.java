@@ -1,6 +1,8 @@
 package vis.services.schema;
 
-public class ClaimRequestSchema {
+import java.io.Serializable;
+
+public class ClaimRequestSchema implements Serializable {
 
 	String userEmail;
 

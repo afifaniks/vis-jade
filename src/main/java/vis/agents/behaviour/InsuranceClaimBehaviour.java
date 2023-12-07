@@ -62,7 +62,7 @@ public class InsuranceClaimBehaviour extends SimpleBehaviour {
 				if (actionContent.getAction() instanceof ClaimInsurance) {
 					ClaimInsurance claimInsurance = (ClaimInsurance) actionContent.getAction();
 					InsuranceClaimStatusSchema claimStatus = insuranceClaimService
-						.claimInsurance(new ClaimRequestSchema(claimInsurance.getUser().getUserId(),
+						.claimInsurance(new ClaimRequestSchema(claimInsurance.getUser().getEmail(),
 								claimInsurance.getSubscription().getSubscriptionId()));
 
 					if (claimStatus.getStatus() == 200) {
