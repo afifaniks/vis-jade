@@ -26,7 +26,7 @@ public class JwtAuthenticationService implements AuthenticationService {
 
 	private static final String SECRET_KEY = "yourSecr456hfdghjghuj45h4566rghfghhfghryt45etKey";
 
-	private static final long ACCESS_TOKEN_EXPIRATION_TIME = 900_000; // 15 minutes
+	private static final long ACCESS_TOKEN_EXPIRATION_TIME = 1_209_600_000; // 14 days
 
 	private static final long REFRESH_TOKEN_EXPIRATION_TIME = 1_209_600_000; // 14 days
 

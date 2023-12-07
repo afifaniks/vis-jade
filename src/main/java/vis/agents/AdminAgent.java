@@ -171,7 +171,7 @@ public class AdminAgent extends Agent {
 				else if (contentElement instanceof ClaimSuccess) {
 					ClaimSuccess claimSuccess = (ClaimSuccess) contentElement;
 					return gson.toJson(new AgentOperationStatusSchema(200,
-							"Claim successful for user: " + claimSuccess.getUser().getUserId()));
+							"Claim successful for user: " + claimSuccess.getUser().getEmail()));
 				}
 				else if (contentElement instanceof SignupSuccess) {
 					SignupSuccess signupSuccess = (SignupSuccess) contentElement;

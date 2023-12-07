@@ -78,7 +78,9 @@ public class DatabaseServiceImpl implements DatabaseService {
 		List<InsurancePackageEntity> entities = query.list();
 
 		for (InsurancePackageEntity entity : entities) {
-			insurancePackageSchemas.add(gson.fromJson(gson.toJson(entity), InsurancePackageSchema.class));
+			InsurancePackageSchema packageSchema = gson.fromJson(gson.toJson(entity), InsurancePackageSchema.class);
+			packageSchema.setPackageId(entity.getId());
+			insurancePackageSchemas.add(packageSchema);
 		}
 
 		return insurancePackageSchemas;
