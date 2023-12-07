@@ -3,6 +3,7 @@ package vis.services;
 import vis.services.schema.*;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public interface DatabaseService {
 
@@ -16,6 +17,6 @@ public interface DatabaseService {
 
     boolean vehicleRegistration(VehicleRegistrationSchema vehicleRegistrationData);
 
-    GetUserRequestSchema getUserRequest(String userId);
+    GetUserRequestSchema getUserRequest(String email);
 
 }

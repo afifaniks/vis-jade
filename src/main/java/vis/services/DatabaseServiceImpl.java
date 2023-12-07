@@ -20,6 +20,7 @@ import vis.services.schema.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class DatabaseServiceImpl implements DatabaseService {
 
@@ -120,12 +121,15 @@ public class DatabaseServiceImpl implements DatabaseService {
         return true;
     }
 
-    public GetUserRequestSchema getUserRequest(String userId) {
+    public GetUserRequestSchema getUserRequest(String email) {
+        email= "string";
         Session session = sessionFactory.openSession();
-        String hql = "FROM UserEntity" + " WHERE id = " + "'" + userId + "'";
+        String hql = "FROM UserEntity" + " WHERE email = " + "'" + email + "'";
+        logger.info("HQL: " + hql);
         Query query = session.createQuery(hql);
+        logger.info("HQL: " + query);
         List<UserEntity> userEntities = query.list();
-
+        logger.info("Got: ", userEntities);
         if (!userEntities.isEmpty()) {
             return gson.fromJson(gson.toJson(userEntities.get(0)), GetUserRequestSchema.class);
         }

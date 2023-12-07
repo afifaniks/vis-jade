@@ -17,6 +17,7 @@ import vis.services.schema.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class DatabaseBehaviour extends CyclicBehaviour {
 
@@ -77,7 +78,8 @@ public class DatabaseBehaviour extends CyclicBehaviour {
 
             if (operation.getOperation() == DBOperation.Operation.GET_USER) {
                 GetUserRequestSchema getUserRequestSchema = (GetUserRequestSchema) operation.getAdditionalObject();
-                GetUserRequestSchema user = this.databaseService.getUserRequest(getUserRequestSchema.getUserId());
+                logger.info("Getting user: " + getUserRequestSchema.getEmail());
+                GetUserRequestSchema user = this.databaseService.getUserRequest(getUserRequestSchema.getEmail());
 
                 respondSender(receivedMessage.getSender(), user);
             }
