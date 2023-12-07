@@ -16,6 +16,7 @@ import vis.entity.SubscriptionEntity;
 import vis.entity.UserEntity;
 import vis.entity.VehicleEntity;
 import vis.services.schema.*;
+import vis.util.RecommenderUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,24 +67,15 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	public ArrayList<InsurancePackageSchema> getPackages(String userEmail, String vehicleId) {
-		ArrayList<InsurancePackageSchema> insurancePackageSchemas = new ArrayList<>();
-
-		UserEntity userEntity = getUser(userEmail);
-		logger.info("Generating recommendation for: " + userEntity.getEmail());
+		VehicleEntity vehicle = getVehicle(vehicleId);
+		logger.info("Generating recommendation for: " + userEmail);
 
 		Session session = sessionFactory.openSession();
 		String hql = "FROM InsurancePackageEntity";
-
 		Query query = session.createQuery(hql);
-		List<InsurancePackageEntity> entities = query.list();
+		List entities = query.list();
 
-		for (InsurancePackageEntity entity : entities) {
-			InsurancePackageSchema packageSchema = gson.fromJson(gson.toJson(entity), InsurancePackageSchema.class);
-			packageSchema.setPackageId(entity.getId());
-			insurancePackageSchemas.add(packageSchema);
-		}
-
-		return insurancePackageSchemas;
+        return RecommenderUtil.generateRecommendation(vehicle, entities);
 	}
 
 	public boolean subscribe(SubscriptionRequestSchema subscriptionRequestSchema) {
@@ -99,14 +91,14 @@ public class DatabaseServiceImpl implements DatabaseService {
 		return true;
 	}
 
-	private UserEntity getUser(String email) {
+	private VehicleEntity getVehicle(String vehicleId) {
 		Session session = sessionFactory.openSession();
-		String hql = "FROM UserEntity" + " WHERE email = " + "'" + email + "'";
+		String hql = "FROM VehicleEntity" + " WHERE id = " + "'" + vehicleId + "'";
 		Query query = session.createQuery(hql);
-		List<UserEntity> userEntities = query.list();
+		List<VehicleEntity> vehicleEntities = query.list();
 
-		if (!userEntities.isEmpty()) {
-			return userEntities.get(0);
+		if (!vehicleEntities.isEmpty()) {
+			return vehicleEntities.get(0);
 		}
 
 		return null;
@@ -156,14 +148,17 @@ public class DatabaseServiceImpl implements DatabaseService {
 		for (SubscriptionEntity subscription : subscriptionEntities) {
 			hql = "FROM InsurancePackageEntity" + " WHERE id = " + "'" + subscription.getPackageId() + "'";
 			query = session.createQuery(hql);
-			InsurancePackageEntity insurancePackage = (InsurancePackageEntity) query.list().get(0);
-			SubscribedPackageSchema packageSchema = gson.fromJson(gson.toJson(insurancePackage),
-					SubscribedPackageSchema.class);
-			packageSchema.setId(subscription.getId());
-			packageSchema.setPackageId(insurancePackage.getId());
-			packageSchema.setSubscribedOn(subscription.getSubscribedOn());
-			packageSchema.setClaimedOn(subscription.getClaimedOn());
-			subscribedPackages.add(packageSchema);
+			List packages = query.list();
+
+			if (!packages.isEmpty()) {
+				InsurancePackageEntity insurancePackage = (InsurancePackageEntity) packages.get(0);
+				SubscribedPackageSchema packageSchema = gson.fromJson(gson.toJson(insurancePackage), SubscribedPackageSchema.class);
+				packageSchema.setId(subscription.getId());
+				packageSchema.setPackageId(insurancePackage.getId());
+				packageSchema.setSubscribedOn(subscription.getSubscribedOn());
+				packageSchema.setClaimedOn(subscription.getClaimedOn());
+				subscribedPackages.add(packageSchema);
+			}
 		}
 
 		return new UserProfileSchema(user.getId().toString(), user.getEmail(), user.getName(), user.getPhone(),
