@@ -13,8 +13,8 @@ import java.io.IOException;
  */
 public interface AuthenticationService {
 
-    TokenResponse login(LoginRequest loginRequest) throws IOException, UnreadableException;
+	TokenResponse login(LoginRequest loginRequest) throws IOException, UnreadableException;
 
-    SignupStatusSchema signup(SignupRequestSchema signupDto) throws IOException, UnreadableException;
+	SignupStatusSchema signup(SignupRequestSchema signupDto) throws IOException, UnreadableException;
 
 }

@@ -8,32 +8,32 @@ import java.util.ArrayList;
 
 public class Recommendation implements Predicate {
 
-    private User user;
+	private User user;
 
-    private ArrayList<InsurancePackage> packages;
+	private ArrayList<InsurancePackage> packages;
 
-    public Recommendation(User user, ArrayList<InsurancePackage> packages) {
-        this.user = user;
-        this.packages = packages;
-    }
+	public Recommendation(User user, ArrayList<InsurancePackage> packages) {
+		this.user = user;
+		this.packages = packages;
+	}
 
-    public Recommendation() {
-    }
+	public Recommendation() {
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public ArrayList<InsurancePackage> getPackages() {
-        return packages;
-    }
+	public ArrayList<InsurancePackage> getPackages() {
+		return packages;
+	}
 
-    public void setPackages(ArrayList<InsurancePackage> packages) {
-        this.packages = packages;
-    }
+	public void setPackages(ArrayList<InsurancePackage> packages) {
+		this.packages = packages;
+	}
 
 }

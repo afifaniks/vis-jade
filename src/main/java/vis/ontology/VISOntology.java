@@ -9,21 +9,22 @@ import jade.content.onto.Ontology;
  */
 public class VISOntology extends BeanOntology {
 
-    private static VISOntology instance = new VISOntology();
+	private static VISOntology instance = new VISOntology();
 
-    private VISOntology() {
-        super(OntologyNames.VIS_ONTOLOGY);
-        try {
-            add("vis.ontology.actions");
-            add("vis.ontology.concepts");
-            add("vis.ontology.predicates");
-        } catch (BeanOntologyException e) {
-            e.printStackTrace();
-        }
-    }
+	private VISOntology() {
+		super(OntologyNames.VIS_ONTOLOGY);
+		try {
+			add("vis.ontology.actions");
+			add("vis.ontology.concepts");
+			add("vis.ontology.predicates");
+		}
+		catch (BeanOntologyException e) {
+			e.printStackTrace();
+		}
+	}
 
-    public static Ontology getInstance() {
-        return instance;
-    }
+	public static Ontology getInstance() {
+		return instance;
+	}
 
 }

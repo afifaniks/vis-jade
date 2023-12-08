@@ -9,138 +9,142 @@ import java.io.Serializable;
 @Table(name = DBTableNames.USER)
 public class UserEntity implements DBEntity, Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
 
-    @Column(unique = true)
-    String email;
+	@Column(unique = true)
+	String email;
 
-    String name;
+	String name;
 
-    String password;
+	String password;
 
-    String phone;
+	String phone;
 
-    String address;
+	String address;
 
-    String dob;
+	String dob;
 
-    Double height;
+	Double height;
 
-    String gender;
+	String gender;
 
-    String eyeColor;
+	String eyeColor;
 
-    String bloodGroup;
+	String bloodGroup;
 
-    public UserEntity() {
-    }
+	public UserEntity() {
+	}
 
-    public UserEntity(String email, String name, String password, String phone, String address, String dob, Double height, String gender, String eyeColor, String bloodGroup) {
-        this.email = email;
-        this.name = name;
-        this.password = password;
-        this.phone = phone;
-        this.address = address;
-        this.dob = dob;
-        this.height = height;
-        this.gender = gender;
-        this.eyeColor = eyeColor;
-        this.bloodGroup = bloodGroup;
-    }
+	public UserEntity(String email, String name, String password, String phone, String address, String dob,
+			Double height, String gender, String eyeColor, String bloodGroup) {
+		this.email = email;
+		this.name = name;
+		this.password = password;
+		this.phone = phone;
+		this.address = address;
+		this.dob = dob;
+		this.height = height;
+		this.gender = gender;
+		this.eyeColor = eyeColor;
+		this.bloodGroup = bloodGroup;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public String getDob() {
-        return dob;
-    }
+	public String getDob() {
+		return dob;
+	}
 
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
 
-    public Double getHeight() {
-        return height;
-    }
+	public Double getHeight() {
+		return height;
+	}
 
-    public void setHeight(Double height) {
-        this.height = height;
-    }
+	public void setHeight(Double height) {
+		this.height = height;
+	}
 
-    public String getGender() {
-        return gender;
-    }
+	public String getGender() {
+		return gender;
+	}
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
-    public String getEyeColor() {
-        return eyeColor;
-    }
+	public String getEyeColor() {
+		return eyeColor;
+	}
 
-    public void setEyeColor(String eyeColor) {
-        this.eyeColor = eyeColor;
-    }
+	public void setEyeColor(String eyeColor) {
+		this.eyeColor = eyeColor;
+	}
 
-    public String getBloodGroup() {
-        return bloodGroup;
-    }
+	public String getBloodGroup() {
+		return bloodGroup;
+	}
 
-    public void setBloodGroup(String bloodGroup) {
-        this.bloodGroup = bloodGroup;
-    }
+	public void setBloodGroup(String bloodGroup) {
+		this.bloodGroup = bloodGroup;
+	}
 
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", email='" + email + '\'' + ", name='" + name + '\'' + ", password='" + password + '\'' + ", phone='" + phone + '\'' + ", address='" + address + '\'' + ", dob='" + dob + '\'' + ", height=" + height + ", gender='" + gender + '\'' + ", eyeColor='" + eyeColor + '\'' + ", bloodGroup='" + bloodGroup + '\'' + '}';
-    }
+	@Override
+	public String toString() {
+		return "User{" + "id=" + id + ", email='" + email + '\'' + ", name='" + name + '\'' + ", password='" + password
+				+ '\'' + ", phone='" + phone + '\'' + ", address='" + address + '\'' + ", dob='" + dob + '\''
+				+ ", height=" + height + ", gender='" + gender + '\'' + ", eyeColor='" + eyeColor + '\''
+				+ ", bloodGroup='" + bloodGroup + '\'' + '}';
+	}
 
 }

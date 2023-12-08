@@ -17,38 +17,38 @@ import java.io.IOException;
  */
 public class InsuranceClaimServiceImpl implements InsuranceClaimService {
 
-    private Agent agent;
+	private Agent agent;
 
-    public InsuranceClaimServiceImpl(Agent agent) {
-        this.agent = agent;
-    }
+	public InsuranceClaimServiceImpl(Agent agent) {
+		this.agent = agent;
+	}
 
-    /***
-     * This method implements the InsuranceClaimService interface.
-     * @param claimRequest is a ClaimRequestSchema object.
-     * @return is an InsuranceClaimStatusSchema object.
-     * @throws IOException throws Input or OutputException
-     * @throws UnreadableException throws UnreadableException
-     */
-    @Override
-    public InsuranceClaimStatusSchema claimInsurance(ClaimRequestSchema claimRequest)
-            throws IOException, UnreadableException {
-        DBOperation dbOperation = new DBOperation(DBOperation.Operation.CLAIM, claimRequest);
+	/***
+	 * This method implements the InsuranceClaimService interface.
+	 * @param claimRequest is a ClaimRequestSchema object.
+	 * @return is an InsuranceClaimStatusSchema object.
+	 * @throws IOException throws Input or OutputException
+	 * @throws UnreadableException throws UnreadableException
+	 */
+	@Override
+	public InsuranceClaimStatusSchema claimInsurance(ClaimRequestSchema claimRequest)
+			throws IOException, UnreadableException {
+		DBOperation dbOperation = new DBOperation(DBOperation.Operation.CLAIM, claimRequest);
 
-        ACLMessage dbRequestMessage = new ACLMessage(ACLMessage.REQUEST);
-        dbRequestMessage.addReceiver(new AID(AgentIdentifier.DATABASE, AID.ISLOCALNAME));
-        dbRequestMessage.setContentObject(dbOperation);
+		ACLMessage dbRequestMessage = new ACLMessage(ACLMessage.REQUEST);
+		dbRequestMessage.addReceiver(new AID(AgentIdentifier.DATABASE, AID.ISLOCALNAME));
+		dbRequestMessage.setContentObject(dbOperation);
 
-        this.agent.send(dbRequestMessage);
+		this.agent.send(dbRequestMessage);
 
-        ACLMessage responseMessage = this.agent.blockingReceive();
-        DBTransactionStatusSchema statusSchema = (DBTransactionStatusSchema) responseMessage.getContentObject();
+		ACLMessage responseMessage = this.agent.blockingReceive();
+		DBTransactionStatusSchema statusSchema = (DBTransactionStatusSchema) responseMessage.getContentObject();
 
-        if (statusSchema.getStatus() == 200) {
-            return new InsuranceClaimStatusSchema(200, "Subscription successful");
-        }
+		if (statusSchema.getStatus() == 200) {
+			return new InsuranceClaimStatusSchema(200, "Subscription successful");
+		}
 
-        return new InsuranceClaimStatusSchema(statusSchema.getStatus(), statusSchema.getMessage());
-    }
+		return new InsuranceClaimStatusSchema(statusSchema.getStatus(), statusSchema.getMessage());
+	}
 
 }

@@ -2,7 +2,6 @@ package vis.services.schema;
 
 import java.io.Serializable;
 
-
 public class AgentOperationStatusSchema implements Serializable {
 
 	private Integer status;

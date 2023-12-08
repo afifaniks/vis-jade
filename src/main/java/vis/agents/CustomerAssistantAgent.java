@@ -10,12 +10,12 @@ import vis.agents.behaviour.CustomerAssistantBehaviour;
  */
 public class CustomerAssistantAgent extends Agent {
 
-    private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
+	private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
 
-    @Override
-    protected void setup() {
-        logger.info("CustomerAssistant agent started. AID: " + getAID().getName());
-        addBehaviour(new CustomerAssistantBehaviour(this));
-    }
+	@Override
+	protected void setup() {
+		logger.info("CustomerAssistant agent started. AID: " + getAID().getName());
+		addBehaviour(new CustomerAssistantBehaviour(this));
+	}
 
 }

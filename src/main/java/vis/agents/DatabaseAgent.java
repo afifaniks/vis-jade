@@ -10,12 +10,12 @@ import vis.agents.behaviour.DatabaseBehaviour;
  */
 public class DatabaseAgent extends Agent {
 
-    private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
+	private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
 
-    @Override
-    protected void setup() {
-        logger.debug("Database agent started. AID: " + getAID().getName());
-        addBehaviour(new DatabaseBehaviour(this));
-    }
+	@Override
+	protected void setup() {
+		logger.debug("Database agent started. AID: " + getAID().getName());
+		addBehaviour(new DatabaseBehaviour(this));
+	}
 
 }

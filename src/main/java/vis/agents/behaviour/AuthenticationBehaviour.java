@@ -33,64 +33,73 @@ import java.io.IOException;
  */
 public class AuthenticationBehaviour extends CyclicBehaviour {
 
-    private final AuthenticationService authenticationService;
+	private final AuthenticationService authenticationService;
 
-    private final Codec codec = new SLCodec();
+	private final Codec codec = new SLCodec();
 
-    private final Ontology ontology = VISOntology.getInstance();
+	private final Ontology ontology = VISOntology.getInstance();
 
-    private final Gson gson = new Gson();
+	private final Gson gson = new Gson();
 
-    private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
+	private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
 
-    public AuthenticationBehaviour(Agent agent) {
-        authenticationService = new JwtAuthenticationService(agent);
-    }
+	public AuthenticationBehaviour(Agent agent) {
+		authenticationService = new JwtAuthenticationService(agent);
+	}
 
-    /***
-     * The action method implementation expects two type of action directive; "login" and
-     * "signup". Based on the action, it either signs up a user or tries to authenticate
-     * within the system through the service interface bound to this class. On finish, it
-     * returns the predicate to the calling agent through ACL messaging.
-     */
-    @Override
-    public void action() {
-        myAgent.getContentManager().registerLanguage(codec, FIPANames.ContentLanguage.FIPA_SL);
-        myAgent.getContentManager().registerOntology(ontology);
-        ACLMessage receivedMessage = null;
-        receivedMessage = myAgent.blockingReceive();
+	/***
+	 * The action method implementation expects two type of action directive; "login" and
+	 * "signup". Based on the action, it either signs up a user or tries to authenticate
+	 * within the system through the service interface bound to this class. On finish, it
+	 * returns the predicate to the calling agent through ACL messaging.
+	 */
+	@Override
+	public void action() {
+		myAgent.getContentManager().registerLanguage(codec, FIPANames.ContentLanguage.FIPA_SL);
+		myAgent.getContentManager().registerOntology(ontology);
+		ACLMessage receivedMessage = null;
+		receivedMessage = myAgent.blockingReceive();
 
-        try {
-            logger.debug("Request received from admin agent.");
+		try {
+			logger.debug("Request received from admin agent.");
 
-            AgentActionIdentifier action = (AgentActionIdentifier) receivedMessage.getContentObject();
-            ACLMessage responseMessage = new ACLMessage(ACLMessage.INFORM);
-            responseMessage.setLanguage(codec.getName());
-            responseMessage.setOntology(ontology.getName());
+			AgentActionIdentifier action = (AgentActionIdentifier) receivedMessage.getContentObject();
+			ACLMessage responseMessage = new ACLMessage(ACLMessage.INFORM);
+			responseMessage.setLanguage(codec.getName());
+			responseMessage.setOntology(ontology.getName());
 
-            if (action.getAction().equals("login")) {
-                TokenResponse response = authenticationService.login(gson.fromJson(action.getContents(), LoginRequest.class));
-                responseMessage.setContentObject(response);
-                myAgent.getContentManager().fillContent(responseMessage, new LoginSuccess(response.getAccessToken(), response.getRefreshToken()));
-            } else if (action.getAction().equals("signup")) {
-                SignupRequestSchema signupRequest = gson.fromJson(action.getContents(), SignupRequestSchema.class);
-                SignupStatusSchema response = authenticationService.signup(signupRequest);
-                if (response.getStatus() == 200) {
-                    myAgent.getContentManager().fillContent(responseMessage, new SignupSuccess(response.getStatus(), response.getMessage()));
-                } else {
-                    myAgent.getContentManager().fillContent(responseMessage, new SystemError(response.getStatus(), response.getMessage()));
-                }
-            }
+			if (action.getAction().equals("login")) {
+				TokenResponse response = authenticationService
+					.login(gson.fromJson(action.getContents(), LoginRequest.class));
+				responseMessage.setContentObject(response);
+				myAgent.getContentManager()
+					.fillContent(responseMessage,
+							new LoginSuccess(response.getAccessToken(), response.getRefreshToken()));
+			}
+			else if (action.getAction().equals("signup")) {
+				SignupRequestSchema signupRequest = gson.fromJson(action.getContents(), SignupRequestSchema.class);
+				SignupStatusSchema response = authenticationService.signup(signupRequest);
+				if (response.getStatus() == 200) {
+					myAgent.getContentManager()
+						.fillContent(responseMessage, new SignupSuccess(response.getStatus(), response.getMessage()));
+				}
+				else {
+					myAgent.getContentManager()
+						.fillContent(responseMessage, new SystemError(response.getStatus(), response.getMessage()));
+				}
+			}
 
-            responseMessage.addReceiver(receivedMessage.getSender());
-            myAgent.send(responseMessage);
+			responseMessage.addReceiver(receivedMessage.getSender());
+			myAgent.send(responseMessage);
 
-        } catch (UnreadableException | IOException e) {
-            logger.error(String.valueOf(e));
-            throw new RuntimeException(e);
-        } catch (OntologyException | Codec.CodecException e) {
-            throw new RuntimeException(e);
-        }
-    }
+		}
+		catch (UnreadableException | IOException e) {
+			logger.error(String.valueOf(e));
+			throw new RuntimeException(e);
+		}
+		catch (OntologyException | Codec.CodecException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 }

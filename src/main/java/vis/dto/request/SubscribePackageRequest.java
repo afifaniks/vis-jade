@@ -2,43 +2,43 @@ package vis.dto.request;
 
 public class SubscribePackageRequest {
 
-    String userEmail;
+	String userEmail;
 
-    String vehicleId;
+	String vehicleId;
 
-    String packageId;
+	String packageId;
 
-    public SubscribePackageRequest(String userEmail, String vehicleId, String packageId) {
-        this.userEmail = userEmail;
-        this.vehicleId = vehicleId;
-        this.packageId = packageId;
-    }
+	public SubscribePackageRequest(String userEmail, String vehicleId, String packageId) {
+		this.userEmail = userEmail;
+		this.vehicleId = vehicleId;
+		this.packageId = packageId;
+	}
 
-    public SubscribePackageRequest() {
-    }
+	public SubscribePackageRequest() {
+	}
 
-    public String getUserEmail() {
-        return userEmail;
-    }
+	public String getUserEmail() {
+		return userEmail;
+	}
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
 
-    public String getVehicleId() {
-        return vehicleId;
-    }
+	public String getVehicleId() {
+		return vehicleId;
+	}
 
-    public void setVehicleId(String vehicleId) {
-        this.vehicleId = vehicleId;
-    }
+	public void setVehicleId(String vehicleId) {
+		this.vehicleId = vehicleId;
+	}
 
-    public String getPackageId() {
-        return packageId;
-    }
+	public String getPackageId() {
+		return packageId;
+	}
 
-    public void setPackageId(String packageId) {
-        this.packageId = packageId;
-    }
+	public void setPackageId(String packageId) {
+		this.packageId = packageId;
+	}
 
 }
