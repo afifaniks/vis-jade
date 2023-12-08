@@ -10,12 +10,12 @@ import vis.agents.behaviour.AuthenticationBehaviour;
  */
 public class AuthenticationAgent extends Agent {
 
-	private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
+    private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
 
-	@Override
-	protected void setup() {
-		logger.debug("Authentication agent started. AID: " + getAID().getName());
-		addBehaviour(new AuthenticationBehaviour(this));
-	}
+    @Override
+    protected void setup() {
+        logger.debug("Authentication agent started. AID: " + getAID().getName());
+        addBehaviour(new AuthenticationBehaviour(this));
+    }
 
 }

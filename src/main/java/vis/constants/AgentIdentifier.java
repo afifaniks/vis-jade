@@ -1,5 +1,8 @@
 package vis.constants;
 
+/***
+ * This class contains all the agent identifier constants.
+ */
 public class AgentIdentifier {
 
     public static final String AUTHENTICATION = "Authentication";

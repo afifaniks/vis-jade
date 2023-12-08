@@ -37,11 +37,9 @@ public class BackendController {
 
     @PostMapping(APIRoutes.LOGIN)
     public TokenResponse login(@RequestBody LoginRequest loginRequest) {
-        AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "login",
-                gson.toJson(loginRequest));
+        AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "login", gson.toJson(loginRequest));
 
-        AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
-                AgentOperationStatusSchema.class);
+        AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action), AgentOperationStatusSchema.class);
 
         if (operationStatus.getStatus() != 200) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -52,11 +50,9 @@ public class BackendController {
 
     @PostMapping(APIRoutes.SIGNUP)
     public StatusResponse signup(@RequestBody SignupRequest signupDto) {
-        AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "signup",
-                gson.toJson(signupDto));
+        AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "signup", gson.toJson(signupDto));
 
-        AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
-                AgentOperationStatusSchema.class);
+        AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action), AgentOperationStatusSchema.class);
 
         if (operationStatus.getStatus() != 200) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -68,13 +64,10 @@ public class BackendController {
     @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(APIRoutes.REGISTER_VEHICLE)
-    public VehicleRegistrationResponse registerVehicle(
-            @RequestBody VehicleRegistrationRequest vehicleRegistrationRequest) {
-        AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT,
-                "vehicle-registration", gson.toJson(vehicleRegistrationRequest));
+    public VehicleRegistrationResponse registerVehicle(@RequestBody VehicleRegistrationRequest vehicleRegistrationRequest) {
+        AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "vehicle-registration", gson.toJson(vehicleRegistrationRequest));
 
-        AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
-                AgentOperationStatusSchema.class);
+        AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action), AgentOperationStatusSchema.class);
 
         if (operationStatus.getStatus() != 200) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -85,13 +78,10 @@ public class BackendController {
 
     @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping(APIRoutes.GET_PACKAGES)
-    public ArrayList<PackageRecommendationResponse> getPackageRecommendation(
-            @RequestBody PackageRecommendationRequest packageRecommendationRequest) {
+    public ArrayList<PackageRecommendationResponse> getPackageRecommendation(@RequestBody PackageRecommendationRequest packageRecommendationRequest) {
         try {
-            AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "get-package",
-                    gson.toJson(packageRecommendationRequest));
-            AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
-                    AgentOperationStatusSchema.class);
+            AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "get-package", gson.toJson(packageRecommendationRequest));
+            AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action), AgentOperationStatusSchema.class);
             String contents = operationStatus.getMessage();
 
             TypeToken<List<PackageRecommendationResponse>> token = new TypeToken<>() {
@@ -107,10 +97,8 @@ public class BackendController {
     @PostMapping(APIRoutes.SUBSCRIBE)
     public StatusResponse subscribePackage(@RequestBody SubscribePackageRequest subscribePackageRequest) {
         try {
-            AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "subscribe",
-                    gson.toJson(subscribePackageRequest));
-            AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
-                    AgentOperationStatusSchema.class);
+            AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "subscribe", gson.toJson(subscribePackageRequest));
+            AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action), AgentOperationStatusSchema.class);
             return new StatusResponse(operationStatus.getStatus(), operationStatus.getMessage());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -121,10 +109,8 @@ public class BackendController {
     @PostMapping(APIRoutes.CLAIM)
     public StatusResponse claimInsurance(@RequestBody ClaimRequest claimRequest) {
         try {
-            AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.INSURANCE_CLAIM, "claim",
-                    gson.toJson(claimRequest));
-            AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
-                    AgentOperationStatusSchema.class);
+            AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.INSURANCE_CLAIM, "claim", gson.toJson(claimRequest));
+            AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action), AgentOperationStatusSchema.class);
             return new StatusResponse(operationStatus.getStatus(), operationStatus.getMessage());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -134,11 +120,9 @@ public class BackendController {
     @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping(APIRoutes.GET_USER)
     public UserProfileResponse getUser(@RequestBody UserRequest userRequest) {
-        AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "get-user",
-                gson.toJson(userRequest));
+        AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "get-user", gson.toJson(userRequest));
 
-        AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action),
-                AgentOperationStatusSchema.class);
+        AgentOperationStatusSchema operationStatus = gson.fromJson(gatewayService.request(action), AgentOperationStatusSchema.class);
 
         if (operationStatus.getStatus() != 200) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
