@@ -3,12 +3,13 @@ VIS is an agent-based software system that demonstrates how modern frameworks li
 To our knowledge, we are the first to try such approach and effectively develop a system where we can utilize the best of the both worlds.
 We adopt a multilayered architecture that separates the controllers, agents, and the services.
 
-### System Requirements
+### Environmental Requirements
 - JDK 11 +
 - Postgres 16
 - Maven
+- node 14 +
 
-### Setup
+### Backend Setup
 We recommend using IntellijIDEA to run this project. Here is a step-by-step guide to run this project.
 1. Clone this repository.
     ```shell
@@ -41,8 +42,16 @@ Run ```VisJadeApplication``` from ```src/main/java/VisJadeApplicatiom```
 If everything goes well, the Spring Boot application should be running. As we have integrated `Swagger UI`, you should be able to see the
 API documentation in this link: http://localhost:8080/swagger-ui/index.html#/
 
-### Run Frontend
-- Change directory to `frontend`
+### Frontend Setup
+- Clone frontend repository
+    ```shell
+    # SSH
+    git clone git@github.com:salsina/vehicle-insurance-system--frontend.git
+   # HTTPS
+    git clone https://github.com/salsina/vehicle-insurance-system--frontend.git
+    ```
+- Change directory
+  `cd vehicle-insurance-system--frontend`
 - Install dependency
     ```shell
     npm install --force
