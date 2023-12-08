@@ -19,6 +19,12 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/***
+ * This behavioural class is associated to the DatabaseAgent and all the database
+ * operations are controlled by this behavior. Each of the existing agents communicates
+ * with this agent when there is a necessity of a database operation based on the customer
+ * request. This is the single point of entry to access the VIS database.
+ */
 public class DatabaseBehaviour extends CyclicBehaviour {
 
 	private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
@@ -29,6 +35,13 @@ public class DatabaseBehaviour extends CyclicBehaviour {
 		super(agent);
 	}
 
+	/***
+	 * Preceded by the DBOperation class, this action implementation invokes service layer
+	 * methods to perform required database requests by the other agents. The method
+	 * accepts an instance of DBOperation through ACL message indicating the database
+	 * operation that is need to be done. Depending on the operation outcome, it also
+	 * sends back the transaction status, query results, etc. to the calling agent.
+	 */
 	@Override
 	public void action() {
 		ACLMessage receivedMessage = myAgent.blockingReceive();
@@ -132,6 +145,13 @@ public class DatabaseBehaviour extends CyclicBehaviour {
 		}
 	}
 
+	/***
+	 * This method sends the result of db operation to the calling agent through ACL
+	 * messaging.
+	 * @param sender The AID of the sender.
+	 * @param object The response object.
+	 * @throws IOException When message fails to transmit.
+	 */
 	private void respondSender(AID sender, Object object) throws IOException {
 		ACLMessage responseMessage = new ACLMessage(ACLMessage.INFORM);
 		responseMessage.addReceiver(sender);

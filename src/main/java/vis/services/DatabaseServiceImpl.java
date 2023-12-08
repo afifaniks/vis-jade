@@ -75,7 +75,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 		Query query = session.createQuery(hql);
 		List entities = query.list();
 
-        return RecommenderUtil.generateRecommendation(vehicle, entities);
+		return RecommenderUtil.generateRecommendation(vehicle, entities);
 	}
 
 	public boolean subscribe(SubscriptionRequestSchema subscriptionRequestSchema) {
@@ -152,7 +152,8 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 			if (!packages.isEmpty()) {
 				InsurancePackageEntity insurancePackage = (InsurancePackageEntity) packages.get(0);
-				SubscribedPackageSchema packageSchema = gson.fromJson(gson.toJson(insurancePackage), SubscribedPackageSchema.class);
+				SubscribedPackageSchema packageSchema = gson.fromJson(gson.toJson(insurancePackage),
+						SubscribedPackageSchema.class);
 				packageSchema.setId(subscription.getId());
 				packageSchema.setPackageId(insurancePackage.getId());
 				packageSchema.setSubscribedOn(subscription.getSubscribedOn());
