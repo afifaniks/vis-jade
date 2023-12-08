@@ -23,6 +23,9 @@ import vis.services.schema.AgentOperationStatusSchema;
 import java.util.ArrayList;
 import java.util.List;
 
+/***
+ * This class is used to communicate with the backend.
+ */
 @RestController
 public class BackendController {
 
