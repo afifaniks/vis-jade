@@ -1,11 +1,21 @@
 package vis.dto.request;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class SubscribePackageRequest {
 
+	@Email(message = "Should be a valid email address")
 	String userEmail;
 
+	@NotBlank(message = "Can not be blank")
 	String vehicleId;
 
+	@NotBlank(message = "Can not be blank")
 	String packageId;
 
 	public SubscribePackageRequest(String userEmail, String vehicleId, String packageId) {
@@ -15,30 +25,6 @@ public class SubscribePackageRequest {
 	}
 
 	public SubscribePackageRequest() {
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public String getVehicleId() {
-		return vehicleId;
-	}
-
-	public void setVehicleId(String vehicleId) {
-		this.vehicleId = vehicleId;
-	}
-
-	public String getPackageId() {
-		return packageId;
-	}
-
-	public void setPackageId(String packageId) {
-		this.packageId = packageId;
 	}
 
 }
