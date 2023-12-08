@@ -11,6 +11,6 @@ import java.io.IOException;
  */
 public interface InsuranceClaimService {
 
-	InsuranceClaimStatusSchema claimInsurance(ClaimRequestSchema claimRequest) throws IOException, UnreadableException;
+    InsuranceClaimStatusSchema claimInsurance(ClaimRequestSchema claimRequest) throws IOException, UnreadableException;
 
 }

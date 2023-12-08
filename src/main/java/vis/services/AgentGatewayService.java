@@ -32,6 +32,13 @@ public class AgentGatewayService {
 
     private final AID adminAgent;
 
+    /***
+     * @param retrieverService The MainContainerAgentsRetriever service.
+     * @param mainContainerHostName The hostname of the main container.
+     * @param mainContainerPort The port of the main container.
+     * @throws ControllerException if an error occurs
+     * @throws InterruptedException if the running thread is interrupted.
+     */
     @Autowired
     public AgentGatewayService(MainContainerAgentsRetriever retrieverService, @Value("${agent.container.hostName}") String mainContainerHostName, @Value("${agent.container.port}") String mainContainerPort) throws ControllerException, InterruptedException {
         this.retrieverService = retrieverService;

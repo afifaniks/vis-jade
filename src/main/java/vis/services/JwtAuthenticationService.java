@@ -37,6 +37,13 @@ public class JwtAuthenticationService implements AuthenticationService {
         this.agent = agent;
     }
 
+    /***
+     * This method generates a JWT token and authenticates an existing user.
+     * @param loginRequest contains the username and password of the user to be authenticated.
+     * @return a TokenResponse object containing the JWT token and the user's username.
+     * @throws IOException throws IOException
+     * @throws UnreadableException throws UnreadableException
+     */
     @Override
     public TokenResponse login(LoginRequest loginRequest) throws IOException, UnreadableException {
         DBOperation dbOperation = new DBOperation(DBOperation.Operation.LOGIN, loginRequest);
@@ -61,6 +68,12 @@ public class JwtAuthenticationService implements AuthenticationService {
         return new TokenResponse(accessToken, refreshToken);
     }
 
+    /***
+     * This method creates a new user.
+     * @param signupDto contains the username and password of the user to be created.
+     * @return a SignupStatusSchema object containing the status code and message.
+     * @throws IOException throws IOException
+     */
     @Override
     public SignupStatusSchema signup(SignupRequestSchema signupDto) throws IOException, UnreadableException {
         DBOperation dbOperation = new DBOperation(DBOperation.Operation.SIGNUP, signupDto);
@@ -80,6 +93,7 @@ public class JwtAuthenticationService implements AuthenticationService {
 
         return new SignupStatusSchema(statusSchema.getStatus(), statusSchema.getMessage());
     }
+
 
     private String generateToken(String subject, long expirationTime) {
         return Jwts.builder().setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis())).setExpiration(new Date(System.currentTimeMillis() + expirationTime)).signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
