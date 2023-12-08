@@ -5,21 +5,21 @@ import vis.services.schema.UserProfileSchema;
 
 public class GetUserSuccess implements Predicate {
 
-	private UserProfileSchema user;
+    private UserProfileSchema user;
 
-	public GetUserSuccess() {
-	}
+    public GetUserSuccess() {
+    }
 
-	public GetUserSuccess(UserProfileSchema user) {
-		this.user = user;
-	}
+    public GetUserSuccess(UserProfileSchema user) {
+        this.user = user;
+    }
 
-	public UserProfileSchema getUser() {
-		return user;
-	}
+    public UserProfileSchema getUser() {
+        return user;
+    }
 
-	public void setUser(UserProfileSchema user) {
-		this.user = user;
-	}
+    public void setUser(UserProfileSchema user) {
+        this.user = user;
+    }
 
 }

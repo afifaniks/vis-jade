@@ -37,6 +37,12 @@ public class DatabaseServiceImpl implements DatabaseService {
 
     private Gson gson = new Gson();
 
+    /***
+     * This method is used to authenticate for the existing user.
+     * @param email The email of the user.
+     * @param password The password of the user.
+     * @return The new DatabaseService
+     */
     @Override
     public boolean login(String email, String password) {
         Session session = sessionFactory.openSession();
@@ -52,6 +58,11 @@ public class DatabaseServiceImpl implements DatabaseService {
         return true;
     }
 
+    /***
+     * This method is used to create a new user.
+     * @param userData The data of the user.
+     * @return The new DatabaseService.
+     */
     @Override
     public boolean signup(SignupRequestSchema userData) {
         UserEntity entity = gson.fromJson(gson.toJson(userData), UserEntity.class);
@@ -66,6 +77,12 @@ public class DatabaseServiceImpl implements DatabaseService {
         return true;
     }
 
+    /***
+     *  This method is used to get recommended packages for the user.
+     * @param userEmail The email of the user.
+     * @param vehicleId The vehicle id of the user.
+     * @return The recommended packages for the user.
+     */
     @Override
     public ArrayList<InsurancePackageSchema> getPackages(String userEmail, String vehicleId) {
         VehicleEntity vehicle = getVehicle(vehicleId);
@@ -79,6 +96,11 @@ public class DatabaseServiceImpl implements DatabaseService {
         return RecommenderUtil.generateRecommendation(vehicle, entities);
     }
 
+    /***
+     * This method is used to subscribe package for the user.
+     * @param subscriptionRequestSchema The data of the subscription.
+     * @return The new DatabaseService.
+     */
     public boolean subscribe(SubscriptionRequestSchema subscriptionRequestSchema) {
         SubscriptionEntity subscriptionEntity = new SubscriptionEntity(subscriptionRequestSchema.getUserEmail(), subscriptionRequestSchema.getVehicleId(), subscriptionRequestSchema.getPackageId(), new Date());
         logger.info("Writing entity: " + subscriptionEntity);
@@ -91,6 +113,11 @@ public class DatabaseServiceImpl implements DatabaseService {
         return true;
     }
 
+    /***
+     * This method is used to retrieve the vehicle for the user.
+     * @param vehicleId The data of the vehicle.
+     * @return The new DatabaseService.
+     */
     private VehicleEntity getVehicle(String vehicleId) {
         Session session = sessionFactory.openSession();
         String hql = "FROM VehicleEntity" + " WHERE id = " + "'" + vehicleId + "'";
@@ -104,6 +131,11 @@ public class DatabaseServiceImpl implements DatabaseService {
         return null;
     }
 
+    /***
+     * This method is used to register vehicle for the user.
+     * @param vehicleRegistrationData The data to register the vehicle.
+     * @return The new DatabaseService.
+     */
     public boolean vehicleRegistration(VehicleRegistrationSchema vehicleRegistrationData) {
         VehicleEntity vehicleEntity = gson.fromJson(gson.toJson(vehicleRegistrationData), VehicleEntity.class);
 
@@ -117,6 +149,11 @@ public class DatabaseServiceImpl implements DatabaseService {
         return true;
     }
 
+    /***
+     * This method is used to retrieve the user profile for the user.
+     * @param email The email of the user.
+     * @return The new DatabaseService.
+     */
     public UserProfileSchema getUserRequest(String email) {
         Session session = sessionFactory.openSession();
         String hql = "FROM UserEntity" + " WHERE email = " + "'" + email + "'";
@@ -164,6 +201,11 @@ public class DatabaseServiceImpl implements DatabaseService {
         return new UserProfileSchema(user.getId().toString(), user.getEmail(), user.getName(), user.getPhone(), user.getAddress(), user.getDob(), user.getHeight(), user.getGender(), user.getEyeColor(), user.getBloodGroup(), vehicles, subscribedPackages);
     }
 
+    /***
+     * This method is used to claim insurance for the user.
+     * @param claimRequestSchema The data of the claim.
+     * @return The new DatabaseService.
+     */
     @Override
     public boolean claimInsurance(ClaimRequestSchema claimRequestSchema) {
         Session session = sessionFactory.openSession();

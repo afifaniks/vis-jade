@@ -6,32 +6,32 @@ import vis.ontology.concepts.User;
 
 public class ClaimInsurance implements AgentAction {
 
-	private User user;
+    private User user;
 
-	private Subscription subscription;
+    private Subscription subscription;
 
-	public ClaimInsurance(User user, Subscription subscription) {
-		this.user = user;
-		this.subscription = subscription;
-	}
+    public ClaimInsurance(User user, Subscription subscription) {
+        this.user = user;
+        this.subscription = subscription;
+    }
 
-	public ClaimInsurance() {
-	}
+    public ClaimInsurance() {
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public Subscription getSubscription() {
-		return subscription;
-	}
+    public Subscription getSubscription() {
+        return subscription;
+    }
 
-	public void setSubscription(Subscription subscription) {
-		this.subscription = subscription;
-	}
+    public void setSubscription(Subscription subscription) {
+        this.subscription = subscription;
+    }
 
 }
