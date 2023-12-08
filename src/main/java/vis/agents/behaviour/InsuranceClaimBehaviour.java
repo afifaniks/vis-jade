@@ -21,6 +21,10 @@ import vis.services.InsuranceClaimServiceImpl;
 import vis.services.schema.ClaimRequestSchema;
 import vis.services.schema.InsuranceClaimStatusSchema;
 
+/***
+ * This behavioural class is associated to the InsuranceClaim agent and helps the customer
+ * to claim insurance when required.
+ */
 public class InsuranceClaimBehaviour extends SimpleBehaviour {
 
 	private final InsuranceClaimService insuranceClaimService;
@@ -39,6 +43,10 @@ public class InsuranceClaimBehaviour extends SimpleBehaviour {
 		insuranceClaimService = new InsuranceClaimServiceImpl(agent);
 	}
 
+	/***
+	 * The action method for InsuranceClaimBehaviour straightforwardly approaches to claim
+	 * the insurance if the customer has an active insurance.
+	 */
 	@Override
 	public void action() {
 		ACLMessage receivedMessage = null;

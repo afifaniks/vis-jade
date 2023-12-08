@@ -5,6 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vis.agents.behaviour.InsuranceClaimBehaviour;
 
+/***
+ * This agent is responsible for claiming insurance on demand.
+ */
 public class InsuranceClaimAgent extends Agent {
 
 	private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);

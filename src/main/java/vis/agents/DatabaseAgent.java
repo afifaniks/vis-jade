@@ -9,6 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vis.agents.behaviour.DatabaseBehaviour;
 
+/***
+ * This agent is responsible for handling the database operations of the VIS system.
+ */
 public class DatabaseAgent extends Agent {
 
 	private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);

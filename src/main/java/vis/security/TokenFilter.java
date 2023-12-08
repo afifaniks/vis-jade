@@ -40,7 +40,7 @@ public class TokenFilter implements Filter {
 			String token = auth.replace("Bearer ", "");
 
 			if (!validateToken(token)) {
-				 throw new ServletException("Invalid token");
+				throw new ServletException("Invalid token");
 			}
 
 		}

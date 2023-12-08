@@ -31,6 +31,14 @@ import vis.services.schema.AgentOperationStatusSchema;
 import java.io.IOException;
 import java.util.Objects;
 
+/***
+ * Represents the AdminAgent; the orchestrator or the manager of all the other agents.
+ * Every request from the user initially is processed by the AdminAgent. By the contents
+ * of the request AdminAgent decides which other agent it should use to get the job done.
+ * The inter-agent communications are done by ACL messaging. After passing down the
+ * request to another user, this agent waits to receive a response and when the response
+ * is received it returns the response to the backend controller.
+ */
 public class AdminAgent extends Agent {
 
 	private final Gson gson = new Gson();
@@ -51,6 +59,12 @@ public class AdminAgent extends Agent {
 		getContentManager().registerOntology(ontology);
 
 		addBehaviour(new CyclicBehaviour() {
+			/***
+			 * By design, the action method defined here intercepts the messages sent
+			 * through JadeGateway from the controller. It expects to receive an
+			 * AgentActionIdentifier object that defines the target agent and the job that
+			 * needs to be done.
+			 */
 			@Override
 			public void action() {
 				ACLMessage receivedMessage = null;
@@ -79,6 +93,15 @@ public class AdminAgent extends Agent {
 				myAgent.send(responseMessage);
 			}
 
+			/***
+			 * This method unpacks the AgentActionIdentifier object and transmits the
+			 * request to the other agent for further processing.
+			 * @param request The request object defining the request contents.
+			 * @throws IOException If there is any issue with communicating other agents.
+			 * @throws OntologyException If the response lies outside the defined
+			 * ontology.
+			 * @throws Codec.CodecException If there is any issue with the CODEC.
+			 */
 			private String relayRequest(AgentActionIdentifier request)
 					throws IOException, OntologyException, Codec.CodecException {
 				ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
@@ -151,10 +174,21 @@ public class AdminAgent extends Agent {
 				send(message);
 				ACLMessage receivedMessage = blockingReceive(messageTemplate);
 
-				return responseProcessor(request, receivedMessage);
+				return responseProcessor(receivedMessage);
 			}
 
-			private String responseProcessor(AgentActionIdentifier request, ACLMessage responseMessage)
+			/***
+			 * This method is responsible to process the response received from the other
+			 * agents when an assigned job is done. This message expects to receive a
+			 * Predicate defined in the VISOntology to assert the response status and
+			 * sends back the result to the calling method.
+			 * @param responseMessage A response message in ACLMessage format containing
+			 * the results of the request.
+			 * @throws OntologyException If the response lies outside the defined
+			 * ontology.
+			 * @throws Codec.CodecException If there is any issue with the CODEC.
+			 */
+			private String responseProcessor(ACLMessage responseMessage)
 					throws OntologyException, Codec.CodecException {
 				ContentElement contentElement = myAgent.getContentManager().extractContent(responseMessage);
 
@@ -164,30 +198,24 @@ public class AdminAgent extends Agent {
 				else if (contentElement instanceof VehicleRegistrationSuccess) {
 					return gson.toJson(new AgentOperationStatusSchema(200, "Vehicle registration successful."));
 				}
-				else if (contentElement instanceof Recommendation) {
-					Recommendation recommendation = (Recommendation) contentElement;
+				else if (contentElement instanceof Recommendation recommendation) {
 					return gson.toJson(new AgentOperationStatusSchema(200, gson.toJson(recommendation.getPackages())));
 				}
-				else if (contentElement instanceof ClaimSuccess) {
-					ClaimSuccess claimSuccess = (ClaimSuccess) contentElement;
+				else if (contentElement instanceof ClaimSuccess claimSuccess) {
 					return gson.toJson(new AgentOperationStatusSchema(200,
 							"Claim successful for user: " + claimSuccess.getUser().getEmail()));
 				}
-				else if (contentElement instanceof SignupSuccess) {
-					SignupSuccess signupSuccess = (SignupSuccess) contentElement;
+				else if (contentElement instanceof SignupSuccess signupSuccess) {
 					return gson
 						.toJson(new AgentOperationStatusSchema(signupSuccess.getStatus(), signupSuccess.getMessage()));
 				}
-				else if (contentElement instanceof LoginSuccess) {
-					LoginSuccess loginSuccess = (LoginSuccess) contentElement;
+				else if (contentElement instanceof LoginSuccess loginSuccess) {
 					return gson.toJson(new AgentOperationStatusSchema(200, gson.toJson(loginSuccess)));
 				}
-				else if (contentElement instanceof GetUserSuccess) {
-					GetUserSuccess getUserSuccess = (GetUserSuccess) contentElement;
+				else if (contentElement instanceof GetUserSuccess getUserSuccess) {
 					return gson.toJson(new AgentOperationStatusSchema(200, gson.toJson(getUserSuccess.getUser())));
 				}
-				else if (contentElement instanceof SystemError) {
-					SystemError systemError = (SystemError) contentElement;
+				else if (contentElement instanceof SystemError systemError) {
 					return gson
 						.toJson(new AgentOperationStatusSchema(systemError.getStatus(), systemError.getMessage()));
 				}
