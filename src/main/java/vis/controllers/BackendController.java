@@ -62,7 +62,6 @@ public class BackendController {
     }
 
     @Operation(security = @SecurityRequirement(name = "bearerAuth"))
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(APIRoutes.REGISTER_VEHICLE)
     public VehicleRegistrationResponse registerVehicle(@RequestBody VehicleRegistrationRequest vehicleRegistrationRequest) {
         AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "vehicle-registration", gson.toJson(vehicleRegistrationRequest));
