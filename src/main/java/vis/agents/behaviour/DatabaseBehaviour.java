@@ -37,9 +37,10 @@ public class DatabaseBehaviour extends CyclicBehaviour {
 
 	/***
 	 * Preceded by the DBOperation class, this action implementation invokes service layer
-	 * methods to perform required database requests by the other agents. Depending on the
-	 * operation outcome, it also sends back the transaction status, query results, etc.
-	 * to the calling agent.
+	 * methods to perform required database requests by the other agents. The method
+	 * accepts an instance of DBOperation through ACL message indicating the database
+	 * operation that is need to be done. Depending on the operation outcome, it also
+	 * sends back the transaction status, query results, etc. to the calling agent.
 	 */
 	@Override
 	public void action() {
