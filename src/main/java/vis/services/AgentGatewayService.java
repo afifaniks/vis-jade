@@ -17,6 +17,12 @@ import vis.agents.AgentActionIdentifier;
 import vis.constants.AgentIdentifier;
 import vis.util.MainContainerAgentsRetriever;
 
+/***
+ * The AgentGatewayService is the bridge between the spring boot application and the JADE
+ * agents. This service class is directly bound to the backend controller and receives
+ * request from different endpoints exposed in the VIS API. The service transfers the
+ * backend requests to the Admin Agent for further processing.
+ */
 @Service
 public class AgentGatewayService {
 
@@ -39,6 +45,14 @@ public class AgentGatewayService {
 		adminAgent = getAdminAgent();
 	}
 
+	/***
+	 * This method checks for the admin agent if the agent is running it returns the agent
+	 * reference.
+	 * @return The AID of the admin agent.
+	 * @throws ControllerException This exception class is thrown when an operation fails
+	 * on any of the agent controller methods.
+	 * @throws InterruptedException Thrown when the running thread is interrupted.
+	 */
 	private AID getAdminAgent() throws ControllerException, InterruptedException {
 		JadeGateway.execute(retrieverService);
 		List agents = retrieverService.getAgents();
@@ -57,6 +71,12 @@ public class AgentGatewayService {
 		return null;
 	}
 
+	/***
+	 * Sends the customer request to the admin agent from backend.
+	 * @param req An instance of AgentActionIdentifier defining target agent and the tasks
+	 * needed to be done.
+	 * @return A JSON string containing the result of the agent operation.
+	 */
 	public String request(AgentActionIdentifier req) {
 		final String[] adminResponse = new String[1];
 		try {
