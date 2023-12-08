@@ -28,6 +28,10 @@ import vis.services.schema.SignupStatusSchema;
 
 import java.io.IOException;
 
+/***
+ * This behavioural class controls the authentication process of the VIS system. The agent
+ * utilizes a service layer to perform the authentication through JWT validation.
+ */
 public class AuthenticationBehaviour extends CyclicBehaviour {
 
 	private final AuthenticationService authenticationService;
@@ -35,9 +39,6 @@ public class AuthenticationBehaviour extends CyclicBehaviour {
 	private final Codec codec = new SLCodec();
 
 	private final Ontology ontology = VISOntology.getInstance();
-
-	MessageTemplate messageTemplate = MessageTemplate.and(MessageTemplate.MatchLanguage(codec.getName()),
-			MessageTemplate.MatchOntology(ontology.getName()));
 
 	private final Gson gson = new Gson();
 
@@ -47,6 +48,12 @@ public class AuthenticationBehaviour extends CyclicBehaviour {
 		authenticationService = new JwtAuthenticationService(agent);
 	}
 
+	/***
+	 * The action method implementation expects two type of action directive; "login" and
+	 * "signup". Based on the action, it either signs up a user or tries to authenticate
+	 * within the system through the service interface bound to this class. On finish, it
+	 * returns the predicate to the calling agent through ACL messaging.
+	 */
 	@Override
 	public void action() {
 		myAgent.getContentManager().registerLanguage(codec, FIPANames.ContentLanguage.FIPA_SL);
@@ -55,6 +62,8 @@ public class AuthenticationBehaviour extends CyclicBehaviour {
 		receivedMessage = myAgent.blockingReceive();
 
 		try {
+			logger.debug("Request received from admin agent.");
+
 			AgentActionIdentifier action = (AgentActionIdentifier) receivedMessage.getContentObject();
 			ACLMessage responseMessage = new ACLMessage(ACLMessage.INFORM);
 			responseMessage.setLanguage(codec.getName());
@@ -92,8 +101,6 @@ public class AuthenticationBehaviour extends CyclicBehaviour {
 		catch (OntologyException | Codec.CodecException e) {
 			throw new RuntimeException(e);
 		}
-
-		logger.debug("Request received from admin agent");
 	}
 
 }
