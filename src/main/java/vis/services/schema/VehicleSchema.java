@@ -1,7 +1,12 @@
 package vis.services.schema;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
+@Getter
+@Setter
 public class VehicleSchema implements Serializable {
 
 	String id;
@@ -34,79 +39,7 @@ public class VehicleSchema implements Serializable {
 		this.mileage = mileage;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public VehicleSchema() {
-	}
-
-	public String getVehicleName() {
-		return vehicleName;
-	}
-
-	public void setVehicleName(String vehicleName) {
-		this.vehicleName = vehicleName;
-	}
-
-	public String getVehicleModel() {
-		return vehicleModel;
-	}
-
-	public void setVehicleModel(String vehicleModel) {
-		this.vehicleModel = vehicleModel;
-	}
-
-	public String getVehicleType() {
-		return vehicleType;
-	}
-
-	public void setVehicleType(String vehicleType) {
-		this.vehicleType = vehicleType;
-	}
-
-	public String getLicenseNumberPlate() {
-		return licenseNumberPlate;
-	}
-
-	public void setLicenseNumberPlate(String licenseNumberPlate) {
-		this.licenseNumberPlate = licenseNumberPlate;
-	}
-
-	public String getVehicleRegistrationNumber() {
-		return vehicleRegistrationNumber;
-	}
-
-	public void setVehicleRegistrationNumber(String vehicleRegistrationNumber) {
-		this.vehicleRegistrationNumber = vehicleRegistrationNumber;
-	}
-
-	public String getPurchaseDate() {
-		return purchaseDate;
-	}
-
-	public void setPurchaseDate(String purchaseDate) {
-		this.purchaseDate = purchaseDate;
-	}
-
-	public String getVehicleStatus() {
-		return vehicleStatus;
-	}
-
-	public void setVehicleStatus(String vehicleStatus) {
-		this.vehicleStatus = vehicleStatus;
-	}
-
-	public float getMileage() {
-		return mileage;
-	}
-
-	public void setMileage(float mileage) {
-		this.mileage = mileage;
 	}
 
 }

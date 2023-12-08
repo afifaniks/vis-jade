@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jade.wrapper.ControllerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,7 +39,7 @@ public class BackendController {
 	}
 
 	@PostMapping(APIRoutes.LOGIN)
-	public TokenResponse login(@RequestBody LoginRequest loginRequest) {
+	public TokenResponse login(@Validated @RequestBody LoginRequest loginRequest) {
 		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "login",
 				gson.toJson(loginRequest));
 
@@ -54,7 +54,7 @@ public class BackendController {
 	}
 
 	@PostMapping(APIRoutes.SIGNUP)
-	public StatusResponse signup(@RequestBody SignupRequest signupDto) {
+	public StatusResponse signup(@Validated @RequestBody SignupRequest signupDto) {
 		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.AUTHENTICATION, "signup",
 				gson.toJson(signupDto));
 
@@ -71,7 +71,7 @@ public class BackendController {
 	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
 	@PostMapping(APIRoutes.REGISTER_VEHICLE)
 	public VehicleRegistrationResponse registerVehicle(
-			@RequestBody VehicleRegistrationRequest vehicleRegistrationRequest) {
+			@Validated @RequestBody VehicleRegistrationRequest vehicleRegistrationRequest) {
 		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT,
 				"vehicle-registration", gson.toJson(vehicleRegistrationRequest));
 
@@ -88,7 +88,7 @@ public class BackendController {
 	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
 	@PostMapping(APIRoutes.GET_PACKAGES)
 	public ArrayList<PackageRecommendationResponse> getPackageRecommendation(
-			@RequestBody PackageRecommendationRequest packageRecommendationRequest) {
+			@Validated @RequestBody PackageRecommendationRequest packageRecommendationRequest) {
 		try {
 			AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "get-package",
 					gson.toJson(packageRecommendationRequest));
@@ -108,7 +108,7 @@ public class BackendController {
 
 	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
 	@PostMapping(APIRoutes.SUBSCRIBE)
-	public StatusResponse subscribePackage(@RequestBody SubscribePackageRequest subscribePackageRequest) {
+	public StatusResponse subscribePackage(@Validated @RequestBody SubscribePackageRequest subscribePackageRequest) {
 		try {
 			AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "subscribe",
 					gson.toJson(subscribePackageRequest));
@@ -123,7 +123,7 @@ public class BackendController {
 
 	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
 	@PostMapping(APIRoutes.CLAIM)
-	public StatusResponse claimInsurance(@RequestBody ClaimRequest claimRequest) {
+	public StatusResponse claimInsurance(@Validated @RequestBody ClaimRequest claimRequest) {
 		try {
 			AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.INSURANCE_CLAIM, "claim",
 					gson.toJson(claimRequest));
@@ -138,7 +138,7 @@ public class BackendController {
 
 	@Operation(security = @SecurityRequirement(name = "bearerAuth"))
 	@PostMapping(APIRoutes.GET_USER)
-	public UserProfileResponse getUser(@RequestBody UserRequest userRequest) {
+	public UserProfileResponse getUser(@Validated @RequestBody UserRequest userRequest) {
 		AgentActionIdentifier action = new AgentActionIdentifier(AgentIdentifier.CUSTOMER_ASSISTANT, "get-user",
 				gson.toJson(userRequest));
 

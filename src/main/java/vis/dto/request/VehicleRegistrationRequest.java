@@ -1,21 +1,36 @@
 package vis.dto.request;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class VehicleRegistrationRequest {
 
+	@Email(message = "Should be a valid email address")
 	String userEmail;
 
+	@NotBlank(message = "Can not be blank")
 	String vehicleName;
 
+	@NotBlank(message = "Can not be blank")
 	String vehicleModel;
 
+	@NotBlank(message = "Can not be blank")
 	String vehicleType;
 
+	@NotBlank(message = "Can not be blank")
 	String licenseNumber;
 
+	@NotBlank(message = "Can not be blank")
 	String vehicleRegistrationNumber;
 
+	@NotBlank(message = "Can not be blank")
 	String purchaseDate;
 
+	@NotBlank(message = "Can not be blank")
 	String vehicleStatus;
 
 	Integer mileage;
@@ -31,78 +46,6 @@ public class VehicleRegistrationRequest {
 		this.vehicleRegistrationNumber = vehicleRegistrationNumber;
 		this.purchaseDate = purchaseDate;
 		this.vehicleStatus = vehicleStatus;
-		this.mileage = mileage;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public String getVehicleName() {
-		return vehicleName;
-	}
-
-	public void setVehicleName(String vehicleName) {
-		this.vehicleName = vehicleName;
-	}
-
-	public String getVehicleModel() {
-		return vehicleModel;
-	}
-
-	public void setVehicleModel(String vehicleModel) {
-		this.vehicleModel = vehicleModel;
-	}
-
-	public String getVehicleType() {
-		return vehicleType;
-	}
-
-	public void setVehicleType(String vehicleType) {
-		this.vehicleType = vehicleType;
-	}
-
-	public String getLicenseNumber() {
-		return licenseNumber;
-	}
-
-	public void setLicenseNumber(String licenseNumber) {
-		this.licenseNumber = licenseNumber;
-	}
-
-	public String getVehicleRegistrationNumber() {
-		return vehicleRegistrationNumber;
-	}
-
-	public void setVehicleRegistrationNumber(String vehicleRegistrationNumber) {
-		this.vehicleRegistrationNumber = vehicleRegistrationNumber;
-	}
-
-	public String getPurchaseDate() {
-		return purchaseDate;
-	}
-
-	public void setPurchaseDate(String purchaseDate) {
-		this.purchaseDate = purchaseDate;
-	}
-
-	public String getVehicleStatus() {
-		return vehicleStatus;
-	}
-
-	public void setVehicleStatus(String vehicleStatus) {
-		this.vehicleStatus = vehicleStatus;
-	}
-
-	public Integer getMileage() {
-		return mileage;
-	}
-
-	public void setMileage(Integer mileage) {
 		this.mileage = mileage;
 	}
 
