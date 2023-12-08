@@ -1,5 +1,8 @@
 package vis.constants;
 
+/***
+ * This class contains all the routes
+ */
 public class APIRoutes {
 
     public static final String SIGNUP = "/signup";

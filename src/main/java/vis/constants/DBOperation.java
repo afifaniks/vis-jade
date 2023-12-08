@@ -2,6 +2,9 @@ package vis.constants;
 
 import java.io.Serializable;
 
+/***
+ * This class is used to represent the different operations that can be performed on the database.
+ */
 public class DBOperation implements Serializable {
 
     public enum Operation {
