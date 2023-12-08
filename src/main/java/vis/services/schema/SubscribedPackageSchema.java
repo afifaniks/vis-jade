@@ -1,8 +1,13 @@
 package vis.services.schema;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@Getter
+@Setter
 public class SubscribedPackageSchema extends InsurancePackageSchema implements Serializable {
 
 	String id;
@@ -25,30 +30,6 @@ public class SubscribedPackageSchema extends InsurancePackageSchema implements S
 	}
 
 	public SubscribedPackageSchema() {
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public Date getSubscribedOn() {
-		return subscribedOn;
-	}
-
-	public void setSubscribedOn(Date subscribedOn) {
-		this.subscribedOn = subscribedOn;
-	}
-
-	public Date getClaimedOn() {
-		return claimedOn;
-	}
-
-	public void setClaimedOn(Date claimedOn) {
-		this.claimedOn = claimedOn;
 	}
 
 }

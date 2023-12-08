@@ -1,7 +1,12 @@
 package vis.services.schema;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
+@Getter
+@Setter
 public class ClaimRequestSchema implements Serializable {
 
 	String userEmail;
@@ -14,22 +19,6 @@ public class ClaimRequestSchema implements Serializable {
 	}
 
 	public ClaimRequestSchema() {
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public String getSubscriptionId() {
-		return subscriptionId;
-	}
-
-	public void setSubscriptionId(String subscriptionId) {
-		this.subscriptionId = subscriptionId;
 	}
 
 }

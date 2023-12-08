@@ -1,7 +1,12 @@
 package vis.services.schema;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
+@Getter
+@Setter
 public class RecommendationRequestSchema implements Serializable {
 
 	private String userEmail;
@@ -14,22 +19,6 @@ public class RecommendationRequestSchema implements Serializable {
 	}
 
 	public RecommendationRequestSchema() {
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public String getVehicleId() {
-		return vehicleId;
-	}
-
-	public void setVehicleId(String vehicleId) {
-		this.vehicleId = vehicleId;
 	}
 
 }
