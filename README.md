@@ -1,5 +1,7 @@
 # Vehicle Insurance System (VIS)
-VIS is an agent-based software system that demonstrates how modern frameworks like Spring Boot, React can be integrated with agent-based software engineering. To our knowledge, we are the first to try such approach and effectively develop a system where we can utilize the best of the both worlds. 
+VIS is an agent-based software system that demonstrates how modern frameworks like Spring Boot, React can be integrated with agent-based software engineering. 
+To our knowledge, we are the first to try such approach and effectively develop a system where we can utilize the best of the both worlds.
+We adopt a multilayered architecture that separates the controllers, agents, and the services.
 
 ### System Requirements
 - JDK 11 +
@@ -40,11 +42,27 @@ If everything goes well, the Spring Boot application should be running. As we ha
 API documentation in this link: http://localhost:8080/swagger-ui/index.html#/
 
 ### Run Frontend
+- Change directory to `frontend`
 - Install dependency
     ```shell
     npm install --force
     ```
 - Run the React application
-  `npm start`
+  ```
+  npm start
+  ```
 - You should now be able to interact with the application on http://localhost:3000
 
+### Project Structure
+```
+vis
+|- agents: Contains agents and behaviors of the agents
+|- constants: Constant values used throughout the package
+|- controllers: API controller
+|- dto: Data transfer objects for the inbound and outbound requests in the backend
+|- entity: Objects meant to be persisted in the database
+|- ontology: Defined ontology, concepts, predicates, and actions used in the system
+|- security: API security components
+|- services: Service interfaces, their implementations, and the schemas used by the services
+|- util: Utility classes
+```
