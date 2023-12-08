@@ -4,20 +4,23 @@ import vis.services.schema.*;
 
 import java.util.ArrayList;
 
+/***
+* This interface is used to interact with the database.
+ */
 public interface DatabaseService {
 
-	boolean login(String email, String password);
+    boolean login(String email, String password);
 
-	boolean signup(SignupRequestSchema userData);
+    boolean signup(SignupRequestSchema userData);
 
-	ArrayList<InsurancePackageSchema> getPackages(String userEmail, String vehicleId);
+    ArrayList<InsurancePackageSchema> getPackages(String userEmail, String vehicleId);
 
-	boolean subscribe(SubscriptionRequestSchema subscriptionRequestSchema);
+    boolean subscribe(SubscriptionRequestSchema subscriptionRequestSchema);
 
-	boolean vehicleRegistration(VehicleRegistrationSchema vehicleRegistrationData);
+    boolean vehicleRegistration(VehicleRegistrationSchema vehicleRegistrationData);
 
-	UserProfileSchema getUserRequest(String email);
+    UserProfileSchema getUserRequest(String email);
 
-	boolean claimInsurance(ClaimRequestSchema claimRequestSchema);
+    boolean claimInsurance(ClaimRequestSchema claimRequestSchema);
 
 }

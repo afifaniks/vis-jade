@@ -13,6 +13,9 @@ import vis.services.schema.SubscriptionStatusSchema;
 
 import java.io.IOException;
 
+/***
+ * This class implements the InsuranceClaimService interface.
+ */
 public class InsuranceClaimServiceImpl implements InsuranceClaimService {
 
 	private Agent agent;

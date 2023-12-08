@@ -11,6 +11,9 @@ import vis.services.schema.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/***
+ * This class implements the CustomerAssistantService interface.
+ */
 public class CustomerAssistantServiceImpl implements CustomerAssistantService {
 
 	private Agent agent;
