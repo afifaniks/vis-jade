@@ -28,6 +28,11 @@ import vis.services.schema.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/***
+ * This behavioural class is responsible for serving customer requests. The agent receives
+ * requests from the admin agent, and depending on the requested action it serves the
+ * request.
+ */
 public class CustomerAssistantBehaviour extends CyclicBehaviour {
 
 	private final CustomerAssistantService customerAssistantService;
@@ -46,6 +51,12 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 		customerAssistantService = new CustomerAssistantServiceImpl(agent);
 	}
 
+	/***
+	 * This implementation of action method expects a few AgentAction objects defined in
+	 * the VIS ontology. Depending on the action it utilizes the associated service to
+	 * process the request. Typical tasks include package recommendation, vehicle
+	 * registration, subscribing to an insurance package, user profile insights, etc.
+	 */
 	@Override
 	public void action() {
 		ACLMessage receivedMessage = null;
@@ -89,6 +100,15 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 		}
 	}
 
+	/***
+	 * This method intends to subscribe a user to an insurance package.
+	 * @param actionContent An instance of SubscribePackage agent action.
+	 * @param responseMessage ACLMessage container to be populated and sent back to the
+	 * admin agent.
+	 * @throws IOException If there is any issue with communicating other agents.
+	 * @throws OntologyException If the response lies outside the defined ontology.
+	 * @throws Codec.CodecException If there is any issue with the CODEC.
+	 */
 	private void subscribePackage(Action actionContent, ACLMessage responseMessage)
 			throws Codec.CodecException, OntologyException, UnreadableException, IOException {
 		SubscribePackage subscribePackage = (SubscribePackage) actionContent.getAction();
@@ -114,6 +134,15 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 		myAgent.send(responseMessage);
 	}
 
+	/***
+	 * This method intends to recommend a package based on the vehicle information.
+	 * @param actionContent An instance of PackageRecommendation agent action.
+	 * @param responseMessage ACLMessage container to be populated and sent back to the
+	 * admin agent.
+	 * @throws IOException If there is any issue with communicating other agents.
+	 * @throws OntologyException If the response lies outside the defined ontology.
+	 * @throws Codec.CodecException If there is any issue with the CODEC.
+	 */
 	private void recommendPackages(Action actionContent, ACLMessage responseMessage)
 			throws Codec.CodecException, OntologyException, UnreadableException, IOException {
 		PackageRecommendation packageRecommendationAction = (PackageRecommendation) actionContent.getAction();
@@ -144,6 +173,15 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 		myAgent.send(responseMessage);
 	}
 
+	/***
+	 * This method intends to register a vehicle to a user's profile.
+	 * @param actionContent An instance of VehicleRegistration agent action.
+	 * @param responseMessage ACLMessage container to be populated and sent back to the
+	 * admin agent.
+	 * @throws IOException If there is any issue with communicating other agents.
+	 * @throws OntologyException If the response lies outside the defined ontology.
+	 * @throws Codec.CodecException If there is any issue with the CODEC.
+	 */
 	private void registerVehicle(Action actionContent, ACLMessage responseMessage)
 			throws Codec.CodecException, OntologyException, UnreadableException, IOException {
 		VehicleRegistration vehicleRegistration = (VehicleRegistration) actionContent.getAction();
@@ -173,6 +211,16 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 		myAgent.send(responseMessage);
 	}
 
+	/***
+	 * This method intends to get the user profile details. Typical information includes
+	 * user credentials, vehicle information and subscribed insurance packages.
+	 * @param actionContent An instance of VehicleRegistration agent action.
+	 * @param responseMessage ACLMessage container to be populated and sent back to the
+	 * admin agent.
+	 * @throws IOException If there is any issue with communicating other agents.
+	 * @throws OntologyException If the response lies outside the defined ontology.
+	 * @throws Codec.CodecException If there is any issue with the CODEC.
+	 */
 	private void getUser(Action actionContent, ACLMessage responseMessage)
 			throws OntologyException, Codec.CodecException, UnreadableException, IOException {
 		GetUser getUser = (GetUser) actionContent.getAction();
