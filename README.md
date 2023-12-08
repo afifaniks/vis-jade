@@ -6,7 +6,7 @@ We adopt a multilayered architecture that separates the controllers, agents, and
 ### System Requirements
 - JDK 11 +
 - Postgres 16
-- node 14 +
+- Maven
 
 ### Setup
 We recommend using IntellijIDEA to run this project. Here is a step-by-step guide to run this project.
@@ -32,7 +32,7 @@ Assuming you are using IntellijIDEA, you can configure the agents with the follo
 - Select ```jade.Boot``` as Main Class.
 - Pass the following program arguments.
     ```
-    -agents Admin:vis.agents.AdminAgent;Authentication:vis.agents.AuthenticationAgent;CustomerAssistant:vis.agents.CustomerAssistantAgent;InsuranceClaim:vis.agents.InsuranceClaimAgent;Database:vis.agents.DatabaseAgent
+    -agents Admin:vis.agents.AdminAgent;Authentication:vis.agents.AuthenticationAgent;CustomerAssistant:vis.agents.CustomerAssistantAgent;InsuranceClaim:vis.agents.InsuranceClaimAgent;Database:vis.agents.DatabaseAgent;Verification:vis.agents.VerificationAgent
     ```
 All the necessary tables should be automatically created in this step.
 ### Run Backend Controller

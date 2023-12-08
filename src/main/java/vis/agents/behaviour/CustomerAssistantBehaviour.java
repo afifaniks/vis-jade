@@ -5,6 +5,7 @@ import jade.content.lang.sl.SLCodec;
 import jade.content.onto.Ontology;
 import jade.content.onto.OntologyException;
 import jade.content.onto.basic.Action;
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.FIPANames;
@@ -14,6 +15,7 @@ import jade.lang.acl.UnreadableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vis.agents.AuthenticationAgent;
+import vis.constants.AgentIdentifier;
 import vis.ontology.VISOntology;
 import vis.ontology.actions.GetUser;
 import vis.ontology.actions.PackageRecommendation;
@@ -193,10 +195,14 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 				vehicleRegistration.getVehicle().getPurchaseDate(), vehicleRegistration.getVehicle().getVehicleStatus(),
 				vehicleRegistration.getVehicle().getMileage());
 
+		// Verify information
+		boolean isVerified = verifyVehicleInformation(vehicleRegistrationSchema);
+		logger.info("Information verification status: " + isVerified);
+
 		VehicleRegistrationStatusSchema vehicleRegistrationStatusSchema = customerAssistantService
 			.registerVehicle(vehicleRegistrationSchema);
 
-		if (vehicleRegistrationStatusSchema.getStatus() == 200) {
+		if (isVerified && vehicleRegistrationStatusSchema.getStatus() == 200) {
 			myAgent.getContentManager()
 				.fillContent(responseMessage, new VehicleRegistrationSuccess(vehicleRegistration.getUser().getUserId(),
 						vehicleRegistration.getVehicle().getVehicleId()));
@@ -209,6 +215,17 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 		}
 
 		myAgent.send(responseMessage);
+	}
+
+	private boolean verifyVehicleInformation(VehicleRegistrationSchema vehicleRegistrationSchema) throws IOException {
+		ACLMessage verificationRequest = new ACLMessage(ACLMessage.REQUEST);
+		verificationRequest.setContentObject(vehicleRegistrationSchema);
+		verificationRequest.addReceiver(new AID(AgentIdentifier.CUSTOMER_VERIFICATION, AID.ISLOCALNAME));
+		myAgent.send(verificationRequest);
+
+		ACLMessage verificationResponse = myAgent.blockingReceive();
+
+		return verificationResponse.getPerformative() == ACLMessage.CONFIRM;
 	}
 
 	/***

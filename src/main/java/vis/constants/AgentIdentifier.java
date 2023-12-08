@@ -15,4 +15,6 @@ public class AgentIdentifier {
 
 	public static final String INSURANCE_CLAIM = "InsuranceClaim";
 
+	public static final String CUSTOMER_VERIFICATION = "Verification";
+
 }
