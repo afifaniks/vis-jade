@@ -25,9 +25,10 @@ We recommend using IntellijIDEA to run this project. Here is a step-by-step guid
 You are now ready to run the system components.
 ### Run Agents
 Assuming you are using IntellijIDEA, you can configure the agents with the following:
-- Go to Configuration
-- Select ```jade.Boot``` as Main Class
-- Pass the following program arguments
+- Create a new `Run Configuration`.
+- Provide a name to the configuration as you want.
+- Select ```jade.Boot``` as Main Class.
+- Pass the following program arguments.
     ```
     -agents Admin:vis.agents.AdminAgent;Authentication:vis.agents.AuthenticationAgent;CustomerAssistant:vis.agents.CustomerAssistantAgent;InsuranceClaim:vis.agents.InsuranceClaimAgent;Database:vis.agents.DatabaseAgent
     ```
