@@ -31,10 +31,10 @@ public class WriteSampleData {
 				25.0, 48);
 
 		InsurancePackageEntity entity5 = new InsurancePackageEntity("Young",
-				"We recommend customers with user age from 18 to 30 to take this package.", 35.0, 36);
+				"We recommend customers with age from 18 to 30 to take this package.", 35.0, 36);
 
 		InsurancePackageEntity entity6 = new InsurancePackageEntity("Senior",
-				"We recommend customers with user age from 30 and above to take this package.", 20.0, 48);
+				"We recommend customers with age from 30 and above to take this package.", 20.0, 48);
 
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
