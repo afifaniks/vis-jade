@@ -93,10 +93,19 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 		Session session = sessionFactory.openSession();
 		String hql = "FROM InsurancePackageEntity";
+		String hql1 = "FROM UserEntity" + " WHERE email = " + "'" + userEmail + "'";
 		Query query = session.createQuery(hql);
+		Query query1 = session.createQuery(hql1);
 		List entities = query.list();
+		List<UserEntity> userEntities = query1.list();
 
-		return RecommenderUtil.generateRecommendation(vehicle, entities);
+		if (userEntities.isEmpty()) {
+			return null;
+		}
+
+		UserEntity user = userEntities.get(0);
+
+		return RecommenderUtil.generateRecommendation(user.getDob(), vehicle, entities);
 	}
 
 	/***

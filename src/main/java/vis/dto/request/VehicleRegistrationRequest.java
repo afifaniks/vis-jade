@@ -35,9 +35,15 @@ public class VehicleRegistrationRequest {
 
 	Integer mileage;
 
+	@NotBlank(message = "Can not be blank")
+	String drivingLicense;
+
+	@NotBlank(message = "Can not be blank")
+	String licenseDateOfExpiry;
+
 	public VehicleRegistrationRequest(String userEmail, String vehicleName, String vehicleModel, String vehicleType,
 			String licenseNumber, String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus,
-			Integer mileage) {
+			Integer mileage, String drivingLicense, String licenseDateOfExpiry) {
 		this.userEmail = userEmail;
 		this.vehicleName = vehicleName;
 		this.vehicleModel = vehicleModel;
@@ -47,6 +53,8 @@ public class VehicleRegistrationRequest {
 		this.purchaseDate = purchaseDate;
 		this.vehicleStatus = vehicleStatus;
 		this.mileage = mileage;
+		this.drivingLicense = drivingLicense;
+		this.licenseDateOfExpiry = licenseDateOfExpiry;
 	}
 
 }

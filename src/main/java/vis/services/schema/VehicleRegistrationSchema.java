@@ -27,12 +27,16 @@ public class VehicleRegistrationSchema implements Serializable {
 
 	float mileage;
 
+	String drivingLicense;
+
+	String licenseDateOfExpiry;
+
 	public VehicleRegistrationSchema() {
 	}
 
 	public VehicleRegistrationSchema(String userEmail, String vehicleName, String vehicleModel, String vehicleType,
 			String licenseNumberPlate, String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus,
-			float mileage) {
+			float mileage, String drivingLicense, String licenseDateOfExpiry) {
 		this.userEmail = userEmail;
 		this.vehicleName = vehicleName;
 		this.vehicleModel = vehicleModel;
@@ -42,6 +46,8 @@ public class VehicleRegistrationSchema implements Serializable {
 		this.purchaseDate = purchaseDate;
 		this.vehicleStatus = vehicleStatus;
 		this.mileage = mileage;
+		this.drivingLicense = drivingLicense;
+		this.licenseDateOfExpiry = licenseDateOfExpiry;
 	}
 
 }

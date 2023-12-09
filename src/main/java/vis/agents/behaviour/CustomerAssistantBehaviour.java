@@ -14,7 +14,6 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vis.agents.AuthenticationAgent;
 import vis.constants.AgentIdentifier;
 import vis.ontology.VISOntology;
 import vis.ontology.actions.GetUser;
@@ -46,7 +45,7 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 	MessageTemplate messageTemplate = MessageTemplate.and(MessageTemplate.MatchLanguage(codec.getName()),
 			MessageTemplate.MatchOntology(ontology.getName()));
 
-	private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
+	private final Logger logger = LoggerFactory.getLogger(CustomerAssistantBehaviour.class);
 
 	public CustomerAssistantBehaviour(Agent agent) {
 		super(agent);
@@ -193,7 +192,8 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 				vehicleRegistration.getVehicle().getLicenseNumber(),
 				vehicleRegistration.getVehicle().getVehicleRegistrationNumber(),
 				vehicleRegistration.getVehicle().getPurchaseDate(), vehicleRegistration.getVehicle().getVehicleStatus(),
-				vehicleRegistration.getVehicle().getMileage());
+				vehicleRegistration.getVehicle().getMileage(), vehicleRegistration.getVehicle().getDrivingLicense(),
+				vehicleRegistration.getVehicle().getLicenseDateOfExpiry());
 
 		// Verify information
 		boolean isVerified = verifyVehicleInformation(vehicleRegistrationSchema);

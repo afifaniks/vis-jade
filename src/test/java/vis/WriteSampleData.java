@@ -30,12 +30,20 @@ public class WriteSampleData {
 				"We recommend customers with vehicle mileage from 10,000 miles up to 100,000 miles to take this package.",
 				25.0, 48);
 
+		InsurancePackageEntity entity5 = new InsurancePackageEntity("Young",
+				"We recommend customers with age from 18 to 30 to take this package.", 35.0, 36);
+
+		InsurancePackageEntity entity6 = new InsurancePackageEntity("Senior",
+				"We recommend customers with age from 30 and above to take this package.", 20.0, 48);
+
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		session.persist(entity);
 		session.persist(entity2);
 		session.persist(entity3);
 		session.persist(entity4);
+		session.persist(entity5);
+		session.persist(entity6);
 		session.getTransaction().commit();
 		session.close();
 	}
