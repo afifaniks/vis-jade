@@ -14,7 +14,6 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vis.agents.AuthenticationAgent;
 import vis.constants.AgentIdentifier;
 import vis.ontology.VISOntology;
 import vis.ontology.actions.GetUser;
