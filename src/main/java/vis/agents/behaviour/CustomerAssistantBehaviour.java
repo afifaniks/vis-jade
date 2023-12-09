@@ -46,7 +46,7 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 	MessageTemplate messageTemplate = MessageTemplate.and(MessageTemplate.MatchLanguage(codec.getName()),
 			MessageTemplate.MatchOntology(ontology.getName()));
 
-	private final Logger logger = LoggerFactory.getLogger(AuthenticationAgent.class);
+	private final Logger logger = LoggerFactory.getLogger(CustomerAssistantBehaviour.class);
 
 	public CustomerAssistantBehaviour(Agent agent) {
 		super(agent);
