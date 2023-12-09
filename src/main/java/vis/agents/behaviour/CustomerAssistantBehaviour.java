@@ -193,7 +193,8 @@ public class CustomerAssistantBehaviour extends CyclicBehaviour {
 				vehicleRegistration.getVehicle().getLicenseNumber(),
 				vehicleRegistration.getVehicle().getVehicleRegistrationNumber(),
 				vehicleRegistration.getVehicle().getPurchaseDate(), vehicleRegistration.getVehicle().getVehicleStatus(),
-				vehicleRegistration.getVehicle().getMileage());
+				vehicleRegistration.getVehicle().getMileage(), vehicleRegistration.getVehicle().getDrivingLicense(),
+				vehicleRegistration.getVehicle().getLicenseDateOfExpiry());
 
 		// Verify information
 		boolean isVerified = verifyVehicleInformation(vehicleRegistrationSchema);

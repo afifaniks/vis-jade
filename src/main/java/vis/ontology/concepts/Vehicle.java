@@ -24,11 +24,16 @@ public class Vehicle implements Concept {
 
 	float mileage;
 
+	String drivingLicense;
+
+	String licenseDateOfExpiry;
+
 	public Vehicle() {
 	}
 
 	public Vehicle(String userEmail, String vehicleName, String vehicleModel, String vehicleType, String licenseNumber,
-			String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus, float mileage) {
+			String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus, float mileage,
+			String drivingLicense, String licenseDateOfExpiry) {
 		this.userEmail = userEmail;
 		this.vehicleName = vehicleName;
 		this.vehicleModel = vehicleModel;
@@ -38,6 +43,8 @@ public class Vehicle implements Concept {
 		this.purchaseDate = purchaseDate;
 		this.vehicleStatus = vehicleStatus;
 		this.mileage = mileage;
+		this.drivingLicense = drivingLicense;
+		this.licenseDateOfExpiry = licenseDateOfExpiry;
 	}
 
 	public Vehicle(String vehicleId, String userEmail) {
@@ -123,6 +130,22 @@ public class Vehicle implements Concept {
 
 	public void setMileage(float mileage) {
 		this.mileage = mileage;
+	}
+
+	public String getDrivingLicense() {
+		return drivingLicense;
+	}
+
+	public void setDrivingLicense(String drivingLicense) {
+		this.drivingLicense = drivingLicense;
+	}
+
+	public String getLicenseDateOfExpiry() {
+		return licenseDateOfExpiry;
+	}
+
+	public void setLicenseDateOfExpiry(String licenseDateOfExpiry) {
+		this.licenseDateOfExpiry = licenseDateOfExpiry;
 	}
 
 }

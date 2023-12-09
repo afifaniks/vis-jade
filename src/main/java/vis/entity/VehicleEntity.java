@@ -1,6 +1,7 @@
 package vis.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import vis.constants.DBTableNames;
 
 import java.io.Serializable;
@@ -31,12 +32,17 @@ public class VehicleEntity implements DBEntity, Serializable {
 
 	float mileage;
 
+	String drivingLicense;
+
+	String licenseDateOfExpiry;
+
 	public VehicleEntity() {
 	}
 
-	public VehicleEntity(String userEmail, String vehicleName, String vehicleModel, String vehicleType,
+	public VehicleEntity(String id, String userEmail, String vehicleName, String vehicleModel, String vehicleType,
 			String licenseNumberPlate, String vehicleRegistrationNumber, String purchaseDate, String vehicleStatus,
-			float mileage) {
+			float mileage, String drivingLicense, String licenseDateOfExpiry) {
+		this.id = id;
 		this.userEmail = userEmail;
 		this.vehicleName = vehicleName;
 		this.vehicleModel = vehicleModel;
@@ -46,6 +52,8 @@ public class VehicleEntity implements DBEntity, Serializable {
 		this.purchaseDate = purchaseDate;
 		this.vehicleStatus = vehicleStatus;
 		this.mileage = mileage;
+		this.drivingLicense = drivingLicense;
+		this.licenseDateOfExpiry = licenseDateOfExpiry;
 	}
 
 	public String getId() {
@@ -126,6 +134,22 @@ public class VehicleEntity implements DBEntity, Serializable {
 
 	public void setMileage(float mileage) {
 		this.mileage = mileage;
+	}
+
+	public String getDrivingLicense() {
+		return drivingLicense;
+	}
+
+	public void setDrivingLicense(String drivingLicense) {
+		this.drivingLicense = drivingLicense;
+	}
+
+	public String getLicenseDateOfExpiry() {
+		return licenseDateOfExpiry;
+	}
+
+	public void setLicenseDateOfExpiry(String licenseDateOfExpiry) {
+		this.licenseDateOfExpiry = licenseDateOfExpiry;
 	}
 
 }
