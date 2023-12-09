@@ -36,20 +36,34 @@ public class RecommenderUtil {
         List<String> packageForNewCars = Arrays.asList("Premium", "Classic");
         List<String> packageForOldCars = Arrays.asList("Starter", "Classic");
         List<String> packageForAverage = Arrays.asList("Basic", "Classic");
+        List<String> packageForYoung = Arrays.asList("Young");
+        List<String> packageForSenior = Arrays.asList("Senior");
 
         for (InsurancePackageEntity insurancePackage : entities) {
             if (vehicleEntity.getMileage() <= 10000) {
-                if (packageForNewCars.contains(insurancePackage.getPackageName()) && (userCurrentAge >= 18 && userCurrentAge <= 23)) {
+                if (packageForNewCars.contains(insurancePackage.getPackageName())) {
                     addPackageToList(insurancePackage, recommendations);
                 }
             }
-            if (vehicleEntity.getMileage() > 10000 && vehicleEntity.getMileage() <= 100000 && (userCurrentAge >= 23 && userCurrentAge <= 45)) {
+            if (vehicleEntity.getMileage() > 10000 && vehicleEntity.getMileage() <= 100000) {
                 if (packageForAverage.contains(insurancePackage.getPackageName())) {
                     addPackageToList(insurancePackage, recommendations);
                 }
             }
             if (vehicleEntity.getMileage() > 100000) {
-                if (packageForOldCars.contains(insurancePackage.getPackageName()) && (userCurrentAge > 45)) {
+                if (packageForOldCars.contains(insurancePackage.getPackageName())) {
+                    addPackageToList(insurancePackage, recommendations);
+                }
+            }
+
+            if (userCurrentAge >= 18 && userCurrentAge < 30) {
+                if (packageForYoung.contains(insurancePackage.getPackageName())) {
+                    addPackageToList(insurancePackage, recommendations);
+                }
+            }
+
+            if (userCurrentAge >= 30) {
+                if (packageForSenior.contains(insurancePackage.getPackageName())) {
                     addPackageToList(insurancePackage, recommendations);
                 }
             }
