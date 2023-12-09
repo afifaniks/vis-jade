@@ -38,10 +38,10 @@ public class WriteSampleData {
 
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		 session.persist(entity);
-		 session.persist(entity2);
-		 session.persist(entity3);
-		 session.persist(entity4);
+		session.persist(entity);
+		session.persist(entity2);
+		session.persist(entity3);
+		session.persist(entity4);
 		session.persist(entity5);
 		session.persist(entity6);
 		session.getTransaction().commit();
