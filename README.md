@@ -5,6 +5,7 @@ We adopt a multilayered architecture that separates the controllers, agents, and
 
 ### Environmental Requirements
 - JDK 11 +
+- JADE 4+
 - Postgres 16
 - Maven
 - node 14 +
