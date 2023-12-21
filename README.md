@@ -1,6 +1,6 @@
 # Vehicle Insurance System (VIS)
 VIS is an agent-based software system that demonstrates how modern frameworks like Spring Boot, React can be integrated with agent-based software engineering. 
-To our knowledge, we are the first to try such approach and effectively develop a system where we can utilize the best of the both worlds.
+To our knowledge, this project represents the initial effort in successfully integrating Spring Boot with JADE, creating a system that bridges the two technologies.
 We adopt a multilayered architecture that separates the controllers, agents, and the services.
 
 ### Environmental Requirements
